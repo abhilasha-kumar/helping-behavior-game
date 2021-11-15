@@ -647,88 +647,88 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     // then just present original configuration
 
-                    W.getElementById("row1cell1").style.backgroundColor = this.initialConfiguration[0]
-                    W.getElementById("row1cell2").style.backgroundColor = this.initialConfiguration[1]
-                    W.getElementById("row1cell3").style.backgroundColor = this.initialConfiguration[2]
-                    W.getElementById("row1cell4").style.backgroundColor = this.initialConfiguration[3]
-                    W.getElementById("row1cell5").style.backgroundColor = this.initialConfiguration[4]
-                    W.getElementById("row1cell6").style.backgroundColor = this.initialConfiguration[5]
-                    W.getElementById("row1cell7").style.backgroundColor = this.initialConfiguration[6]
-                    W.getElementById("row1cell8").style.backgroundColor = this.initialConfiguration[7]
-                    W.getElementById("row1cell9").style.backgroundColor = this.initialConfiguration[8]
-                    W.getElementById("row1cell10").style.backgroundColor = this.initialConfiguration[9]
-                    W.getElementById("row1cell11").style.backgroundColor = this.initialConfiguration[10]
-                    W.getElementById("row1cell12").style.backgroundColor = this.initialConfiguration[11]
+                    W.getElementById("row1cell1").style.backgroundColor = this.currentConfiguration[0]
+                    W.getElementById("row1cell2").style.backgroundColor = this.currentConfiguration[1]
+                    W.getElementById("row1cell3").style.backgroundColor = this.currentConfiguration[2]
+                    W.getElementById("row1cell4").style.backgroundColor = this.currentConfiguration[3]
+                    W.getElementById("row1cell5").style.backgroundColor = this.currentConfiguration[4]
+                    W.getElementById("row1cell6").style.backgroundColor = this.currentConfiguration[5]
+                    W.getElementById("row1cell7").style.backgroundColor = this.currentConfiguration[6]
+                    W.getElementById("row1cell8").style.backgroundColor = this.currentConfiguration[7]
+                    W.getElementById("row1cell9").style.backgroundColor = this.currentConfiguration[8]
+                    W.getElementById("row1cell10").style.backgroundColor = this.currentConfiguration[9]
+                    W.getElementById("row1cell11").style.backgroundColor = this.currentConfiguration[10]
+                    W.getElementById("row1cell12").style.backgroundColor = this.currentConfiguration[11]
                     
-                    W.getElementById("row2cell1").style.backgroundColor = this.initialConfiguration[12]
-                    W.getElementById("row2cell2").style.backgroundColor = this.initialConfiguration[13]
-                    W.getElementById("row2cell3").style.backgroundColor = this.initialConfiguration[14]
-                    W.getElementById("row2cell4").style.backgroundColor = this.initialConfiguration[15]
-                    W.getElementById("row2cell5").style.backgroundColor = this.initialConfiguration[16]
-                    W.getElementById("row2cell6").style.backgroundColor = this.initialConfiguration[17]
-                    W.getElementById("row2cell7").style.backgroundColor = this.initialConfiguration[18]
-                    W.getElementById("row2cell8").style.backgroundColor = this.initialConfiguration[19]
-                    W.getElementById("row2cell9").style.backgroundColor = this.initialConfiguration[20]
-                    W.getElementById("row2cell10").style.backgroundColor = this.initialConfiguration[21]
-                    W.getElementById("row2cell11").style.backgroundColor = this.initialConfiguration[22]
-                    W.getElementById("row2cell12").style.backgroundColor = this.initialConfiguration[23]
+                    W.getElementById("row2cell1").style.backgroundColor = this.currentConfiguration[12]
+                    W.getElementById("row2cell2").style.backgroundColor = this.currentConfiguration[13]
+                    W.getElementById("row2cell3").style.backgroundColor = this.currentConfiguration[14]
+                    W.getElementById("row2cell4").style.backgroundColor = this.currentConfiguration[15]
+                    W.getElementById("row2cell5").style.backgroundColor = this.currentConfiguration[16]
+                    W.getElementById("row2cell6").style.backgroundColor = this.currentConfiguration[17]
+                    W.getElementById("row2cell7").style.backgroundColor = this.currentConfiguration[18]
+                    W.getElementById("row2cell8").style.backgroundColor = this.currentConfiguration[19]
+                    W.getElementById("row2cell9").style.backgroundColor = this.currentConfiguration[20]
+                    W.getElementById("row2cell10").style.backgroundColor = this.currentConfiguration[21]
+                    W.getElementById("row2cell11").style.backgroundColor = this.currentConfiguration[22]
+                    W.getElementById("row2cell12").style.backgroundColor = this.currentConfiguration[23]
                     
-                    W.getElementById("row3cell1").style.backgroundColor = this.initialConfiguration[24]
-                    W.getElementById("row3cell2").style.backgroundColor = this.initialConfiguration[25]
-                    W.getElementById("row3cell3").style.backgroundColor = this.initialConfiguration[26]
-                    W.getElementById("row3cell4").style.backgroundColor = this.initialConfiguration[27]
-                    W.getElementById("row3cell5").style.backgroundColor = this.initialConfiguration[28]
-                    W.getElementById("row3cell6").style.backgroundColor = this.initialConfiguration[29]
-                    W.getElementById("row3cell7").style.backgroundColor = this.initialConfiguration[30]
-                    W.getElementById("row3cell8").style.backgroundColor = this.initialConfiguration[31]
-                    W.getElementById("row3cell9").style.backgroundColor = this.initialConfiguration[32]
-                    W.getElementById("row3cell10").style.backgroundColor = this.initialConfiguration[33]
-                    W.getElementById("row3cell11").style.backgroundColor = this.initialConfiguration[34]
-                    W.getElementById("row3cell12").style.backgroundColor = this.initialConfiguration[35]
+                    W.getElementById("row3cell1").style.backgroundColor = this.currentConfiguration[24]
+                    W.getElementById("row3cell2").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("row3cell3").style.backgroundColor = this.currentConfiguration[26]
+                    W.getElementById("row3cell4").style.backgroundColor = this.currentConfiguration[27]
+                    W.getElementById("row3cell5").style.backgroundColor = this.currentConfiguration[28]
+                    W.getElementById("row3cell6").style.backgroundColor = this.currentConfiguration[29]
+                    W.getElementById("row3cell7").style.backgroundColor = this.currentConfiguration[30]
+                    W.getElementById("row3cell8").style.backgroundColor = this.currentConfiguration[31]
+                    W.getElementById("row3cell9").style.backgroundColor = this.currentConfiguration[32]
+                    W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
+                    W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
+                    W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
                     }
 
                     else if(["Pass"].includes(choiceTXT)){
 
                         W.setInnerHTML('cluepasttxt', "You chose to pass your turn.");
 
-                        W.getElementById("row1cell1").style.backgroundColor = this.initialConfiguration[0]
-                    W.getElementById("row1cell2").style.backgroundColor = this.initialConfiguration[1]
-                    W.getElementById("row1cell3").style.backgroundColor = this.initialConfiguration[2]
-                    W.getElementById("row1cell4").style.backgroundColor = this.initialConfiguration[3]
-                    W.getElementById("row1cell5").style.backgroundColor = this.initialConfiguration[4]
-                    W.getElementById("row1cell6").style.backgroundColor = this.initialConfiguration[5]
-                    W.getElementById("row1cell7").style.backgroundColor = this.initialConfiguration[6]
-                    W.getElementById("row1cell8").style.backgroundColor = this.initialConfiguration[7]
-                    W.getElementById("row1cell9").style.backgroundColor = this.initialConfiguration[8]
-                    W.getElementById("row1cell10").style.backgroundColor = this.initialConfiguration[9]
-                    W.getElementById("row1cell11").style.backgroundColor = this.initialConfiguration[10]
-                    W.getElementById("row1cell12").style.backgroundColor = this.initialConfiguration[11]
+                        W.getElementById("row1cell1").style.backgroundColor = this.currentConfiguration[0]
+                    W.getElementById("row1cell2").style.backgroundColor = this.currentConfiguration[1]
+                    W.getElementById("row1cell3").style.backgroundColor = this.currentConfiguration[2]
+                    W.getElementById("row1cell4").style.backgroundColor = this.currentConfiguration[3]
+                    W.getElementById("row1cell5").style.backgroundColor = this.currentConfiguration[4]
+                    W.getElementById("row1cell6").style.backgroundColor = this.currentConfiguration[5]
+                    W.getElementById("row1cell7").style.backgroundColor = this.currentConfiguration[6]
+                    W.getElementById("row1cell8").style.backgroundColor = this.currentConfiguration[7]
+                    W.getElementById("row1cell9").style.backgroundColor = this.currentConfiguration[8]
+                    W.getElementById("row1cell10").style.backgroundColor = this.currentConfiguration[9]
+                    W.getElementById("row1cell11").style.backgroundColor = this.currentConfiguration[10]
+                    W.getElementById("row1cell12").style.backgroundColor = this.currentConfiguration[11]
                     
-                    W.getElementById("row2cell1").style.backgroundColor = this.initialConfiguration[12]
-                    W.getElementById("row2cell2").style.backgroundColor = this.initialConfiguration[13]
-                    W.getElementById("row2cell3").style.backgroundColor = this.initialConfiguration[14]
-                    W.getElementById("row2cell4").style.backgroundColor = this.initialConfiguration[15]
-                    W.getElementById("row2cell5").style.backgroundColor = this.initialConfiguration[16]
-                    W.getElementById("row2cell6").style.backgroundColor = this.initialConfiguration[17]
-                    W.getElementById("row2cell7").style.backgroundColor = this.initialConfiguration[18]
-                    W.getElementById("row2cell8").style.backgroundColor = this.initialConfiguration[19]
-                    W.getElementById("row2cell9").style.backgroundColor = this.initialConfiguration[20]
-                    W.getElementById("row2cell10").style.backgroundColor = this.initialConfiguration[21]
-                    W.getElementById("row2cell11").style.backgroundColor = this.initialConfiguration[22]
-                    W.getElementById("row2cell12").style.backgroundColor = this.initialConfiguration[23]
+                    W.getElementById("row2cell1").style.backgroundColor = this.currentConfiguration[12]
+                    W.getElementById("row2cell2").style.backgroundColor = this.currentConfiguration[13]
+                    W.getElementById("row2cell3").style.backgroundColor = this.currentConfiguration[14]
+                    W.getElementById("row2cell4").style.backgroundColor = this.currentConfiguration[15]
+                    W.getElementById("row2cell5").style.backgroundColor = this.currentConfiguration[16]
+                    W.getElementById("row2cell6").style.backgroundColor = this.currentConfiguration[17]
+                    W.getElementById("row2cell7").style.backgroundColor = this.currentConfiguration[18]
+                    W.getElementById("row2cell8").style.backgroundColor = this.currentConfiguration[19]
+                    W.getElementById("row2cell9").style.backgroundColor = this.currentConfiguration[20]
+                    W.getElementById("row2cell10").style.backgroundColor = this.currentConfiguration[21]
+                    W.getElementById("row2cell11").style.backgroundColor = this.currentConfiguration[22]
+                    W.getElementById("row2cell12").style.backgroundColor = this.currentConfiguration[23]
                     
-                    W.getElementById("row3cell1").style.backgroundColor = this.initialConfiguration[24]
-                    W.getElementById("row3cell2").style.backgroundColor = this.initialConfiguration[25]
-                    W.getElementById("row3cell3").style.backgroundColor = this.initialConfiguration[26]
-                    W.getElementById("row3cell4").style.backgroundColor = this.initialConfiguration[27]
-                    W.getElementById("row3cell5").style.backgroundColor = this.initialConfiguration[28]
-                    W.getElementById("row3cell6").style.backgroundColor = this.initialConfiguration[29]
-                    W.getElementById("row3cell7").style.backgroundColor = this.initialConfiguration[30]
-                    W.getElementById("row3cell8").style.backgroundColor = this.initialConfiguration[31]
-                    W.getElementById("row3cell9").style.backgroundColor = this.initialConfiguration[32]
-                    W.getElementById("row3cell10").style.backgroundColor = this.initialConfiguration[33]
-                    W.getElementById("row3cell11").style.backgroundColor = this.initialConfiguration[34]
-                    W.getElementById("row3cell12").style.backgroundColor = this.initialConfiguration[35]
+                    W.getElementById("row3cell1").style.backgroundColor = this.currentConfiguration[24]
+                    W.getElementById("row3cell2").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("row3cell3").style.backgroundColor = this.currentConfiguration[26]
+                    W.getElementById("row3cell4").style.backgroundColor = this.currentConfiguration[27]
+                    W.getElementById("row3cell5").style.backgroundColor = this.currentConfiguration[28]
+                    W.getElementById("row3cell6").style.backgroundColor = this.currentConfiguration[29]
+                    W.getElementById("row3cell7").style.backgroundColor = this.currentConfiguration[30]
+                    W.getElementById("row3cell8").style.backgroundColor = this.currentConfiguration[31]
+                    W.getElementById("row3cell9").style.backgroundColor = this.currentConfiguration[32]
+                    W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
+                    W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
+                    W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
 
                     }
 
@@ -1686,44 +1686,44 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                         // if they passed their turn, display is same as initial
 
-                        W.getElementById("row1cell1").style.backgroundColor = this.initialConfiguration[0]
-                        W.getElementById("row1cell2").style.backgroundColor = this.initialConfiguration[1]
-                        W.getElementById("row1cell3").style.backgroundColor = this.initialConfiguration[2]
-                        W.getElementById("row1cell4").style.backgroundColor = this.initialConfiguration[3]
-                        W.getElementById("row1cell5").style.backgroundColor = this.initialConfiguration[4]
-                        W.getElementById("row1cell6").style.backgroundColor = this.initialConfiguration[5]
-                        W.getElementById("row1cell7").style.backgroundColor = this.initialConfiguration[6]
-                        W.getElementById("row1cell8").style.backgroundColor = this.initialConfiguration[7]
-                        W.getElementById("row1cell9").style.backgroundColor = this.initialConfiguration[8]
-                        W.getElementById("row1cell10").style.backgroundColor = this.initialConfiguration[9]
-                        W.getElementById("row1cell11").style.backgroundColor = this.initialConfiguration[10]
-                        W.getElementById("row1cell12").style.backgroundColor = this.initialConfiguration[11]
+                        W.getElementById("row1cell1").style.backgroundColor = this.currentConfiguration[0]
+                        W.getElementById("row1cell2").style.backgroundColor = this.currentConfiguration[1]
+                        W.getElementById("row1cell3").style.backgroundColor = this.currentConfiguration[2]
+                        W.getElementById("row1cell4").style.backgroundColor = this.currentConfiguration[3]
+                        W.getElementById("row1cell5").style.backgroundColor = this.currentConfiguration[4]
+                        W.getElementById("row1cell6").style.backgroundColor = this.currentConfiguration[5]
+                        W.getElementById("row1cell7").style.backgroundColor = this.currentConfiguration[6]
+                        W.getElementById("row1cell8").style.backgroundColor = this.currentConfiguration[7]
+                        W.getElementById("row1cell9").style.backgroundColor = this.currentConfiguration[8]
+                        W.getElementById("row1cell10").style.backgroundColor = this.currentConfiguration[9]
+                        W.getElementById("row1cell11").style.backgroundColor = this.currentConfiguration[10]
+                        W.getElementById("row1cell12").style.backgroundColor = this.currentConfiguration[11]
                         
-                        W.getElementById("row2cell1").style.backgroundColor = this.initialConfiguration[12]
-                        W.getElementById("row2cell2").style.backgroundColor = this.initialConfiguration[13]
-                        W.getElementById("row2cell3").style.backgroundColor = this.initialConfiguration[14]
-                        W.getElementById("row2cell4").style.backgroundColor = this.initialConfiguration[15]
-                        W.getElementById("row2cell5").style.backgroundColor = this.initialConfiguration[16]
-                        W.getElementById("row2cell6").style.backgroundColor = this.initialConfiguration[17]
-                        W.getElementById("row2cell7").style.backgroundColor = this.initialConfiguration[18]
-                        W.getElementById("row2cell8").style.backgroundColor = this.initialConfiguration[19]
-                        W.getElementById("row2cell9").style.backgroundColor = this.initialConfiguration[20]
-                        W.getElementById("row2cell10").style.backgroundColor = this.initialConfiguration[21]
-                        W.getElementById("row2cell11").style.backgroundColor = this.initialConfiguration[22]
-                        W.getElementById("row2cell12").style.backgroundColor = this.initialConfiguration[23]
+                        W.getElementById("row2cell1").style.backgroundColor = this.currentConfiguration[12]
+                        W.getElementById("row2cell2").style.backgroundColor = this.currentConfiguration[13]
+                        W.getElementById("row2cell3").style.backgroundColor = this.currentConfiguration[14]
+                        W.getElementById("row2cell4").style.backgroundColor = this.currentConfiguration[15]
+                        W.getElementById("row2cell5").style.backgroundColor = this.currentConfiguration[16]
+                        W.getElementById("row2cell6").style.backgroundColor = this.currentConfiguration[17]
+                        W.getElementById("row2cell7").style.backgroundColor = this.currentConfiguration[18]
+                        W.getElementById("row2cell8").style.backgroundColor = this.currentConfiguration[19]
+                        W.getElementById("row2cell9").style.backgroundColor = this.currentConfiguration[20]
+                        W.getElementById("row2cell10").style.backgroundColor = this.currentConfiguration[21]
+                        W.getElementById("row2cell11").style.backgroundColor = this.currentConfiguration[22]
+                        W.getElementById("row2cell12").style.backgroundColor = this.currentConfiguration[23]
                         
-                        W.getElementById("row3cell1").style.backgroundColor = this.initialConfiguration[24]
-                        W.getElementById("row3cell2").style.backgroundColor = this.initialConfiguration[25]
-                        W.getElementById("row3cell3").style.backgroundColor = this.initialConfiguration[26]
-                        W.getElementById("row3cell4").style.backgroundColor = this.initialConfiguration[27]
-                        W.getElementById("row3cell5").style.backgroundColor = this.initialConfiguration[28]
-                        W.getElementById("row3cell6").style.backgroundColor = this.initialConfiguration[29]
-                        W.getElementById("row3cell7").style.backgroundColor = this.initialConfiguration[30]
-                        W.getElementById("row3cell8").style.backgroundColor = this.initialConfiguration[31]
-                        W.getElementById("row3cell9").style.backgroundColor = this.initialConfiguration[32]
-                        W.getElementById("row3cell10").style.backgroundColor = this.initialConfiguration[33]
-                        W.getElementById("row3cell11").style.backgroundColor = this.initialConfiguration[34]
-                        W.getElementById("row3cell12").style.backgroundColor = this.initialConfiguration[35]
+                        W.getElementById("row3cell1").style.backgroundColor = this.currentConfiguration[24]
+                        W.getElementById("row3cell2").style.backgroundColor = this.currentConfiguration[25]
+                        W.getElementById("row3cell3").style.backgroundColor = this.currentConfiguration[26]
+                        W.getElementById("row3cell4").style.backgroundColor = this.currentConfiguration[27]
+                        W.getElementById("row3cell5").style.backgroundColor = this.currentConfiguration[28]
+                        W.getElementById("row3cell6").style.backgroundColor = this.currentConfiguration[29]
+                        W.getElementById("row3cell7").style.backgroundColor = this.currentConfiguration[30]
+                        W.getElementById("row3cell8").style.backgroundColor = this.currentConfiguration[31]
+                        W.getElementById("row3cell9").style.backgroundColor = this.currentConfiguration[32]
+                        W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
+                        W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
+                        W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
 
                         // now architect moves blocks
 
@@ -1787,44 +1787,44 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                         // if they selected a question, then keep display the same as initial
 
-                        W.getElementById("row1cell1").style.backgroundColor = this.initialConfiguration[0]
-                        W.getElementById("row1cell2").style.backgroundColor = this.initialConfiguration[1]
-                        W.getElementById("row1cell3").style.backgroundColor = this.initialConfiguration[2]
-                        W.getElementById("row1cell4").style.backgroundColor = this.initialConfiguration[3]
-                        W.getElementById("row1cell5").style.backgroundColor = this.initialConfiguration[4]
-                        W.getElementById("row1cell6").style.backgroundColor = this.initialConfiguration[5]
-                        W.getElementById("row1cell7").style.backgroundColor = this.initialConfiguration[6]
-                        W.getElementById("row1cell8").style.backgroundColor = this.initialConfiguration[7]
-                        W.getElementById("row1cell9").style.backgroundColor = this.initialConfiguration[8]
-                        W.getElementById("row1cell10").style.backgroundColor = this.initialConfiguration[9]
-                        W.getElementById("row1cell11").style.backgroundColor = this.initialConfiguration[10]
-                        W.getElementById("row1cell12").style.backgroundColor = this.initialConfiguration[11]
+                        W.getElementById("row1cell1").style.backgroundColor = this.currentConfiguration[0]
+                        W.getElementById("row1cell2").style.backgroundColor = this.currentConfiguration[1]
+                        W.getElementById("row1cell3").style.backgroundColor = this.currentConfiguration[2]
+                        W.getElementById("row1cell4").style.backgroundColor = this.currentConfiguration[3]
+                        W.getElementById("row1cell5").style.backgroundColor = this.currentConfiguration[4]
+                        W.getElementById("row1cell6").style.backgroundColor = this.currentConfiguration[5]
+                        W.getElementById("row1cell7").style.backgroundColor = this.currentConfiguration[6]
+                        W.getElementById("row1cell8").style.backgroundColor = this.currentConfiguration[7]
+                        W.getElementById("row1cell9").style.backgroundColor = this.currentConfiguration[8]
+                        W.getElementById("row1cell10").style.backgroundColor = this.currentConfiguration[9]
+                        W.getElementById("row1cell11").style.backgroundColor = this.currentConfiguration[10]
+                        W.getElementById("row1cell12").style.backgroundColor = this.currentConfiguration[11]
                         
-                        W.getElementById("row2cell1").style.backgroundColor = this.initialConfiguration[12]
-                        W.getElementById("row2cell2").style.backgroundColor = this.initialConfiguration[13]
-                        W.getElementById("row2cell3").style.backgroundColor = this.initialConfiguration[14]
-                        W.getElementById("row2cell4").style.backgroundColor = this.initialConfiguration[15]
-                        W.getElementById("row2cell5").style.backgroundColor = this.initialConfiguration[16]
-                        W.getElementById("row2cell6").style.backgroundColor = this.initialConfiguration[17]
-                        W.getElementById("row2cell7").style.backgroundColor = this.initialConfiguration[18]
-                        W.getElementById("row2cell8").style.backgroundColor = this.initialConfiguration[19]
-                        W.getElementById("row2cell9").style.backgroundColor = this.initialConfiguration[20]
-                        W.getElementById("row2cell10").style.backgroundColor = this.initialConfiguration[21]
-                        W.getElementById("row2cell11").style.backgroundColor = this.initialConfiguration[22]
-                        W.getElementById("row2cell12").style.backgroundColor = this.initialConfiguration[23]
+                        W.getElementById("row2cell1").style.backgroundColor = this.currentConfiguration[12]
+                        W.getElementById("row2cell2").style.backgroundColor = this.currentConfiguration[13]
+                        W.getElementById("row2cell3").style.backgroundColor = this.currentConfiguration[14]
+                        W.getElementById("row2cell4").style.backgroundColor = this.currentConfiguration[15]
+                        W.getElementById("row2cell5").style.backgroundColor = this.currentConfiguration[16]
+                        W.getElementById("row2cell6").style.backgroundColor = this.currentConfiguration[17]
+                        W.getElementById("row2cell7").style.backgroundColor = this.currentConfiguration[18]
+                        W.getElementById("row2cell8").style.backgroundColor = this.currentConfiguration[19]
+                        W.getElementById("row2cell9").style.backgroundColor = this.currentConfiguration[20]
+                        W.getElementById("row2cell10").style.backgroundColor = this.currentConfiguration[21]
+                        W.getElementById("row2cell11").style.backgroundColor = this.currentConfiguration[22]
+                        W.getElementById("row2cell12").style.backgroundColor = this.currentConfiguration[23]
                         
-                        W.getElementById("row3cell1").style.backgroundColor = this.initialConfiguration[24]
-                        W.getElementById("row3cell2").style.backgroundColor = this.initialConfiguration[25]
-                        W.getElementById("row3cell3").style.backgroundColor = this.initialConfiguration[26]
-                        W.getElementById("row3cell4").style.backgroundColor = this.initialConfiguration[27]
-                        W.getElementById("row3cell5").style.backgroundColor = this.initialConfiguration[28]
-                        W.getElementById("row3cell6").style.backgroundColor = this.initialConfiguration[29]
-                        W.getElementById("row3cell7").style.backgroundColor = this.initialConfiguration[30]
-                        W.getElementById("row3cell8").style.backgroundColor = this.initialConfiguration[31]
-                        W.getElementById("row3cell9").style.backgroundColor = this.initialConfiguration[32]
-                        W.getElementById("row3cell10").style.backgroundColor = this.initialConfiguration[33]
-                        W.getElementById("row3cell11").style.backgroundColor = this.initialConfiguration[34]
-                        W.getElementById("row3cell12").style.backgroundColor = this.initialConfiguration[35]
+                        W.getElementById("row3cell1").style.backgroundColor = this.currentConfiguration[24]
+                        W.getElementById("row3cell2").style.backgroundColor = this.currentConfiguration[25]
+                        W.getElementById("row3cell3").style.backgroundColor = this.currentConfiguration[26]
+                        W.getElementById("row3cell4").style.backgroundColor = this.currentConfiguration[27]
+                        W.getElementById("row3cell5").style.backgroundColor = this.currentConfiguration[28]
+                        W.getElementById("row3cell6").style.backgroundColor = this.currentConfiguration[29]
+                        W.getElementById("row3cell7").style.backgroundColor = this.currentConfiguration[30]
+                        W.getElementById("row3cell8").style.backgroundColor = this.currentConfiguration[31]
+                        W.getElementById("row3cell9").style.backgroundColor = this.currentConfiguration[32]
+                        W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
+                        W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
+                        W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
 
                         // after question has been displayed, architect responds with yes/no
 
@@ -2282,7 +2282,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                         }
 
-                        // having made changes to currentConfiguration, now make the table
+                        // having made changes to currentConfiguration, now make the table for helper
 
                         W.getElementById("row1cell1").style.backgroundColor = this.currentConfiguration[0]
                         W.getElementById("row1cell2").style.backgroundColor = this.currentConfiguration[1]
@@ -2447,44 +2447,491 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 frame: 'studyboard.htm',
                 cb: function() {//set the board for the guesser
 
-                    W.getElementById("row1cell1").style.backgroundColor = this.initialConfiguration[0]
-                    W.getElementById("row1cell2").style.backgroundColor = this.initialConfiguration[1]
-                    W.getElementById("row1cell3").style.backgroundColor = this.initialConfiguration[2]
-                    W.getElementById("row1cell4").style.backgroundColor = this.initialConfiguration[3]
-                    W.getElementById("row1cell5").style.backgroundColor = this.initialConfiguration[4]
-                    W.getElementById("row1cell6").style.backgroundColor = this.initialConfiguration[5]
-                    W.getElementById("row1cell7").style.backgroundColor = this.initialConfiguration[6]
-                    W.getElementById("row1cell8").style.backgroundColor = this.initialConfiguration[7]
-                    W.getElementById("row1cell9").style.backgroundColor = this.initialConfiguration[8]
-                    W.getElementById("row1cell10").style.backgroundColor = this.initialConfiguration[9]
-                    W.getElementById("row1cell11").style.backgroundColor = this.initialConfiguration[10]
-                    W.getElementById("row1cell12").style.backgroundColor = this.initialConfiguration[11]
+                    // here we need to change the positions
+
+                    var moveChoice1 = this.cluespast.at(-1)
+
+                    this.lastConfiguration = JSON.parse(JSON.stringify(this.currentConfiguration));
+
+                    // moveChoice will either be a question string or of the form "A2 to B2" or "Pass"
+
+                    if (moveChoice1.includes(" to ")){
+                        // if the Architect moved
+                        W.setInnerHTML('cluepasttxt', "You selected to move a block from: ");
+                        var moveChoice1 = this.cluespast.at(-1).split(" to ");
+                        var moveFrom = this.positions[moveChoice1[0]]
+                        var moveTo = this.positions[moveChoice1[1]]
+
+                        W.setInnerHTML('cluepast', moveFrom + " to " + moveTo);
+
+                        // after reporting, display the changed board to helper
+
+                        // find the room and positions
+
+                        var roomFrom = moveFrom.charAt(0)
+                        var positionFrom = moveFrom.charAt(1)
+
+                        var roomTo = moveTo.charAt(0)
+                        var positionTo = moveTo.charAt(1)
+
+                        // change color of roomFrom
+
+                        var movedIndex = 26 // set default value
+
+                        // here we need to first make a disconnected copy of the last configuration
+                        // so we can use it for roomTo
+
+                        
+
+                        if(roomFrom.includes('A')){ // room A
+                            if (positionFrom.includes('1')){
+                                // need to change color from first column
+                                // so indices 0, 12, 24
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[0] == "white"){
+                                    if(this.currentConfiguration[12] == "white"){
+                                        //  change block at index 24 to white, i.e., move it
+                                        this.currentConfiguration[24] = "white"
+                                        movedIndex = 24
+                                    }
+                                    else{ // if position 12 is nonwhite
+                                        //  change block at index 12 to white, i.e., move it
+                                        this.currentConfiguration[12] = "white"
+                                        movedIndex = 12
+                                    }
+                                }
+                                else{ // if position 0 is nonwhite
+                                    this.currentConfiguration[0] = "white"
+                                    movedIndex = 0
+                                }
+                            }
+                            else if(positionFrom.includes('2')){
+                                // need to change color from second column
+                                // so indices 1, 13, 25
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[1] == "white"){
+                                    if(this.currentConfiguration[13] == "white"){
+                                        //  change block at index 25 to white, i.e., move it
+                                        this.currentConfiguration[25] = "white"
+                                        movedIndex = 25
+                                    }
+                                    else{ // if position 13 is nonwhite
+                                        //  change block at index 13 to white, i.e., move it
+                                        this.currentConfiguration[13] = "white"
+                                        movedIndex = 13
+                                    }
+                                }
+                                else{ // if position 1 is nonwhite
+                                    this.currentConfiguration[1] = "white"
+                                    movedIndex = 1
+                                }
+
+                            }
+                            else {
+                                // need to change color from second column
+                                // so indices 2, 14, 26
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[2] == "white"){
+                                    if(this.currentConfiguration[14] == "white"){
+                                        //  change block at index 26 to white, i.e., move it
+                                        this.currentConfiguration[26] = "white"
+                                        movedIndex = 26
+                                    }
+                                    else{ // if position 14 is nonwhite
+                                        //  change block at index 14 to white, i.e., move it
+                                        this.currentConfiguration[14] = "white"
+                                        movedIndex = 14
+
+                                    }
+                                }
+                                else{ // if position 2 is nonwhite
+                                    this.currentConfiguration[2] = "white"
+                                    movedIndex = 2
+                                } 
+                            }
+
+                        }
+                        else if(roomFrom.includes('B')){ //room B
+                            if (positionFrom.includes('1')){
+                                // need to change color from fifth column
+                                // so indices 4, 16, 28
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[4] == "white"){
+                                    if(this.currentConfiguration[16] == "white"){
+                                        //  change block at index 28 to white, i.e., move it
+                                        this.currentConfiguration[28] = "white"
+                                        movedIndex = 28
+                                    }
+                                    else{ // if position 16 is nonwhite
+                                        //  change block at index 16 to white, i.e., move it
+                                        this.currentConfiguration[16] = "white"
+                                        movedIndex = 16
+                                    }
+                                }
+                                else{ // if position 4 is nonwhite
+                                    this.currentConfiguration[4] = "white"
+                                    movedIndex = 4
+                                }
+                            }
+                            else if(positionFrom.includes('2')){
+                                // need to change color from sixth column
+                                // so indices 5, 17, 29
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[5] == "white"){
+                                    if(this.currentConfiguration[17] == "white"){
+                                        //  change block at index 29 to white, i.e., move it
+                                        this.currentConfiguration[29] = "white"
+                                        movedIndex = 29
+                                    }
+                                    else{ // if position 17 is nonwhite
+                                        //  change block at index 17 to white, i.e., move it
+                                        this.currentConfiguration[17] = "white"
+                                        movedIndex = 17
+                                    }
+                                }
+                                else{ // if position 5 is nonwhite
+                                    this.currentConfiguration[5] = "white"
+                                    movedIndex = 5
+                                }
+
+                            }
+                            else {
+                                // need to change color from second column
+                                // so indices 6, 18, 30
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[6] == "white"){
+                                    if(this.currentConfiguration[18] == "white"){
+                                        //  change block at index 30 to white, i.e., move it
+                                        this.currentConfiguration[30] = "white"
+                                        movedIndex = 30
+                                    }
+                                    else{ // if position 18 is nonwhite
+                                        //  change block at index 18 to white, i.e., move it
+                                        this.currentConfiguration[18] = "white"
+                                        movedIndex = 18
+
+                                    }
+                                }
+                                else{ // if position 6 is nonwhite
+                                    this.currentConfiguration[6] = "white"
+                                    movedIndex = 6
+                                } 
+                            }
+                        }
+
+                        else{ //room C
+
+                            if (positionFrom.includes('1')){
+                                // need to change color from fifth column
+                                // so indices 8, 20, 32
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[8] == "white"){
+                                    if(this.currentConfiguration[20] == "white"){
+                                        //  change block at index 32 to white, i.e., move it
+                                        this.currentConfiguration[32] = "white"
+                                        movedIndex = 32
+                                    }
+                                    else{ // if position 20 is nonwhite
+                                        //  change block at index 20 to white, i.e., move it
+                                        this.currentConfiguration[20] = "white"
+                                        movedIndex = 20
+                                    }
+                                }
+                                else{ // if position 8 is nonwhite
+                                    this.currentConfiguration[8] = "white"
+                                    movedIndex = 8
+                                }
+                            }
+                            else if(positionFrom.includes('2')){
+                                // need to change color from sixth column
+                                // so indices 9, 21, 33
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[9] == "white"){
+                                    if(this.currentConfiguration[21] == "white"){
+                                        //  change block at index 33 to white, i.e., move it
+                                        this.currentConfiguration[33] = "white"
+                                        movedIndex = 33
+                                    }
+                                    else{ // if position 21 is nonwhite
+                                        //  change block at index 21 to white, i.e., move it
+                                        this.currentConfiguration[21] = "white"
+                                        movedIndex = 21
+                                    }
+                                }
+                                else{ // if position 9 is nonwhite
+                                    this.currentConfiguration[9] = "white"
+                                    movedIndex = 9
+                                }
+
+                            }
+                            else {
+                                // need to change color from second column
+                                // so indices 10, 22, 34
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[10] == "white"){
+                                    if(this.currentConfiguration[22] == "white"){
+                                        //  change block at index 34 to white, i.e., move it
+                                        this.currentConfiguration[34] = "white"
+                                        movedIndex = 34
+                                    }
+                                    else{ // if position 22 is nonwhite
+                                        //  change block at index 22 to white, i.e., move it
+                                        this.currentConfiguration[22] = "white"
+                                        movedIndex = 22
+
+                                    }
+                                }
+                                else{ // if position 10 is nonwhite
+                                    this.currentConfiguration[10] = "white"
+                                    movedIndex = 10
+                                } 
+                            }
+
+                        }
+
+                        // also change color of roomTo
+
+                        // roomTo's color depends on whatever roomFrom's color was
+                        // specifically whatever "index" roomFrom contains
+                        // and the location is the lowest white cell in that column
+
+                        if(roomTo.includes('A')){ // room A
+                            if (positionTo.includes('1')){ // A1
+                                // need to change color from first column
+                                // so indices 0, 12, 24
+                                // find the topmost index that is white:
+                                if(this.currentConfiguration[24] == "white"){
+                                    this.currentConfiguration[24] = this.lastConfiguration[movedIndex]
+                                    
+                                }
+                                else if(this.currentConfiguration[12] == "white"){
+                                    this.currentConfiguration[12] = this.lastConfiguration[movedIndex]
+                                }
+                                else{ // if position 0 is white
+                                    this.currentConfiguration[0] = this.lastConfiguration[movedIndex]
+                                } 
+                            }
+                            else if(positionTo.includes('2')){ //A2
+                                // need to change color from second column
+                                // so indices 1, 13, 25
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[25] == "white"){
+                                    this.currentConfiguration[25] = this.lastConfiguration[movedIndex]
+                                    
+                                }
+                                else if(this.currentConfiguration[13] == "white"){
+                                    this.currentConfiguration[13] = this.lastConfiguration[movedIndex]
+                                }
+                                else{ // if position 1 is white
+                                    this.currentConfiguration[1] = this.lastConfiguration[movedIndex]
+                                } 
+
+                            }
+                            else { // A3
+                                // need to change color from third column
+                                // so indices 2, 14, 26
+                                // find the bottom-most index that is non-white
+                                if(this.currentConfiguration[26] == "white"){
+                                    this.currentConfiguration[26] = this.lastConfiguration[movedIndex]
+                                    
+                                }
+                                else if(this.currentConfiguration[14] == "white"){
+                                    this.currentConfiguration[14] = this.lastConfiguration[movedIndex]
+                                }
+                                else{ // if position 2 is white
+                                    this.currentConfiguration[2] = this.lastConfiguration[movedIndex]
+                                } 
+                            }
+
+                        }
+                        else if(roomTo.includes('B')){
+
+                            if (positionTo.includes('1')){ // B1
+                                // need to change color from first column
+                                // so indices 4, 16, 28
+                                // find the topmost index that is white:
+                                if(this.currentConfiguration[28] == "white"){
+                                    this.currentConfiguration[28] = this.lastConfiguration[movedIndex]
+                                    
+                                }
+                                else if(this.currentConfiguration[16] == "white"){
+                                    this.currentConfiguration[16] = this.lastConfiguration[movedIndex]
+                                }
+                                else{ // if position 0 is white
+                                    this.currentConfiguration[4] = this.lastConfiguration[movedIndex]
+                                } 
+                            }
+                            else if(positionTo.includes('2')){ //B2
+                                // need to change color from second column
+                                // so indices 5, 17, 29
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[29] == "white"){
+                                    this.currentConfiguration[29] = this.lastConfiguration[movedIndex]
+                                    
+                                }
+                                else if(this.currentConfiguration[17] == "white"){
+                                    this.currentConfiguration[17] = this.lastConfiguration[movedIndex]
+                                }
+                                else{ // if position 1 is white
+                                    this.currentConfiguration[5] = this.lastConfiguration[movedIndex]
+                                } 
+
+                            }
+                            else { // B3
+                                // need to change color from third column
+                                // so indices 6, 18, 30
+                                // find the bottom-most index that is non-white
+                                if(this.currentConfiguration[30] == "white"){
+                                    this.currentConfiguration[30] = this.lastConfiguration[movedIndex]
+                                    
+                                }
+                                else if(this.currentConfiguration[18] == "white"){
+                                    this.currentConfiguration[18] = this.lastConfiguration[movedIndex]
+                                }
+                                else{ // if position 2 is white
+                                    this.currentConfiguration[6] = this.lastConfiguration[movedIndex]
+                                } 
+                            }
+                        }
+
+                        else{ //room C
+
+                            if (positionTo.includes('1')){ // C1
+                                // need to change color from first column
+                                // so indices 8, 20, 32
+                                // find the topmost index that is white:
+                                if(this.currentConfiguration[32] == "white"){
+                                    this.currentConfiguration[32] = this.lastConfiguration[movedIndex]
+                                    
+                                }
+                                else if(this.currentConfiguration[20] == "white"){
+                                    this.currentConfiguration[20] = this.lastConfiguration[movedIndex]
+                                }
+                                else{ // if position 8 is white
+                                    this.currentConfiguration[8] = this.lastConfiguration[movedIndex]
+                                } 
+                            }
+                            else if(positionTo.includes('2')){ //C2
+                                // need to change color from second column
+                                // so indices 9, 21, 33
+                                // find the topmost index that is non-white
+                                if(this.currentConfiguration[33] == "white"){
+                                    this.currentConfiguration[33] = this.lastConfiguration[movedIndex]
+                                    
+                                }
+                                else if(this.currentConfiguration[21] == "white"){
+                                    this.currentConfiguration[21] = this.lastConfiguration[movedIndex]
+                                }
+                                else{ // if position 1 is white
+                                    this.currentConfiguration[9] = this.lastConfiguration[movedIndex]
+                                } 
+
+                            }
+                            else { // C3
+                                // need to change color from third column
+                                // so indices 10, 22, 34
+                                // find the bottom-most index that is non-white
+                                if(this.currentConfiguration[34] == "white"){
+                                    this.currentConfiguration[34] = this.lastConfiguration[movedIndex]
+                                    
+                                }
+                                else if(this.currentConfiguration[22] == "white"){
+                                    this.currentConfiguration[22] = this.lastConfiguration[movedIndex]
+                                }
+                                else{ // if position 2 is white
+                                    this.currentConfiguration[10] = this.lastConfiguration[movedIndex]
+                                } 
+                            }
+
+                        }
+
+                    W.getElementById("row1cell1").style.backgroundColor = this.currentConfiguration[0]
+                    W.getElementById("row1cell2").style.backgroundColor = this.currentConfiguration[1]
+                    W.getElementById("row1cell3").style.backgroundColor = this.currentConfiguration[2]
+                    W.getElementById("row1cell4").style.backgroundColor = this.currentConfiguration[3]
+                    W.getElementById("row1cell5").style.backgroundColor = this.currentConfiguration[4]
+                    W.getElementById("row1cell6").style.backgroundColor = this.currentConfiguration[5]
+                    W.getElementById("row1cell7").style.backgroundColor = this.currentConfiguration[6]
+                    W.getElementById("row1cell8").style.backgroundColor = this.currentConfiguration[7]
+                    W.getElementById("row1cell9").style.backgroundColor = this.currentConfiguration[8]
+                    W.getElementById("row1cell10").style.backgroundColor = this.currentConfiguration[9]
+                    W.getElementById("row1cell11").style.backgroundColor = this.currentConfiguration[10]
+                    W.getElementById("row1cell12").style.backgroundColor = this.currentConfiguration[11]
                     
-                    W.getElementById("row2cell1").style.backgroundColor = this.initialConfiguration[12]
-                    W.getElementById("row2cell2").style.backgroundColor = this.initialConfiguration[13]
-                    W.getElementById("row2cell3").style.backgroundColor = this.initialConfiguration[14]
-                    W.getElementById("row2cell4").style.backgroundColor = this.initialConfiguration[15]
-                    W.getElementById("row2cell5").style.backgroundColor = this.initialConfiguration[16]
-                    W.getElementById("row2cell6").style.backgroundColor = this.initialConfiguration[17]
-                    W.getElementById("row2cell7").style.backgroundColor = this.initialConfiguration[18]
-                    W.getElementById("row2cell8").style.backgroundColor = this.initialConfiguration[19]
-                    W.getElementById("row2cell9").style.backgroundColor = this.initialConfiguration[20]
-                    W.getElementById("row2cell10").style.backgroundColor = this.initialConfiguration[21]
-                    W.getElementById("row2cell11").style.backgroundColor = this.initialConfiguration[22]
-                    W.getElementById("row2cell12").style.backgroundColor = this.initialConfiguration[23]
+                    W.getElementById("row2cell1").style.backgroundColor = this.currentConfiguration[12]
+                    W.getElementById("row2cell2").style.backgroundColor = this.currentConfiguration[13]
+                    W.getElementById("row2cell3").style.backgroundColor = this.currentConfiguration[14]
+                    W.getElementById("row2cell4").style.backgroundColor = this.currentConfiguration[15]
+                    W.getElementById("row2cell5").style.backgroundColor = this.currentConfiguration[16]
+                    W.getElementById("row2cell6").style.backgroundColor = this.currentConfiguration[17]
+                    W.getElementById("row2cell7").style.backgroundColor = this.currentConfiguration[18]
+                    W.getElementById("row2cell8").style.backgroundColor = this.currentConfiguration[19]
+                    W.getElementById("row2cell9").style.backgroundColor = this.currentConfiguration[20]
+                    W.getElementById("row2cell10").style.backgroundColor = this.currentConfiguration[21]
+                    W.getElementById("row2cell11").style.backgroundColor = this.currentConfiguration[22]
+                    W.getElementById("row2cell12").style.backgroundColor = this.currentConfiguration[23]
                     
-                    W.getElementById("row3cell1").style.backgroundColor = this.initialConfiguration[24]
-                    W.getElementById("row3cell2").style.backgroundColor = this.initialConfiguration[25]
-                    W.getElementById("row3cell3").style.backgroundColor = this.initialConfiguration[26]
-                    W.getElementById("row3cell4").style.backgroundColor = this.initialConfiguration[27]
-                    W.getElementById("row3cell5").style.backgroundColor = this.initialConfiguration[28]
-                    W.getElementById("row3cell6").style.backgroundColor = this.initialConfiguration[29]
-                    W.getElementById("row3cell7").style.backgroundColor = this.initialConfiguration[30]
-                    W.getElementById("row3cell8").style.backgroundColor = this.initialConfiguration[31]
-                    W.getElementById("row3cell9").style.backgroundColor = this.initialConfiguration[32]
-                    W.getElementById("row3cell10").style.backgroundColor = this.initialConfiguration[33]
-                    W.getElementById("row3cell11").style.backgroundColor = this.initialConfiguration[34]
-                    W.getElementById("row3cell12").style.backgroundColor = this.initialConfiguration[35]
+                    W.getElementById("row3cell1").style.backgroundColor = this.currentConfiguration[24]
+                    W.getElementById("row3cell2").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("row3cell3").style.backgroundColor = this.currentConfiguration[26]
+                    W.getElementById("row3cell4").style.backgroundColor = this.currentConfiguration[27]
+                    W.getElementById("row3cell5").style.backgroundColor = this.currentConfiguration[28]
+                    W.getElementById("row3cell6").style.backgroundColor = this.currentConfiguration[29]
+                    W.getElementById("row3cell7").style.backgroundColor = this.currentConfiguration[30]
+                    W.getElementById("row3cell8").style.backgroundColor = this.currentConfiguration[31]
+                    W.getElementById("row3cell9").style.backgroundColor = this.currentConfiguration[32]
+                    W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
+                    W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
+                    W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
+
+                    }    // close the movement if
+                    
+                    else{  
+
+                        W.setInnerHTML('cluepasttxt', "You have answered the Helper's question with: ");
+                        W.setInnerHTML('cluepast', this.yesno[this.cluespast.at(-1)]);
+                        // if the answer was yes/no the
+                    W.getElementById("row1cell1").style.backgroundColor = this.currentConfiguration[0]
+                    W.getElementById("row1cell2").style.backgroundColor = this.currentConfiguration[1]
+                    W.getElementById("row1cell3").style.backgroundColor = this.currentConfiguration[2]
+                    W.getElementById("row1cell4").style.backgroundColor = this.currentConfiguration[3]
+                    W.getElementById("row1cell5").style.backgroundColor = this.currentConfiguration[4]
+                    W.getElementById("row1cell6").style.backgroundColor = this.currentConfiguration[5]
+                    W.getElementById("row1cell7").style.backgroundColor = this.currentConfiguration[6]
+                    W.getElementById("row1cell8").style.backgroundColor = this.currentConfiguration[7]
+                    W.getElementById("row1cell9").style.backgroundColor = this.currentConfiguration[8]
+                    W.getElementById("row1cell10").style.backgroundColor = this.currentConfiguration[9]
+                    W.getElementById("row1cell11").style.backgroundColor = this.currentConfiguration[10]
+                    W.getElementById("row1cell12").style.backgroundColor = this.currentConfiguration[11]
+                    
+                    W.getElementById("row2cell1").style.backgroundColor = this.currentConfiguration[12]
+                    W.getElementById("row2cell2").style.backgroundColor = this.currentConfiguration[13]
+                    W.getElementById("row2cell3").style.backgroundColor = this.currentConfiguration[14]
+                    W.getElementById("row2cell4").style.backgroundColor = this.currentConfiguration[15]
+                    W.getElementById("row2cell5").style.backgroundColor = this.currentConfiguration[16]
+                    W.getElementById("row2cell6").style.backgroundColor = this.currentConfiguration[17]
+                    W.getElementById("row2cell7").style.backgroundColor = this.currentConfiguration[18]
+                    W.getElementById("row2cell8").style.backgroundColor = this.currentConfiguration[19]
+                    W.getElementById("row2cell9").style.backgroundColor = this.currentConfiguration[20]
+                    W.getElementById("row2cell10").style.backgroundColor = this.currentConfiguration[21]
+                    W.getElementById("row2cell11").style.backgroundColor = this.currentConfiguration[22]
+                    W.getElementById("row2cell12").style.backgroundColor = this.currentConfiguration[23]
+                    
+                    W.getElementById("row3cell1").style.backgroundColor = this.currentConfiguration[24]
+                    W.getElementById("row3cell2").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("row3cell3").style.backgroundColor = this.currentConfiguration[26]
+                    W.getElementById("row3cell4").style.backgroundColor = this.currentConfiguration[27]
+                    W.getElementById("row3cell5").style.backgroundColor = this.currentConfiguration[28]
+                    W.getElementById("row3cell6").style.backgroundColor = this.currentConfiguration[29]
+                    W.getElementById("row3cell7").style.backgroundColor = this.currentConfiguration[30]
+                    W.getElementById("row3cell8").style.backgroundColor = this.currentConfiguration[31]
+                    W.getElementById("row3cell9").style.backgroundColor = this.currentConfiguration[32]
+                    W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
+                    W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
+                    W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
+                }
+                    
+                
 
                     var that;//force proceed when clue is sent from other player
                     if (this.clueReceived !== null) node.done();
