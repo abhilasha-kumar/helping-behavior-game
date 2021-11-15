@@ -3,12 +3,96 @@
 <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
 <link rel="stylesheet" href="css/style.css" />
 <body>
-  <div id="container">
+
+  <body>
+    <div class="consentDiv" id="guesscontainer" >
+        <br>
+        <span id = "cluepasttxt"></span><span id = "cluepast" style="color:blue"></span><br>
+        <span id = "cluepast0txt"></span><span id = "cluepast0" style="color:blue"></span><br>
+        <span id = "cluepast1txt"></span><span id = "cluepast1" style="color:blue"></span><br>
+        <span id = "clue2">You are the HELPER. Please select whether you want to ask the architect a yes/no question or move a block</span>
+        <br>
+    </div>
+
+    <!-- <div class="redsquare"></div>
+    <div class="greensquare"></div>
+    <div class="bluesquare"></div> -->
+
+    <table id="blocks" style="width:40%">
+        <tr>
+            <th id="row1cell1"></th>
+            <th id="row1cell2"></th>
+            <th id="row1cell3"></th>
+            <th id="row1cell4"></th>
+            <th id="row1cell5"></th>
+            <th id="row1cell6"></th>
+            <th id="row1cell7"></th>
+            <th id="row1cell8"></th>
+            <th id="row1cell9"></th>
+            <th id="row1cell10"></th>
+            <th id="row1cell11"></th>
+            <th id="row1cell12"></th>
+        </tr>
+
+        <tr>
+            <th id="row2cell1"></th>
+            <th id="row2cell2"></th>
+            <th id="row2cell3"></th>
+            <th id="row2cell4"></th>
+            <th id="row2cell5"></th>
+            <th id="row2cell6"></th>
+            <th id="row2cell7"></th>
+            <th id="row2cell8"></th>
+            <th id="row2cell9"></th>
+            <th id="row2cell10"></th>
+            <th id="row2cell11"></th>
+            <th id="row2cell12"></th>
+        </tr>
+
+        <tr>
+            <th id="row3cell1"></th>
+            <th id="row3cell2"></th>
+            <th id="row3cell3"></th>
+            <th id="row3cell4"></th>
+            <th id="row3cell5"></th>
+            <th id="row3cell6"></th>
+            <th id="row3cell7"></th>
+            <th id="row3cell8"></th>
+            <th id="row3cell9"></th>
+            <th id="row3cell10"></th>
+            <th id="row3cell11"></th>
+            <th id="row3cell12"></th>
+        </tr>
+
+        <tr>
+            <th style="background-color:#e2e3f0">A1</th>
+            <th style="background-color:#e2e3f0">A2</th>
+            <th style="background-color:#e2e3f0">A3</th>
+            <th style="background-color:#ffffff"></th>
+            <th style="background-color:#e2e3f0">B1</th>
+            <th style="background-color:#e2e3f0">B2</th>
+            <th style="background-color:#e2e3f0">B3</th>
+            <th style="background-color:#ffffff"></th>
+            <th style="background-color:#e2e3f0">C1</th>
+            <th style="background-color:#e2e3f0">C2</th>
+            <th style="background-color:#e2e3f0">C3</th>
+            <th style="background-color:#ffffff"></th>
+        </tr>
+        
+    </table>
+<br>
+<br>
+
+    <table id="gbrd" style="width:20%">
+        <tr>
+            <th><button  class="button button2">Ask a yes/no question</button></th>
+            <th><button  class="button button2">Move a block</button></th>
+        </tr>
+        
+    </table>
     <br>
-    <p id = "cganswers" style="font-size: 24px;"> ERRORMSG  </p>
+    <!-- <p id = "glist" style="font-size: 24px;"> Your guesses:  </p> -->
     <br>
-    <p id = "cgcorrect" style="font-size: 24px;"> ERRORMSG  </p>
-    <br>
-    <p id = "cgnextstep" style="font-size: 22px;"> ERRORMSG  </p>
-  </div>
+    <!-- <p id = "alist" style="font-size: 24px;"> Your final answers:  </p> -->
+  <div class="consentDiv" id="containerbottom2" ></div> <div class="consentDiv" id="movebottom2" ></div>
 </body>

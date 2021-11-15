@@ -18,8 +18,8 @@ module.exports = function(stager, settings) {
    return !this.LOOP_ENDED_PRAC;
 });
     //stager.repeatStage('gameplay',3);
-    stager.step('clueOptionsprac');
-    stager.step('clueFinalprac');
+    stager.step('helperOptionsprac');
+    stager.step('helperAction');
     stager.step('guessOptionsprac');
     stager.step('guessFinalprac');
     stager.step('feedbackprac');

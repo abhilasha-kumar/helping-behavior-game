@@ -81,7 +81,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
 
 
-    stager.extendStep('clueOptionsprac', {
+    stager.extendStep('helperOptionsprac', {
         cb: function() {
             /*include for board shuffling
             var board = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
