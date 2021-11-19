@@ -297,7 +297,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         var target = e.target;
                         //var myDiv = W.getElementById("alist");
                         if(target.className.match("button button2")){
-                        
+          
                             //myDiv.innerHTML = myDiv.innerHTML+ target.innerHTML;
                             node.say('GUESS', node.game.partner, target.innerHTML);
                             node.set({GUESS_1_FINAL : target.innerHTML});
@@ -306,7 +306,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                                 player: node.player.id,
                                 stage: node.game.getCurrentGameStage(),
                                 Guess1: target.innerHTML
-                            });
+                            }); 
                             node.game.memory.tag("GUESS");//tag this memory for easy access later
                             el.removeEventListener('click', this.clicker2);
                             node.done(); 
@@ -316,7 +316,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     el.addEventListener('click', this.clicker2);
                 },
                 done: function() {
-                    node.say('GUESS', node.game.partner);
+                    var choiceTXT = node.game.memory.resolveTag("GUESS").Guess1;
+                    node.say('GUESS', node.game.partner, choiceTXT);
                     return;
                 }
 
@@ -373,9 +374,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     that = this;
                     node.on.data('GUESS', function(msg) {
                         that.clueReceived = msg.data;
+                        W.setInnerHTML('helperChoice', "The helper has chosen to " + msg.data); 
                         this.cluespast.push(that.clueReceived);
                         node.done();
                     });
+                    
                 },
                 done: function() {
                     node.say('GUESS', node.game.partner);
@@ -394,6 +397,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         role: function() { return this.role; },
         partner: function() { return this.partner; },
         roles: {
+            //guesser is the cluegiver
             CLUEGIVER:{
                 init: function() {
                     node.game.clueReceived = null;
@@ -544,9 +548,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     }
 
                     else{
-
-                    var tofrom = this.movesToFrom2.getValues().forms['FROM'].choice + " to " + this.movesToFrom2.getValues().forms['TO'].choice
-                    this.cluespast.push(tofrom);
+                        
+                        var tofrom = this.movesToFrom2.getValues().forms['FROM'].choice + " MoveBlockTo " + this.movesToFrom2.getValues().forms['TO'].choice;
+                        this.cluespast.push(tofrom);
 
                     node.say('CLUE', node.game.partner, tofrom);
 
@@ -560,6 +564,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 }
 
             },
+            //architect is the helper 
             GUESSER:{
                 init: function() {
                     node.game.clueReceived = null;
@@ -594,7 +599,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     W.getElementById("row2cell10").style.backgroundColor = this.initialConfiguration[21]
                     W.getElementById("row2cell11").style.backgroundColor = this.initialConfiguration[22]
                     W.getElementById("row2cell12").style.backgroundColor = this.initialConfiguration[23]
-                    
+        
                     W.getElementById("row3cell1").style.backgroundColor = this.initialConfiguration[24]
                     W.getElementById("row3cell2").style.backgroundColor = this.initialConfiguration[25]
                     W.getElementById("row3cell3").style.backgroundColor = this.initialConfiguration[26]
@@ -689,9 +694,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     else if(["Pass"].includes(choiceTXT)){
 
-                        W.setInnerHTML('cluepasttxt', "You chose to pass your turn.");
+                    W.setInnerHTML('cluepasttxt', "You chose to pass your turn.");
 
-                        W.getElementById("row1cell1").style.backgroundColor = this.currentConfiguration[0]
+                    W.getElementById("row1cell1").style.backgroundColor = this.currentConfiguration[0]
                     W.getElementById("row1cell2").style.backgroundColor = this.currentConfiguration[1]
                     W.getElementById("row1cell3").style.backgroundColor = this.currentConfiguration[2]
                     W.getElementById("row1cell4").style.backgroundColor = this.currentConfiguration[3]
@@ -740,7 +745,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     // get the latest value from cluespast
 
                     var moveInfo = this.cluespast.at(-1)
-                    var moveChoice = moveInfo.split(" to ");
+                    var moveChoice = moveInfo.split(" MoveBlockTo ");
                     var moveFrom = this.positions[moveChoice[0]]
                     var moveTo = this.positions[moveChoice[1]]
 
@@ -1198,9 +1203,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     // moveChoice will either be a question string or of the form "A2 to B2" or "Pass"
 
-                    if (moveChoice1.includes(" to ")){
+                    if (moveChoice1.includes(" MoveBlockTo ")){
                         W.setInnerHTML('cluepasttxt', "The helper selected to move a block from: ");
-                        var moveChoice1 = this.clueReceived.split(" to ");
+                        var moveChoice1 = this.clueReceived.split(" MoveBlockTo ");
                         var moveFrom = this.positions[moveChoice1[0]]
                         var moveTo = this.positions[moveChoice1[1]]
 
@@ -1783,6 +1788,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     else{
                         W.setInnerHTML('cluepasttxt', "The helper decided to ask you a question: ");
+                        W.setInnerHTML('clue2', "Look below the board: ");
                         W.setInnerHTML('cluepast', moveChoice1 ); 
 
                         // if they selected a question, then keep display the same as initial
@@ -1835,6 +1841,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                                 '<button  class="button button2">Yes</button>',
                                         '<button  class="button button2">No</button>',
                             ],
+                            title: false,
                             requiredChoice: true
                         });
                         
@@ -1849,9 +1856,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     // moveChoice will either be a question string or of the form "A2 to B2" or "Pass"
 
-                    if (moveChoice1.includes(" to ") || moveChoice1.includes("Pass")){
+                    if (moveChoice1.includes(" MoveBlockTo ") || moveChoice1.includes("Pass")){
                         // if there was a move or a pass by the Helper
-                        var tofrom = this.movesToFromArchitect.getValues().forms['FROM'].choice + " to " + this.movesToFromArchitect.getValues().forms['TO'].choice
+                        var tofrom = this.movesToFromArchitect.getValues().forms['FROM'].choice + " MoveBlockTo " + this.movesToFromArchitect.getValues().forms['TO'].choice
                         this.cluespast.push(tofrom);   
                         node.say('ANSWER', node.game.partner, tofrom);
 
@@ -1892,10 +1899,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     // moveChoice will either be a question string or of the form "A2 to B2" or "Pass"
 
-                    if (moveChoice1.includes(" to ")){
+                    if (moveChoice1.includes(" MoveBlockTo ")){
                         // if the Architect moved
                         W.setInnerHTML('cluepasttxt', "The Architect selected to move a block from: ");
-                        var moveChoice1 = this.cluespast.at(-1).split(" to ");
+                        var moveChoice1 = this.cluespast.at(-1).split(" MoveBlockTo ");
                         var moveFrom = this.positions[moveChoice1[0]]
                         var moveTo = this.positions[moveChoice1[1]]
 
@@ -2455,10 +2462,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     // moveChoice will either be a question string or of the form "A2 to B2" or "Pass"
 
-                    if (moveChoice1.includes(" to ")){
+                    if (moveChoice1.includes(" MoveBlockTo ")){
                         // if the Architect moved
                         W.setInnerHTML('cluepasttxt', "You selected to move a block from: ");
-                        var moveChoice1 = this.cluespast.at(-1).split(" to ");
+                        var moveChoice1 = this.cluespast.at(-1).split(" MoveBlockTo ");
                         var moveFrom = this.positions[moveChoice1[0]]
                         var moveTo = this.positions[moveChoice1[1]]
 
