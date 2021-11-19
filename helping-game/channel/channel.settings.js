@@ -28,8 +28,8 @@ module.exports = {
      *
      * Default: the name of the game, as found in the package.json file.
      */
-     name: 'codenameshelper',
-     alias: (["connectorhelper"]),
+     name: 'architectandbuilder',
+     alias: (["architectandbuildergame"]),
     /**
      * ##  Optional
      *
