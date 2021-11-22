@@ -78,11 +78,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         this.verbalGoal = "Move all " + random_color + " blocks to room "+ random_room
 
-         this.goalConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[4], // room A - top row
+         this.goalConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[3], // room A - top row
                                     this.colors[3],this.colors[3],this.colors[3], this.colors[3], // room B - top row
                                     this.colors[5],this.colors[3],this.colors[3],this.colors[3], // room C - top row
-                                    this.colors[2],this.colors[3],this.colors[3],this.colors[4], //room A - mid row
-                                    this.colors[4],this.colors[1],this.colors[3],this.colors[0], // room B - mid row
+                                    this.colors[2],this.colors[3],this.colors[3],this.colors[3], //room A - mid row
+                                    this.colors[3],this.colors[1],this.colors[3],this.colors[0], // room B - mid row
                                     this.colors[5],this.colors[3],this.colors[4],this.colors[6], // room C - mid row
                                     this.colors[1],this.colors[4],this.colors[6], this.colors[4], // room A - bottom row
                                     this.colors[2],this.colors[0],this.colors[3],this.colors[5], // room B - bottom row
@@ -404,6 +404,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 },
                 frame: 'feedbackCG.htm',
                 cb: function() {
+
+                    if(this.currentConfiguration === this.goalConfiguration){
+                    node.say('END_GAME', 'SERVER', true);
+                    }
 
                     W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
                     W.getElementById("row1cell02").style.backgroundColor = this.currentConfiguration[1]
@@ -763,14 +767,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     }
 
-                    var that;//force proceed when clue is sent from other player
-                    if (this.guessesReceived !== null) node.done();
-                    that = this;    
-                    node.on.data('ANSWER', function(msg) {
-                        that.guessesReceived = msg.data;
-                        this.cluespast.push(that.guessesReceived);
-                        node.done();
-                    });
+                var that;//force proceed when clue is sent from other player
+                if (this.guessesReceived !== null) node.done();
+                that = this;    
+                node.on.data('ANSWER', function(msg) {
+                    that.guessesReceived = msg.data;
+                    this.cluespast.push(that.guessesReceived);
+                    node.done();
+                });
 
                 },
 
@@ -789,6 +793,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             GUESSER:{
                 frame: 'guessesboard.htm',
                 //donebutton: false,
+                
                 cb: function() {
 
                     // here we want to tell the architect what the Helper did and also change the block positions
@@ -1163,7 +1168,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     var moveChoice1 = this.clueReceived
 
-                    var choiceTXT = node.game.memory.resolveTag("GUESS").Guess1;//use tags to get our response from memory and validate
+                    
 
                     // moveChoice will either be a question string or of the form "A2 to B2" or "Pass"
 
@@ -1171,6 +1176,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         // if there was a move from the helper
                     // then there will also be a move from the guesser which we need to record
                     // get total value
+                    var choiceTXT = node.game.memory.resolveTag("GUESS").Guess1;//use tags to get our response from memory and validate
 
                     this.cluespast.push(choiceTXT);
 
@@ -1180,6 +1186,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     else if(moveChoice1.includes("Pass")){
                         // get total value
+                        var choiceTXT = node.game.memory.resolveTag("GUESS").Guess1;//use tags to get our response from memory and validate
                         this.cluespast.push(choiceTXT);
                     node.say('ANSWER', node.game.partner, choiceTXT);
                     }
