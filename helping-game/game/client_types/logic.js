@@ -70,9 +70,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStage('gameplayprac', {
         init: function() {//create view for results storage
-            db.view('feedbackprac', function() {
-            return node.game.isStage('gameplay');
-        });
+        //     db.view('feedbackprac', function() {
+        //     return node.game.isStage('gameplay');
+        // });
 
 
         }
@@ -92,24 +92,24 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     });
 
-    stager.extendStep('feedbackprac', {
-        cb: function() {//when the server receives the end game msg it runs the end game function
-            node.on.data('END_GAME', endGameFuncPrac);
-        },
-        exit: function(){
-            db.feedbackprac.save('feedbackprac.csv', {
+    // stager.extendStep('feedbackprac', {
+    //     cb: function() {//when the server receives the end game msg it runs the end game function
+    //         node.on.data('END_GAME', endGameFuncPrac);
+    //     },
+    //     exit: function(){
+    //         db.feedbackprac.save('feedbackprac.csv', {
 
-                // Custom header.
-                header: ["clueGiverID", "clueGiverRandCode", "guesserID", "guesserRandCode","target1","target2", "clueOption1", "TBOption1", "TEOption1", "clueOption2", "TBOption2", "TEOption2", "clueOption3", "TBOption3", "TEOption3", "clueOption4", "TBOption4", "TEOption4", "clueOption5", "TBOption5", "TEOption5", "clueOption6", "TBOption6", "TEOption6", "clueOption7", "TBOption7", "TEOption7", "clueOption8", "TBOption8", "TEOption8", "clueFinal", "TBFinal", "TEFinal", "GuessOption1", "GUESS_OPTION1_TIME", "GuessOption2", "GUESS_OPTION2_TIME", "GuessOption3", "GUESS_OPTION3_TIME", "GuessOption4", "GUESS_OPTION4_TIME", "GuessOption5", "GUESS_OPTION5_TIME", "GuessOption6", "GUESS_OPTION6_TIME", "GuessOption7", "GUESS_OPTION7_TIME", "GuessOption8", "GUESS_OPTION8_TIME", "GUESS_1_FINAL", "GUESS_1_FINAL_TIME", "GUESS_2_FINAL", "GUESS_2_FINAL_TIME"],
+    //             // Custom header.
+    //             header: ["clueGiverID", "clueGiverRandCode", "guesserID", "guesserRandCode","target1","target2", "clueOption1", "TBOption1", "TEOption1", "clueOption2", "TBOption2", "TEOption2", "clueOption3", "TBOption3", "TEOption3", "clueOption4", "TBOption4", "TEOption4", "clueOption5", "TBOption5", "TEOption5", "clueOption6", "TBOption6", "TEOption6", "clueOption7", "TBOption7", "TEOption7", "clueOption8", "TBOption8", "TEOption8", "clueFinal", "TBFinal", "TEFinal", "GuessOption1", "GUESS_OPTION1_TIME", "GuessOption2", "GUESS_OPTION2_TIME", "GuessOption3", "GUESS_OPTION3_TIME", "GuessOption4", "GUESS_OPTION4_TIME", "GuessOption5", "GUESS_OPTION5_TIME", "GuessOption6", "GUESS_OPTION6_TIME", "GuessOption7", "GUESS_OPTION7_TIME", "GuessOption8", "GUESS_OPTION8_TIME", "GUESS_1_FINAL", "GUESS_1_FINAL_TIME", "GUESS_2_FINAL", "GUESS_2_FINAL_TIME"],
 
-                // Saves only updates from previous save command.
-                updatesOnly: true,
+    //             // Saves only updates from previous save command.
+    //             updatesOnly: true,
 
-                flatten: true
-            });
+    //             flatten: true
+    //         });
 
-         }
-    });
+    //      }
+    // });
 
 
 

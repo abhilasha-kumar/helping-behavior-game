@@ -5,5 +5,10 @@
     "author": "Jasper Wilson <jaspermwilson@gmail.com>",
     "editor": "Pragat Wagle <pragatwagledev@gmail.com>",
     "license": "MIT/X11",
+    "dependencies": {
+        
+        "jquery": "^3.6.0"
+        
+      },
     "homepage": "http://nodegame.org"
 }

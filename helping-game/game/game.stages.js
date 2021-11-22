@@ -22,7 +22,7 @@ module.exports = function(stager, settings) {
     stager.step('helperAction');
     stager.step('guessOptionsprac');
     stager.step('guessFinalprac');
-    stager.step('feedbackprac');
+    //stager.step('feedbackprac');
     stager.stage('endprac');
     stager.loopStage('gameplay', function() {
    // Returns true for executing one more iteration of the loop.
