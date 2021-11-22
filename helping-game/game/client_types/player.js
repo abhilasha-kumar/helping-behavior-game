@@ -69,7 +69,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                                     this.colors[6],this.colors[1],this.colors[2],this.colors[0]] // room C - bottom row
         
         // create a "current" array that is disconnected to the original configuration                            
-        this.currentConfiguration = JSON.parse(JSON.stringify(this.currentConfiguration));                            
+        this.initialConfiguration = JSON.parse(JSON.stringify(this.currentConfiguration));                            
 
         // set goal configuration and verbal goal
         // get a random color and room
@@ -205,7 +205,38 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var dragtarget = W.getElementById("blocks");
                 dragtarget.addEventListener('dragstart', dragStart);
                 
-                var droptarget = W.getElementById("blocks");
+                var droptarget = W.getElementById("blocks"); // need to make this only some specific drag choices
+                // could try to filter for only "white" cells
+
+                
+                var filteredTableIndices = this.currentConfiguration.reduce(function(a, e, i) {
+                    if (e === 'white')
+                        a.push(i);
+                    return a;
+                }, []);
+                console.log("filtered table indices="+filteredTableIndices);
+
+                filteredTableIndices = filteredTableIndices.map(x => {
+                    if (x < 9){
+                        return "row1" + "cell0"+ (x + 1) ;
+                    }
+                    else if (x < 12){
+                        return "row1" + "cell"+ (x + 1) ;
+                    }else if(x < 24){
+                        var val = (x-12)+1
+                        if(val < 10){return "row2" + "cell0"+ ((x-12)+1);}
+                        else{return "row2" + "cell"+ ((x-12)+1);}
+                    }
+                    else{
+                        var val = (x-24)+1
+                        if(val < 10){return "row3" + "cell0"+ ((x-24)+1);}
+                        else{return "row3" + "cell"+ ((x-24)+1);}
+                    }
+                })
+
+                console.log("filtered table IDS="+filteredTableIndices);
+        
+                // we restrict dropping to these "white" cells only
                 droptarget.addEventListener('dragenter', dragEnter)
                 droptarget.addEventListener('dragover', dragOver);
                 droptarget.addEventListener('dragleave', dragLeave);
@@ -221,22 +252,27 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         
                         }
                     function dragEnter(e) {
+                        if(filteredTableIndices.includes(e.target.id)){
                         e.preventDefault();
                         e.target.classList.add('drag-over');
+                        }
                     }
 
                     function dragOver(e) {
+                        if(filteredTableIndices.includes(e.target.id)){
                         e.preventDefault();
                         e.target.classList.add('drag-over');
+                        }
                     }
 
                     function dragLeave(e) {
+                        if(filteredTableIndices.includes(e.target.id)){
                         e.target.classList.remove('drag-over');
+                        }
                     }
-
-                    
-
                     function drop(e) {
+
+                        if(filteredTableIndices.includes(e.target.id)){
                         
                         e.target.classList.remove('drag-over');
                         // get the draggable element
@@ -253,6 +289,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         draggable.classList.remove('hide');
                         // call the function that records these move IDs
                         setTotalValue();
+                        }
                         
                     }                
 
@@ -890,7 +927,38 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var dragtarget = W.getElementById("gbrd");
                 dragtarget.addEventListener('dragstart', dragStart);
                 
-                var droptarget = W.getElementById("gbrd");
+                var droptarget = W.getElementById("gbrd"); // need to make this only some specific drag choices
+                // could try to filter for only "white" cells
+
+                
+                var filteredTableIndices = this.currentConfiguration.reduce(function(a, e, i) {
+                    if (e === 'white')
+                        a.push(i);
+                    return a;
+                }, []);
+                console.log("filtered table indices="+filteredTableIndices);
+
+                filteredTableIndices = filteredTableIndices.map(x => {
+                    if (x < 9){
+                        return "row1" + "cell0"+ (x + 1) ;
+                    }
+                    else if (x < 12){
+                        return "row1" + "cell"+ (x + 1) ;
+                    }else if(x < 24){
+                        var val = (x-12)+1
+                        if(val < 10){return "row2" + "cell0"+ ((x-12)+1);}
+                        else{return "row2" + "cell"+ ((x-12)+1);}
+                    }
+                    else{
+                        var val = (x-24)+1
+                        if(val < 10){return "row3" + "cell0"+ ((x-24)+1);}
+                        else{return "row3" + "cell"+ ((x-24)+1);}
+                    }
+                })
+
+                console.log("filtered table IDS="+filteredTableIndices);
+        
+                // we restrict dropping to these "white" cells only
                 droptarget.addEventListener('dragenter', dragEnter)
                 droptarget.addEventListener('dragover', dragOver);
                 droptarget.addEventListener('dragleave', dragLeave);
@@ -906,22 +974,27 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         
                         }
                     function dragEnter(e) {
+                        if(filteredTableIndices.includes(e.target.id)){
                         e.preventDefault();
                         e.target.classList.add('drag-over');
+                        }
                     }
 
                     function dragOver(e) {
+                        if(filteredTableIndices.includes(e.target.id)){
                         e.preventDefault();
                         e.target.classList.add('drag-over');
+                        }
                     }
 
                     function dragLeave(e) {
+                        if(filteredTableIndices.includes(e.target.id)){
                         e.target.classList.remove('drag-over');
+                        }
                     }
-
-                    
-
                     function drop(e) {
+
+                        if(filteredTableIndices.includes(e.target.id)){
                         
                         e.target.classList.remove('drag-over');
                         // get the draggable element
@@ -938,6 +1011,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         draggable.classList.remove('hide');
                         // call the function that records these move IDs
                         setTotalValue();
+                        }
                         
                     }                
 
@@ -1021,7 +1095,38 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var dragtarget = W.getElementById("gbrd");
                 dragtarget.addEventListener('dragstart', dragStart);
                 
-                var droptarget = W.getElementById("gbrd");
+                var droptarget = W.getElementById("gbrd"); // need to make this only some specific drag choices
+                // could try to filter for only "white" cells
+
+                
+                var filteredTableIndices = this.currentConfiguration.reduce(function(a, e, i) {
+                    if (e === 'white')
+                        a.push(i);
+                    return a;
+                }, []);
+                console.log("filtered table indices="+filteredTableIndices);
+
+                filteredTableIndices = filteredTableIndices.map(x => {
+                    if (x < 9){
+                        return "row1" + "cell0"+ (x + 1) ;
+                    }
+                    else if (x < 12){
+                        return "row1" + "cell"+ (x + 1) ;
+                    }else if(x < 24){
+                        var val = (x-12)+1
+                        if(val < 10){return "row2" + "cell0"+ ((x-12)+1);}
+                        else{return "row2" + "cell"+ ((x-12)+1);}
+                    }
+                    else{
+                        var val = (x-24)+1
+                        if(val < 10){return "row3" + "cell0"+ ((x-24)+1);}
+                        else{return "row3" + "cell"+ ((x-24)+1);}
+                    }
+                })
+
+                console.log("filtered table IDS="+filteredTableIndices);
+        
+                // we restrict dropping to these "white" cells only
                 droptarget.addEventListener('dragenter', dragEnter)
                 droptarget.addEventListener('dragover', dragOver);
                 droptarget.addEventListener('dragleave', dragLeave);
@@ -1037,22 +1142,27 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         
                         }
                     function dragEnter(e) {
+                        if(filteredTableIndices.includes(e.target.id)){
                         e.preventDefault();
                         e.target.classList.add('drag-over');
+                        }
                     }
 
                     function dragOver(e) {
+                        if(filteredTableIndices.includes(e.target.id)){
                         e.preventDefault();
                         e.target.classList.add('drag-over');
+                        }
                     }
 
                     function dragLeave(e) {
+                        if(filteredTableIndices.includes(e.target.id)){
                         e.target.classList.remove('drag-over');
+                        }
                     }
-
-                    
-
                     function drop(e) {
+
+                        if(filteredTableIndices.includes(e.target.id)){
                         
                         e.target.classList.remove('drag-over');
                         // get the draggable element
@@ -1069,6 +1179,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         draggable.classList.remove('hide');
                         // call the function that records these move IDs
                         setTotalValue();
+                        }
                         
                     }                
 
