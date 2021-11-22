@@ -51,18 +51,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             return result;
         }
 
-        
-          
-        
-
-        this.positions = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"]
-        this.colors = ["red", "blue", "green", "white", "Pink", "LightBlue", "LightGreen"] // possible colors: white is used when there is no "block"
+        this.positions = ["A1", "A2", "B1", "B2", "C1", "C2"]
+        this.colors = ["red", "blue", "green", "white", "pink", "LightBlue", "LightGreen"] // possible colors: white is used when there is no "block"
 
         this.yesno = ["yes", "no"]
 
         // set initial configuration of the 27 cells - 9 in each row. 12 colored and 15 white
 
-        this.initialConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[3], // room A - top row
+        this.currentConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[3], // room A - top row
                                     this.colors[3],this.colors[3],this.colors[3], this.colors[3], // room B - top row
                                     this.colors[5],this.colors[3],this.colors[3],this.colors[3], // room C - top row
                                     this.colors[2],this.colors[3],this.colors[3],this.colors[3], //room A - mid row
@@ -73,21 +69,24 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                                     this.colors[6],this.colors[1],this.colors[2],this.colors[0]] // room C - bottom row
         
         // create a "current" array that is disconnected to the original configuration                            
-        this.currentConfiguration = JSON.parse(JSON.stringify(this.initialConfiguration));                            
+        this.currentConfiguration = JSON.parse(JSON.stringify(this.currentConfiguration));                            
 
         // set goal configuration and verbal goal
+        // get a random color and room
+        const random_color = this.colors[Math.floor(Math.random() * this.colors.length)];
+        const random_room = this.positions[Math.floor(Math.random() * this.positions.length)];
 
-        this.verbalGoal = ["Move all blue blocks to room A, green blocks to room B, and red blocks to room C."]
+        this.verbalGoal = "Move all " + random_color + " blocks to room "+ random_room
 
-         this.goalConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[3], // room A - top row
+         this.goalConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[4], // room A - top row
                                     this.colors[3],this.colors[3],this.colors[3], this.colors[3], // room B - top row
-                                    this.colors[3],this.colors[3],this.colors[3],this.colors[3], // room C - top row
-                                    this.colors[1],this.colors[1],this.colors[3],this.colors[3], //room A - mid row
-                                    this.colors[3],this.colors[3],this.colors[2],this.colors[3], // room B - mid row
-                                    this.colors[0],this.colors[0],this.colors[3],this.colors[3], // room C - mid row
-                                    this.colors[1],this.colors[1],this.colors[3],this.colors[3], // room A - bottom row
-                                    this.colors[2],this.colors[2],this.colors[2],this.colors[3], // room B - bottom row
-                                    this.colors[0],this.colors[0],this.colors[3],this.colors[3]] // room C - bottom row                      
+                                    this.colors[5],this.colors[3],this.colors[3],this.colors[3], // room C - top row
+                                    this.colors[2],this.colors[3],this.colors[3],this.colors[4], //room A - mid row
+                                    this.colors[4],this.colors[1],this.colors[3],this.colors[0], // room B - mid row
+                                    this.colors[5],this.colors[3],this.colors[4],this.colors[6], // room C - mid row
+                                    this.colors[1],this.colors[4],this.colors[6], this.colors[4], // room A - bottom row
+                                    this.colors[2],this.colors[0],this.colors[3],this.colors[5], // room B - bottom row
+                                    this.colors[6],this.colors[1],this.colors[2],this.colors[0]] // room C - bottom row                   
 
        
         this.cluespast = [];
@@ -144,7 +143,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             GUESSER:{
                 frame: 'instructions.htm',
                 cb: function(){
-                    W.setInnerHTML('containerbottom2', 'Your goal is to: '+ this.verbalGoal[0])
+                    W.setInnerHTML('containerbottom2', '<p>Your goal is to: '+ this.verbalGoal)
                 }
             }
         }
@@ -160,44 +159,44 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 donebutton: true,
                 cb: function() {
 
-                    W.getElementById("row1cell01").style.backgroundColor = this.initialConfiguration[0]
-                    W.getElementById("row1cell02").style.backgroundColor = this.initialConfiguration[1]
-                    W.getElementById("row1cell03").style.backgroundColor = this.initialConfiguration[2]
-                    W.getElementById("row1cell04").style.backgroundColor = this.initialConfiguration[3]
-                    W.getElementById("row1cell05").style.backgroundColor = this.initialConfiguration[4]
-                    W.getElementById("row1cell06").style.backgroundColor = this.initialConfiguration[5]
-                    W.getElementById("row1cell07").style.backgroundColor = this.initialConfiguration[6]
-                    W.getElementById("row1cell08").style.backgroundColor = this.initialConfiguration[7]
-                    W.getElementById("row1cell09").style.backgroundColor = this.initialConfiguration[8]
-                    W.getElementById("row1cell10").style.backgroundColor = this.initialConfiguration[9]
-                    W.getElementById("row1cell11").style.backgroundColor = this.initialConfiguration[10]
-                    W.getElementById("row1cell12").style.backgroundColor = this.initialConfiguration[11]
+                    W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
+                    W.getElementById("row1cell02").style.backgroundColor = this.currentConfiguration[1]
+                    W.getElementById("row1cell03").style.backgroundColor = this.currentConfiguration[2]
+                    W.getElementById("row1cell04").style.backgroundColor = this.currentConfiguration[3]
+                    W.getElementById("row1cell05").style.backgroundColor = this.currentConfiguration[4]
+                    W.getElementById("row1cell06").style.backgroundColor = this.currentConfiguration[5]
+                    W.getElementById("row1cell07").style.backgroundColor = this.currentConfiguration[6]
+                    W.getElementById("row1cell08").style.backgroundColor = this.currentConfiguration[7]
+                    W.getElementById("row1cell09").style.backgroundColor = this.currentConfiguration[8]
+                    W.getElementById("row1cell10").style.backgroundColor = this.currentConfiguration[9]
+                    W.getElementById("row1cell11").style.backgroundColor = this.currentConfiguration[10]
+                    W.getElementById("row1cell12").style.backgroundColor = this.currentConfiguration[11]
                     
-                    W.getElementById("row2cell01").style.backgroundColor = this.initialConfiguration[12]
-                    W.getElementById("row2cell02").style.backgroundColor = this.initialConfiguration[13]
-                    W.getElementById("row2cell03").style.backgroundColor = this.initialConfiguration[14]
-                    W.getElementById("row2cell04").style.backgroundColor = this.initialConfiguration[15]
-                    W.getElementById("row2cell05").style.backgroundColor = this.initialConfiguration[16]
-                    W.getElementById("row2cell06").style.backgroundColor = this.initialConfiguration[17]
-                    W.getElementById("row2cell07").style.backgroundColor = this.initialConfiguration[18]
-                    W.getElementById("row2cell08").style.backgroundColor = this.initialConfiguration[19]
-                    W.getElementById("row2cell09").style.backgroundColor = this.initialConfiguration[20]
-                    W.getElementById("row2cell10").style.backgroundColor = this.initialConfiguration[21]
-                    W.getElementById("row2cell11").style.backgroundColor = this.initialConfiguration[22]
-                    W.getElementById("row2cell12").style.backgroundColor = this.initialConfiguration[23]
+                    W.getElementById("row2cell01").style.backgroundColor = this.currentConfiguration[12]
+                    W.getElementById("row2cell02").style.backgroundColor = this.currentConfiguration[13]
+                    W.getElementById("row2cell03").style.backgroundColor = this.currentConfiguration[14]
+                    W.getElementById("row2cell04").style.backgroundColor = this.currentConfiguration[15]
+                    W.getElementById("row2cell05").style.backgroundColor = this.currentConfiguration[16]
+                    W.getElementById("row2cell06").style.backgroundColor = this.currentConfiguration[17]
+                    W.getElementById("row2cell07").style.backgroundColor = this.currentConfiguration[18]
+                    W.getElementById("row2cell08").style.backgroundColor = this.currentConfiguration[19]
+                    W.getElementById("row2cell09").style.backgroundColor = this.currentConfiguration[20]
+                    W.getElementById("row2cell10").style.backgroundColor = this.currentConfiguration[21]
+                    W.getElementById("row2cell11").style.backgroundColor = this.currentConfiguration[22]
+                    W.getElementById("row2cell12").style.backgroundColor = this.currentConfiguration[23]
                     
-                    W.getElementById("row3cell01").style.backgroundColor = this.initialConfiguration[24]
-                    W.getElementById("row3cell02").style.backgroundColor = this.initialConfiguration[25]
-                    W.getElementById("row3cell03").style.backgroundColor = this.initialConfiguration[26]
-                    W.getElementById("row3cell04").style.backgroundColor = this.initialConfiguration[27]
-                    W.getElementById("row3cell05").style.backgroundColor = this.initialConfiguration[28]
-                    W.getElementById("row3cell06").style.backgroundColor = this.initialConfiguration[29]
-                    W.getElementById("row3cell07").style.backgroundColor = this.initialConfiguration[30]
-                    W.getElementById("row3cell08").style.backgroundColor = this.initialConfiguration[31]
-                    W.getElementById("row3cell09").style.backgroundColor = this.initialConfiguration[32]
-                    W.getElementById("row3cell10").style.backgroundColor = this.initialConfiguration[33]
-                    W.getElementById("row3cell11").style.backgroundColor = this.initialConfiguration[34]
-                    W.getElementById("row3cell12").style.backgroundColor = this.initialConfiguration[35]
+                    W.getElementById("row3cell01").style.backgroundColor = this.currentConfiguration[24]
+                    W.getElementById("row3cell02").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("row3cell03").style.backgroundColor = this.currentConfiguration[26]
+                    W.getElementById("row3cell04").style.backgroundColor = this.currentConfiguration[27]
+                    W.getElementById("row3cell05").style.backgroundColor = this.currentConfiguration[28]
+                    W.getElementById("row3cell06").style.backgroundColor = this.currentConfiguration[29]
+                    W.getElementById("row3cell07").style.backgroundColor = this.currentConfiguration[30]
+                    W.getElementById("row3cell08").style.backgroundColor = this.currentConfiguration[31]
+                    W.getElementById("row3cell09").style.backgroundColor = this.currentConfiguration[32]
+                    W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
+                    W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
+                    W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
 
                 
                 var dragid = 0;
@@ -331,44 +330,44 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 frame: 'studyboard.htm',
                 cb: function() {//set the board for the guesser
 
-                    W.getElementById("row1cell01").style.backgroundColor = this.initialConfiguration[0]
-                    W.getElementById("row1cell02").style.backgroundColor = this.initialConfiguration[1]
-                    W.getElementById("row1cell03").style.backgroundColor = this.initialConfiguration[2]
-                    W.getElementById("row1cell04").style.backgroundColor = this.initialConfiguration[3]
-                    W.getElementById("row1cell05").style.backgroundColor = this.initialConfiguration[4]
-                    W.getElementById("row1cell06").style.backgroundColor = this.initialConfiguration[5]
-                    W.getElementById("row1cell07").style.backgroundColor = this.initialConfiguration[6]
-                    W.getElementById("row1cell08").style.backgroundColor = this.initialConfiguration[7]
-                    W.getElementById("row1cell09").style.backgroundColor = this.initialConfiguration[8]
-                    W.getElementById("row1cell10").style.backgroundColor = this.initialConfiguration[9]
-                    W.getElementById("row1cell11").style.backgroundColor = this.initialConfiguration[10]
-                    W.getElementById("row1cell12").style.backgroundColor = this.initialConfiguration[11]
+                    W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
+                    W.getElementById("row1cell02").style.backgroundColor = this.currentConfiguration[1]
+                    W.getElementById("row1cell03").style.backgroundColor = this.currentConfiguration[2]
+                    W.getElementById("row1cell04").style.backgroundColor = this.currentConfiguration[3]
+                    W.getElementById("row1cell05").style.backgroundColor = this.currentConfiguration[4]
+                    W.getElementById("row1cell06").style.backgroundColor = this.currentConfiguration[5]
+                    W.getElementById("row1cell07").style.backgroundColor = this.currentConfiguration[6]
+                    W.getElementById("row1cell08").style.backgroundColor = this.currentConfiguration[7]
+                    W.getElementById("row1cell09").style.backgroundColor = this.currentConfiguration[8]
+                    W.getElementById("row1cell10").style.backgroundColor = this.currentConfiguration[9]
+                    W.getElementById("row1cell11").style.backgroundColor = this.currentConfiguration[10]
+                    W.getElementById("row1cell12").style.backgroundColor = this.currentConfiguration[11]
                     
-                    W.getElementById("row2cell01").style.backgroundColor = this.initialConfiguration[12]
-                    W.getElementById("row2cell02").style.backgroundColor = this.initialConfiguration[13]
-                    W.getElementById("row2cell03").style.backgroundColor = this.initialConfiguration[14]
-                    W.getElementById("row2cell04").style.backgroundColor = this.initialConfiguration[15]
-                    W.getElementById("row2cell05").style.backgroundColor = this.initialConfiguration[16]
-                    W.getElementById("row2cell06").style.backgroundColor = this.initialConfiguration[17]
-                    W.getElementById("row2cell07").style.backgroundColor = this.initialConfiguration[18]
-                    W.getElementById("row2cell08").style.backgroundColor = this.initialConfiguration[19]
-                    W.getElementById("row2cell09").style.backgroundColor = this.initialConfiguration[20]
-                    W.getElementById("row2cell10").style.backgroundColor = this.initialConfiguration[21]
-                    W.getElementById("row2cell11").style.backgroundColor = this.initialConfiguration[22]
-                    W.getElementById("row2cell12").style.backgroundColor = this.initialConfiguration[23]
+                    W.getElementById("row2cell01").style.backgroundColor = this.currentConfiguration[12]
+                    W.getElementById("row2cell02").style.backgroundColor = this.currentConfiguration[13]
+                    W.getElementById("row2cell03").style.backgroundColor = this.currentConfiguration[14]
+                    W.getElementById("row2cell04").style.backgroundColor = this.currentConfiguration[15]
+                    W.getElementById("row2cell05").style.backgroundColor = this.currentConfiguration[16]
+                    W.getElementById("row2cell06").style.backgroundColor = this.currentConfiguration[17]
+                    W.getElementById("row2cell07").style.backgroundColor = this.currentConfiguration[18]
+                    W.getElementById("row2cell08").style.backgroundColor = this.currentConfiguration[19]
+                    W.getElementById("row2cell09").style.backgroundColor = this.currentConfiguration[20]
+                    W.getElementById("row2cell10").style.backgroundColor = this.currentConfiguration[21]
+                    W.getElementById("row2cell11").style.backgroundColor = this.currentConfiguration[22]
+                    W.getElementById("row2cell12").style.backgroundColor = this.currentConfiguration[23]
                     
-                    W.getElementById("row3cell01").style.backgroundColor = this.initialConfiguration[24]
-                    W.getElementById("row3cell02").style.backgroundColor = this.initialConfiguration[25]
-                    W.getElementById("row3cell03").style.backgroundColor = this.initialConfiguration[26]
-                    W.getElementById("row3cell04").style.backgroundColor = this.initialConfiguration[27]
-                    W.getElementById("row3cell05").style.backgroundColor = this.initialConfiguration[28]
-                    W.getElementById("row3cell06").style.backgroundColor = this.initialConfiguration[29]
-                    W.getElementById("row3cell07").style.backgroundColor = this.initialConfiguration[30]
-                    W.getElementById("row3cell08").style.backgroundColor = this.initialConfiguration[31]
-                    W.getElementById("row3cell09").style.backgroundColor = this.initialConfiguration[32]
-                    W.getElementById("row3cell10").style.backgroundColor = this.initialConfiguration[33]
-                    W.getElementById("row3cell11").style.backgroundColor = this.initialConfiguration[34]
-                    W.getElementById("row3cell12").style.backgroundColor = this.initialConfiguration[35]
+                    W.getElementById("row3cell01").style.backgroundColor = this.currentConfiguration[24]
+                    W.getElementById("row3cell02").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("row3cell03").style.backgroundColor = this.currentConfiguration[26]
+                    W.getElementById("row3cell04").style.backgroundColor = this.currentConfiguration[27]
+                    W.getElementById("row3cell05").style.backgroundColor = this.currentConfiguration[28]
+                    W.getElementById("row3cell06").style.backgroundColor = this.currentConfiguration[29]
+                    W.getElementById("row3cell07").style.backgroundColor = this.currentConfiguration[30]
+                    W.getElementById("row3cell08").style.backgroundColor = this.currentConfiguration[31]
+                    W.getElementById("row3cell09").style.backgroundColor = this.currentConfiguration[32]
+                    W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
+                    W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
+                    W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
 
                     var that;//force proceed when clue is sent from other player
                     if (this.clueReceived !== null) node.done();
@@ -406,44 +405,44 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 frame: 'feedbackCG.htm',
                 cb: function() {
 
-                    W.getElementById("row1cell01").style.backgroundColor = this.initialConfiguration[0]
-                    W.getElementById("row1cell02").style.backgroundColor = this.initialConfiguration[1]
-                    W.getElementById("row1cell03").style.backgroundColor = this.initialConfiguration[2]
-                    W.getElementById("row1cell04").style.backgroundColor = this.initialConfiguration[3]
-                    W.getElementById("row1cell05").style.backgroundColor = this.initialConfiguration[4]
-                    W.getElementById("row1cell06").style.backgroundColor = this.initialConfiguration[5]
-                    W.getElementById("row1cell07").style.backgroundColor = this.initialConfiguration[6]
-                    W.getElementById("row1cell08").style.backgroundColor = this.initialConfiguration[7]
-                    W.getElementById("row1cell09").style.backgroundColor = this.initialConfiguration[8]
-                    W.getElementById("row1cell10").style.backgroundColor = this.initialConfiguration[9]
-                    W.getElementById("row1cell11").style.backgroundColor = this.initialConfiguration[10]
-                    W.getElementById("row1cell12").style.backgroundColor = this.initialConfiguration[11]
+                    W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
+                    W.getElementById("row1cell02").style.backgroundColor = this.currentConfiguration[1]
+                    W.getElementById("row1cell03").style.backgroundColor = this.currentConfiguration[2]
+                    W.getElementById("row1cell04").style.backgroundColor = this.currentConfiguration[3]
+                    W.getElementById("row1cell05").style.backgroundColor = this.currentConfiguration[4]
+                    W.getElementById("row1cell06").style.backgroundColor = this.currentConfiguration[5]
+                    W.getElementById("row1cell07").style.backgroundColor = this.currentConfiguration[6]
+                    W.getElementById("row1cell08").style.backgroundColor = this.currentConfiguration[7]
+                    W.getElementById("row1cell09").style.backgroundColor = this.currentConfiguration[8]
+                    W.getElementById("row1cell10").style.backgroundColor = this.currentConfiguration[9]
+                    W.getElementById("row1cell11").style.backgroundColor = this.currentConfiguration[10]
+                    W.getElementById("row1cell12").style.backgroundColor = this.currentConfiguration[11]
                     
-                    W.getElementById("row2cell01").style.backgroundColor = this.initialConfiguration[12]
-                    W.getElementById("row2cell02").style.backgroundColor = this.initialConfiguration[13]
-                    W.getElementById("row2cell03").style.backgroundColor = this.initialConfiguration[14]
-                    W.getElementById("row2cell04").style.backgroundColor = this.initialConfiguration[15]
-                    W.getElementById("row2cell05").style.backgroundColor = this.initialConfiguration[16]
-                    W.getElementById("row2cell06").style.backgroundColor = this.initialConfiguration[17]
-                    W.getElementById("row2cell07").style.backgroundColor = this.initialConfiguration[18]
-                    W.getElementById("row2cell08").style.backgroundColor = this.initialConfiguration[19]
-                    W.getElementById("row2cell09").style.backgroundColor = this.initialConfiguration[20]
-                    W.getElementById("row2cell10").style.backgroundColor = this.initialConfiguration[21]
-                    W.getElementById("row2cell11").style.backgroundColor = this.initialConfiguration[22]
-                    W.getElementById("row2cell12").style.backgroundColor = this.initialConfiguration[23]
+                    W.getElementById("row2cell01").style.backgroundColor = this.currentConfiguration[12]
+                    W.getElementById("row2cell02").style.backgroundColor = this.currentConfiguration[13]
+                    W.getElementById("row2cell03").style.backgroundColor = this.currentConfiguration[14]
+                    W.getElementById("row2cell04").style.backgroundColor = this.currentConfiguration[15]
+                    W.getElementById("row2cell05").style.backgroundColor = this.currentConfiguration[16]
+                    W.getElementById("row2cell06").style.backgroundColor = this.currentConfiguration[17]
+                    W.getElementById("row2cell07").style.backgroundColor = this.currentConfiguration[18]
+                    W.getElementById("row2cell08").style.backgroundColor = this.currentConfiguration[19]
+                    W.getElementById("row2cell09").style.backgroundColor = this.currentConfiguration[20]
+                    W.getElementById("row2cell10").style.backgroundColor = this.currentConfiguration[21]
+                    W.getElementById("row2cell11").style.backgroundColor = this.currentConfiguration[22]
+                    W.getElementById("row2cell12").style.backgroundColor = this.currentConfiguration[23]
                     
-                    W.getElementById("row3cell01").style.backgroundColor = this.initialConfiguration[24]
-                    W.getElementById("row3cell02").style.backgroundColor = this.initialConfiguration[25]
-                    W.getElementById("row3cell03").style.backgroundColor = this.initialConfiguration[26]
-                    W.getElementById("row3cell04").style.backgroundColor = this.initialConfiguration[27]
-                    W.getElementById("row3cell05").style.backgroundColor = this.initialConfiguration[28]
-                    W.getElementById("row3cell06").style.backgroundColor = this.initialConfiguration[29]
-                    W.getElementById("row3cell07").style.backgroundColor = this.initialConfiguration[30]
-                    W.getElementById("row3cell08").style.backgroundColor = this.initialConfiguration[31]
-                    W.getElementById("row3cell09").style.backgroundColor = this.initialConfiguration[32]
-                    W.getElementById("row3cell10").style.backgroundColor = this.initialConfiguration[33]
-                    W.getElementById("row3cell11").style.backgroundColor = this.initialConfiguration[34]
-                    W.getElementById("row3cell12").style.backgroundColor = this.initialConfiguration[35]
+                    W.getElementById("row3cell01").style.backgroundColor = this.currentConfiguration[24]
+                    W.getElementById("row3cell02").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("row3cell03").style.backgroundColor = this.currentConfiguration[26]
+                    W.getElementById("row3cell04").style.backgroundColor = this.currentConfiguration[27]
+                    W.getElementById("row3cell05").style.backgroundColor = this.currentConfiguration[28]
+                    W.getElementById("row3cell06").style.backgroundColor = this.currentConfiguration[29]
+                    W.getElementById("row3cell07").style.backgroundColor = this.currentConfiguration[30]
+                    W.getElementById("row3cell08").style.backgroundColor = this.currentConfiguration[31]
+                    W.getElementById("row3cell09").style.backgroundColor = this.currentConfiguration[32]
+                    W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
+                    W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
+                    W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
                     
                     var choiceTXT = node.game.memory.resolveTag("GUESS").Guess1;//use tags to get our response from memory and validate
                     
@@ -514,44 +513,44 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 cb: function() {
 
-                    W.getElementById("row1cell01").style.backgroundColor = this.initialConfiguration[0]
-                    W.getElementById("row1cell02").style.backgroundColor = this.initialConfiguration[1]
-                    W.getElementById("row1cell03").style.backgroundColor = this.initialConfiguration[2]
-                    W.getElementById("row1cell04").style.backgroundColor = this.initialConfiguration[3]
-                    W.getElementById("row1cell05").style.backgroundColor = this.initialConfiguration[4]
-                    W.getElementById("row1cell06").style.backgroundColor = this.initialConfiguration[5]
-                    W.getElementById("row1cell07").style.backgroundColor = this.initialConfiguration[6]
-                    W.getElementById("row1cell08").style.backgroundColor = this.initialConfiguration[7]
-                    W.getElementById("row1cell09").style.backgroundColor = this.initialConfiguration[8]
-                    W.getElementById("row1cell10").style.backgroundColor = this.initialConfiguration[9]
-                    W.getElementById("row1cell11").style.backgroundColor = this.initialConfiguration[10]
-                    W.getElementById("row1cell12").style.backgroundColor = this.initialConfiguration[11]
+                    W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
+                    W.getElementById("row1cell02").style.backgroundColor = this.currentConfiguration[1]
+                    W.getElementById("row1cell03").style.backgroundColor = this.currentConfiguration[2]
+                    W.getElementById("row1cell04").style.backgroundColor = this.currentConfiguration[3]
+                    W.getElementById("row1cell05").style.backgroundColor = this.currentConfiguration[4]
+                    W.getElementById("row1cell06").style.backgroundColor = this.currentConfiguration[5]
+                    W.getElementById("row1cell07").style.backgroundColor = this.currentConfiguration[6]
+                    W.getElementById("row1cell08").style.backgroundColor = this.currentConfiguration[7]
+                    W.getElementById("row1cell09").style.backgroundColor = this.currentConfiguration[8]
+                    W.getElementById("row1cell10").style.backgroundColor = this.currentConfiguration[9]
+                    W.getElementById("row1cell11").style.backgroundColor = this.currentConfiguration[10]
+                    W.getElementById("row1cell12").style.backgroundColor = this.currentConfiguration[11]
                     
-                    W.getElementById("row2cell01").style.backgroundColor = this.initialConfiguration[12]
-                    W.getElementById("row2cell02").style.backgroundColor = this.initialConfiguration[13]
-                    W.getElementById("row2cell03").style.backgroundColor = this.initialConfiguration[14]
-                    W.getElementById("row2cell04").style.backgroundColor = this.initialConfiguration[15]
-                    W.getElementById("row2cell05").style.backgroundColor = this.initialConfiguration[16]
-                    W.getElementById("row2cell06").style.backgroundColor = this.initialConfiguration[17]
-                    W.getElementById("row2cell07").style.backgroundColor = this.initialConfiguration[18]
-                    W.getElementById("row2cell08").style.backgroundColor = this.initialConfiguration[19]
-                    W.getElementById("row2cell09").style.backgroundColor = this.initialConfiguration[20]
-                    W.getElementById("row2cell10").style.backgroundColor = this.initialConfiguration[21]
-                    W.getElementById("row2cell11").style.backgroundColor = this.initialConfiguration[22]
-                    W.getElementById("row2cell12").style.backgroundColor = this.initialConfiguration[23]
+                    W.getElementById("row2cell01").style.backgroundColor = this.currentConfiguration[12]
+                    W.getElementById("row2cell02").style.backgroundColor = this.currentConfiguration[13]
+                    W.getElementById("row2cell03").style.backgroundColor = this.currentConfiguration[14]
+                    W.getElementById("row2cell04").style.backgroundColor = this.currentConfiguration[15]
+                    W.getElementById("row2cell05").style.backgroundColor = this.currentConfiguration[16]
+                    W.getElementById("row2cell06").style.backgroundColor = this.currentConfiguration[17]
+                    W.getElementById("row2cell07").style.backgroundColor = this.currentConfiguration[18]
+                    W.getElementById("row2cell08").style.backgroundColor = this.currentConfiguration[19]
+                    W.getElementById("row2cell09").style.backgroundColor = this.currentConfiguration[20]
+                    W.getElementById("row2cell10").style.backgroundColor = this.currentConfiguration[21]
+                    W.getElementById("row2cell11").style.backgroundColor = this.currentConfiguration[22]
+                    W.getElementById("row2cell12").style.backgroundColor = this.currentConfiguration[23]
         
-                    W.getElementById("row3cell01").style.backgroundColor = this.initialConfiguration[24]
-                    W.getElementById("row3cell02").style.backgroundColor = this.initialConfiguration[25]
-                    W.getElementById("row3cell03").style.backgroundColor = this.initialConfiguration[26]
-                    W.getElementById("row3cell04").style.backgroundColor = this.initialConfiguration[27]
-                    W.getElementById("row3cell05").style.backgroundColor = this.initialConfiguration[28]
-                    W.getElementById("row3cell06").style.backgroundColor = this.initialConfiguration[29]
-                    W.getElementById("row3cell07").style.backgroundColor = this.initialConfiguration[30]
-                    W.getElementById("row3cell08").style.backgroundColor = this.initialConfiguration[31]
-                    W.getElementById("row3cell09").style.backgroundColor = this.initialConfiguration[32]
-                    W.getElementById("row3cell10").style.backgroundColor = this.initialConfiguration[33]
-                    W.getElementById("row3cell11").style.backgroundColor = this.initialConfiguration[34]
-                    W.getElementById("row3cell12").style.backgroundColor = this.initialConfiguration[35]
+                    W.getElementById("row3cell01").style.backgroundColor = this.currentConfiguration[24]
+                    W.getElementById("row3cell02").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("row3cell03").style.backgroundColor = this.currentConfiguration[26]
+                    W.getElementById("row3cell04").style.backgroundColor = this.currentConfiguration[27]
+                    W.getElementById("row3cell05").style.backgroundColor = this.currentConfiguration[28]
+                    W.getElementById("row3cell06").style.backgroundColor = this.currentConfiguration[29]
+                    W.getElementById("row3cell07").style.backgroundColor = this.currentConfiguration[30]
+                    W.getElementById("row3cell08").style.backgroundColor = this.currentConfiguration[31]
+                    W.getElementById("row3cell09").style.backgroundColor = this.currentConfiguration[32]
+                    W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
+                    W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
+                    W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
                     
                     var that;//force proceed when clue is sent from other player
                     if (this.clueReceived !== null) node.done();
@@ -690,389 +689,37 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     var choiceString = moveInfo.substr(moveInfo.length - 24); 
                     var moveChoice = choiceString.split(" to ");
                     // now moveChoice contains "row1cell01" and "row2cell02"
+                    
                     var moveChoice_from = moveChoice[0];
 
-                    //var moveFrom = moveChoice_from[0]//this.positions[moveChoice_from[0]]
                     var moveTo = moveChoice[1]//this.positions[moveChoice[1]]
 
-                    W.setInnerHTML('cluepast', moveChoice_from + " to " + moveTo);
-                    //W.setInnerHTML('cluepast', moveFrom + " to " + moveTo);
+                    var row_from = Number(moveChoice_from.charAt(3)) // rowX
+                    var cell_from = Number(moveChoice_from.substr(moveChoice_from.length - 2))// rowXcellXY
+                    
 
-                        // var roomFrom = moveFrom.charAt(0)
-                        // var positionFrom = moveFrom.charAt(1)
+                    var row_to= Number(moveTo.charAt(3)) // rowX
+                    var cell_to = Number(moveTo.substr(moveTo.length - 2))// rowXcellXY
 
-                        // var roomTo = moveTo.charAt(0)
-                        // var positionTo = moveTo.charAt(1)
+                    W.setInnerHTML('cluepast', "row " + row_from  + " cell " + cell_from+  " to row " + row_to+ " cell "+ cell_to);
 
-                        // // change color of roomFrom
+                    // once we have the row/cell to/from, we change the current configuration of those specific cell
+                    
+                    // for each row increment, there is a +12 in index
+                    // for each cell increment, there is +1 in index
+                    // row1cell01 = (row-1)*12 + (cell-1) =  0 + 0
+                    // row2cell01 = (2-1)*12 + (cell -1 ) =  12 + 0
+                    // row3cell4 = (3-1)*12 + (4-1) = 24 + 3 = 27
+  
 
-                        // var movedIndex = 26 // set default value
+                    var moveFromID = (row_from-1)*12 + (cell_from-1)
+                    var moveToID = (row_to-1)*12 + (cell_to-1)
 
-                        // if(roomFrom.includes('A')){ // room A
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from first column
-                        //         // so indices 0, 12, 24
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[0] == "white"){
-                        //             if(this.currentConfiguration[12] == "white"){
-                        //                 //  change block at index 24 to white, i.e., move it
-                        //                 this.currentConfiguration[24] = "white"
-                        //                 movedIndex = 24
-                        //             }
-                        //             else{ // if position 12 is nonwhite
-                        //                 //  change block at index 12 to white, i.e., move it
-                        //                 this.currentConfiguration[12] = "white"
-                        //                 movedIndex = 12
-                        //             }
-                        //         }
-                        //         else{ // if position 0 is nonwhite
-                        //             this.currentConfiguration[0] = "white"
-                        //             movedIndex = 0
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from second column
-                        //         // so indices 1, 13, 25
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[1] == "white"){
-                        //             if(this.currentConfiguration[13] == "white"){
-                        //                 //  change block at index 25 to white, i.e., move it
-                        //                 this.currentConfiguration[25] = "white"
-                        //                 movedIndex = 25
-                        //             }
-                        //             else{ // if position 13 is nonwhite
-                        //                 //  change block at index 13 to white, i.e., move it
-                        //                 this.currentConfiguration[13] = "white"
-                        //                 movedIndex = 13
-                        //             }
-                        //         }
-                        //         else{ // if position 1 is nonwhite
-                        //             this.currentConfiguration[1] = "white"
-                        //             movedIndex = 1
-                        //         }
-
-                        //     }
-                        //     else {
-                        //         // need to change color from second column
-                        //         // so indices 2, 14, 26
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[2] == "white"){
-                        //             if(this.currentConfiguration[14] == "white"){
-                        //                 //  change block at index 26 to white, i.e., move it
-                        //                 this.currentConfiguration[26] = "white"
-                        //                 movedIndex = 26
-                        //             }
-                        //             else{ // if position 14 is nonwhite
-                        //                 //  change block at index 14 to white, i.e., move it
-                        //                 this.currentConfiguration[14] = "white"
-                        //                 movedIndex = 14
-
-                        //             }
-                        //         }
-                        //         else{ // if position 2 is nonwhite
-                        //             this.currentConfiguration[2] = "white"
-                        //             movedIndex = 2
-                        //         } 
-                        //     }
-
-                        // }
-                        // else if(roomFrom.includes('B')){
-
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from fifth column
-                        //         // so indices 4, 16, 28
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[4] == "white"){
-                        //             if(this.currentConfiguration[16] == "white"){
-                        //                 //  change block at index 28 to white, i.e., move it
-                        //                 this.currentConfiguration[28] = "white"
-                        //                 movedIndex = 28
-                        //             }
-                        //             else{ // if position 16 is nonwhite
-                        //                 //  change block at index 16 to white, i.e., move it
-                        //                 this.currentConfiguration[16] = "white"
-                        //                 movedIndex = 16
-                        //             }
-                        //         }
-                        //         else{ // if position 4 is nonwhite
-                        //             this.currentConfiguration[4] = "white"
-                        //             movedIndex = 4
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from sixth column
-                        //         // so indices 5, 17, 29
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[5] == "white"){
-                        //             if(this.currentConfiguration[17] == "white"){
-                        //                 //  change block at index 29 to white, i.e., move it
-                        //                 this.currentConfiguration[29] = "white"
-                        //                 movedIndex = 29
-                        //             }
-                        //             else{ // if position 17 is nonwhite
-                        //                 //  change block at index 17 to white, i.e., move it
-                        //                 this.currentConfiguration[17] = "white"
-                        //                 movedIndex = 17
-                        //             }
-                        //         }
-                        //         else{ // if position 5 is nonwhite
-                        //             this.currentConfiguration[5] = "white"
-                        //             movedIndex = 5
-                        //         }
-
-                        //     }
-                        //     else { //b3
-                        //         // need to change color from second column
-                        //         // so indices 6, 18, 30
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[6] == "white"){
-                        //             if(this.currentConfiguration[18] == "white"){
-                        //                 //  change block at index 30 to white, i.e., move it
-                        //                 this.currentConfiguration[30] = "white"
-                        //                 movedIndex = 30
-                        //             }
-                        //             else{ // if position 18 is nonwhite
-                        //                 //  change block at index 18 to white, i.e., move it
-                        //                 this.currentConfiguration[18] = "white"
-                        //                 movedIndex = 18
-
-                        //             }
-                        //         }
-                        //         else{ // if position 6 is nonwhite
-                        //             this.currentConfiguration[6] = "white"
-                        //             movedIndex = 6
-                        //         } 
-                        //     }
-
-
-                        // }
-
-                        // else{ //room C
-
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from fifth column
-                        //         // so indices 8, 20, 32
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[8] == "white"){
-                        //             if(this.currentConfiguration[20] == "white"){
-                        //                 //  change block at index 32 to white, i.e., move it
-                        //                 this.currentConfiguration[32] = "white"
-                        //                 movedIndex = 32
-                        //             }
-                        //             else{ // if position 20 is nonwhite
-                        //                 //  change block at index 20 to white, i.e., move it
-                        //                 this.currentConfiguration[20] = "white"
-                        //                 movedIndex = 20
-                        //             }
-                        //         }
-                        //         else{ // if position 8 is nonwhite
-                        //             this.currentConfiguration[8] = "white"
-                        //             movedIndex = 8
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from sixth column
-                        //         // so indices 9, 21, 33
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[9] == "white"){
-                        //             if(this.currentConfiguration[21] == "white"){
-                        //                 //  change block at index 33 to white, i.e., move it
-                        //                 this.currentConfiguration[33] = "white"
-                        //                 movedIndex = 33
-                        //             }
-                        //             else{ // if position 21 is nonwhite
-                        //                 //  change block at index 21 to white, i.e., move it
-                        //                 this.currentConfiguration[21] = "white"
-                        //                 movedIndex = 21
-                        //             }
-                        //         }
-                        //         else{ // if position 9 is nonwhite
-                        //             this.currentConfiguration[9] = "white"
-                        //             movedIndex = 9
-                        //         }
-
-                        //     }
-                        //     else {
-                        //         // need to change color from second column
-                        //         // so indices 10, 22, 34
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[10] == "white"){
-                        //             if(this.currentConfiguration[22] == "white"){
-                        //                 //  change block at index 34 to white, i.e., move it
-                        //                 this.currentConfiguration[34] = "white"
-                        //                 movedIndex = 34
-                        //             }
-                        //             else{ // if position 22 is nonwhite
-                        //                 //  change block at index 22 to white, i.e., move it
-                        //                 this.currentConfiguration[22] = "white"
-                        //                 movedIndex = 22
-
-                        //             }
-                        //         }
-                        //         else{ // if position 10 is nonwhite
-                        //             this.currentConfiguration[10] = "white"
-                        //             movedIndex = 10
-                        //         } 
-                        //     }
-
-                        // }
-
-                        // // also change color of roomTo
-
-                        // // roomTo's color depends on whatever roomFrom's color was
-                        // // specifically whatever "index" roomFrom contains
-                        // // and the location is the lowest white cell in that column
-
-                        // if(roomTo.includes('A')){ // room A
-                        //     if (positionTo.includes('1')){ // A1
-                        //         // need to change color from first column
-                        //         // so indices 0, 12, 24
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[24] == "white"){
-                        //             this.currentConfiguration[24] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[12] == "white"){
-                        //             this.currentConfiguration[12] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 0 is white
-                        //             this.currentConfiguration[0] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //A2
-                        //         // need to change color from second column
-                        //         // so indices 1, 13, 25
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[25] == "white"){
-                        //             this.currentConfiguration[25] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[13] == "white"){
-                        //             this.currentConfiguration[13] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[1] = this.initialConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // A3
-                        //         // need to change color from third column
-                        //         // so indices 2, 14, 26
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[26] == "white"){
-                        //             this.currentConfiguration[26] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[14] == "white"){
-                        //             this.currentConfiguration[14] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[2] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-
-                        // }
-                        // else if(roomTo.includes('B')){
-
-                        //     if (positionTo.includes('1')){ // B1
-                        //         // need to change color from first column
-                        //         // so indices 4, 16, 28
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[28] == "white"){
-                        //             this.currentConfiguration[28] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[16] == "white"){
-                        //             this.currentConfiguration[16] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 0 is white
-                        //             this.currentConfiguration[4] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //A2
-                        //         // need to change color from second column
-                        //         // so indices 5, 17, 29
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[29] == "white"){
-                        //             this.currentConfiguration[29] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[17] == "white"){
-                        //             this.currentConfiguration[17] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[5] = this.initialConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // A3
-                        //         // need to change color from third column
-                        //         // so indices 6, 18, 30
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[30] == "white"){
-                        //             this.currentConfiguration[30] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[18] == "white"){
-                        //             this.currentConfiguration[18] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[6] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        // }
-
-                        // else{ //room C
-
-                        //     if (positionTo.includes('1')){ // C1
-                        //         // need to change color from first column
-                        //         // so indices 8, 20, 32
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[32] == "white"){
-                        //             this.currentConfiguration[32] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[20] == "white"){
-                        //             this.currentConfiguration[20] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 8 is white
-                        //             this.currentConfiguration[8] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //C2
-                        //         // need to change color from second column
-                        //         // so indices 9, 21, 33
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[33] == "white"){
-                        //             this.currentConfiguration[33] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[21] == "white"){
-                        //             this.currentConfiguration[21] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[9] = this.initialConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // C3
-                        //         // need to change color from third column
-                        //         // so indices 10, 22, 34
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[34] == "white"){
-                        //             this.currentConfiguration[34] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[22] == "white"){
-                        //             this.currentConfiguration[22] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[10] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-
-                        // }
-
+                  //moveToID becomes the color of moveFromID
+                    this.currentConfiguration[moveToID] = this.currentConfiguration[moveFromID]
+                    // and moveFromID becomes white
+                    this.currentConfiguration[moveFromID] = "white"
+                
                         // having made changes to currentConfiguration, now make the table
 
                         W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
@@ -1159,386 +806,33 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     // now moveChoice contains "row1cell01" and "row2cell02"
                     var moveChoice_from = moveChoice[0];
 
-                    //var moveFrom = moveChoice_from[0]//this.positions[moveChoice_from[0]]
                     var moveTo = moveChoice[1]//this.positions[moveChoice[1]]
 
-                    W.setInnerHTML('cluepast', moveChoice_from + " to " + moveTo);
+                    var row_from = Number(moveChoice_from.charAt(3)) // rowX
+                    var cell_from = Number(moveChoice_from.substr(moveChoice_from.length - 2))// rowXcellXY
+                    
 
-                        // // if they selected a move, then change the display accordingly
+                    var row_to= Number(moveTo.charAt(3)) // rowX
+                    var cell_to = Number(moveTo.substr(moveTo.length - 2))// rowXcellXY
 
-                        // // find the room and positions
+                    W.setInnerHTML('cluepast', "row " + row_from  + " cell " + cell_from+  " to row " + row_to+ " cell "+ cell_to);
 
-                        // var roomFrom = moveFrom.charAt(0)
-                        // var positionFrom = moveFrom.charAt(1)
+                    // once we have the row/cell to/from, we change the current configuration of those specific cell
+                    
+                    // for each row increment, there is a +12 in index
+                    // for each cell increment, there is +1 in index
+                    // row1cell01 = (row-1)*12 + (cell-1) =  0 + 0
+                    // row2cell01 = (2-1)*12 + (cell -1 ) =  12 + 0
+                    // row3cell4 = (3-1)*12 + (4-1) = 24 + 3 = 27
+  
 
-                        // var roomTo = moveTo.charAt(0)
-                        // var positionTo = moveTo.charAt(1)
+                    var moveFromID = (row_from-1)*12 + (cell_from-1)
+                    var moveToID = (row_to-1)*12 + (cell_to-1)
 
-                        // // change color of roomFrom
-
-                        // var movedIndex = 26 // set default value
-
-                        // if(roomFrom.includes('A')){ // room A
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from first column
-                        //         // so indices 0, 12, 24
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[0] == "white"){
-                        //             if(this.currentConfiguration[12] == "white"){
-                        //                 //  change block at index 24 to white, i.e., move it
-                        //                 this.currentConfiguration[24] = "white"
-                        //                 movedIndex = 24
-                        //             }
-                        //             else{ // if position 12 is nonwhite
-                        //                 //  change block at index 12 to white, i.e., move it
-                        //                 this.currentConfiguration[12] = "white"
-                        //                 movedIndex = 12
-                        //             }
-                        //         }
-                        //         else{ // if position 0 is nonwhite
-                        //             this.currentConfiguration[0] = "white"
-                        //             movedIndex = 0
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from second column
-                        //         // so indices 1, 13, 25
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[1] == "white"){
-                        //             if(this.currentConfiguration[13] == "white"){
-                        //                 //  change block at index 25 to white, i.e., move it
-                        //                 this.currentConfiguration[25] = "white"
-                        //                 movedIndex = 25
-                        //             }
-                        //             else{ // if position 13 is nonwhite
-                        //                 //  change block at index 13 to white, i.e., move it
-                        //                 this.currentConfiguration[13] = "white"
-                        //                 movedIndex = 13
-                        //             }
-                        //         }
-                        //         else{ // if position 1 is nonwhite
-                        //             this.currentConfiguration[1] = "white"
-                        //             movedIndex = 1
-                        //         }
-
-                        //     }
-                        //     else {
-                        //         // need to change color from second column
-                        //         // so indices 2, 14, 26
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[2] == "white"){
-                        //             if(this.currentConfiguration[14] == "white"){
-                        //                 //  change block at index 26 to white, i.e., move it
-                        //                 this.currentConfiguration[26] = "white"
-                        //                 movedIndex = 26
-                        //             }
-                        //             else{ // if position 14 is nonwhite
-                        //                 //  change block at index 14 to white, i.e., move it
-                        //                 this.currentConfiguration[14] = "white"
-                        //                 movedIndex = 14
-
-                        //             }
-                        //         }
-                        //         else{ // if position 2 is nonwhite
-                        //             this.currentConfiguration[2] = "white"
-                        //             movedIndex = 2
-                        //         } 
-                        //     }
-
-                        // }
-                        // else if(roomFrom.includes('B')){ //room B
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from fifth column
-                        //         // so indices 4, 16, 28
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[4] == "white"){
-                        //             if(this.currentConfiguration[16] == "white"){
-                        //                 //  change block at index 28 to white, i.e., move it
-                        //                 this.currentConfiguration[28] = "white"
-                        //                 movedIndex = 28
-                        //             }
-                        //             else{ // if position 16 is nonwhite
-                        //                 //  change block at index 16 to white, i.e., move it
-                        //                 this.currentConfiguration[16] = "white"
-                        //                 movedIndex = 16
-                        //             }
-                        //         }
-                        //         else{ // if position 4 is nonwhite
-                        //             this.currentConfiguration[4] = "white"
-                        //             movedIndex = 4
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from sixth column
-                        //         // so indices 5, 17, 29
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[5] == "white"){
-                        //             if(this.currentConfiguration[17] == "white"){
-                        //                 //  change block at index 29 to white, i.e., move it
-                        //                 this.currentConfiguration[29] = "white"
-                        //                 movedIndex = 29
-                        //             }
-                        //             else{ // if position 17 is nonwhite
-                        //                 //  change block at index 17 to white, i.e., move it
-                        //                 this.currentConfiguration[17] = "white"
-                        //                 movedIndex = 17
-                        //             }
-                        //         }
-                        //         else{ // if position 5 is nonwhite
-                        //             this.currentConfiguration[5] = "white"
-                        //             movedIndex = 5
-                        //         }
-
-                        //     }
-                        //     else {
-                        //         // need to change color from second column
-                        //         // so indices 6, 18, 30
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[6] == "white"){
-                        //             if(this.currentConfiguration[18] == "white"){
-                        //                 //  change block at index 30 to white, i.e., move it
-                        //                 this.currentConfiguration[30] = "white"
-                        //                 movedIndex = 30
-                        //             }
-                        //             else{ // if position 18 is nonwhite
-                        //                 //  change block at index 18 to white, i.e., move it
-                        //                 this.currentConfiguration[18] = "white"
-                        //                 movedIndex = 18
-
-                        //             }
-                        //         }
-                        //         else{ // if position 6 is nonwhite
-                        //             this.currentConfiguration[6] = "white"
-                        //             movedIndex = 6
-                        //         } 
-                        //     }
-                        // }
-
-                        // else{ //room C
-
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from fifth column
-                        //         // so indices 8, 20, 32
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[8] == "white"){
-                        //             if(this.currentConfiguration[20] == "white"){
-                        //                 //  change block at index 32 to white, i.e., move it
-                        //                 this.currentConfiguration[32] = "white"
-                        //                 movedIndex = 32
-                        //             }
-                        //             else{ // if position 20 is nonwhite
-                        //                 //  change block at index 20 to white, i.e., move it
-                        //                 this.currentConfiguration[20] = "white"
-                        //                 movedIndex = 20
-                        //             }
-                        //         }
-                        //         else{ // if position 8 is nonwhite
-                        //             this.currentConfiguration[8] = "white"
-                        //             movedIndex = 8
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from sixth column
-                        //         // so indices 9, 21, 33
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[9] == "white"){
-                        //             if(this.currentConfiguration[21] == "white"){
-                        //                 //  change block at index 33 to white, i.e., move it
-                        //                 this.currentConfiguration[33] = "white"
-                        //                 movedIndex = 33
-                        //             }
-                        //             else{ // if position 21 is nonwhite
-                        //                 //  change block at index 21 to white, i.e., move it
-                        //                 this.currentConfiguration[21] = "white"
-                        //                 movedIndex = 21
-                        //             }
-                        //         }
-                        //         else{ // if position 9 is nonwhite
-                        //             this.currentConfiguration[9] = "white"
-                        //             movedIndex = 9
-                        //         }
-
-                        //     }
-                        //     else {
-                        //         // need to change color from second column
-                        //         // so indices 10, 22, 34
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[10] == "white"){
-                        //             if(this.currentConfiguration[22] == "white"){
-                        //                 //  change block at index 34 to white, i.e., move it
-                        //                 this.currentConfiguration[34] = "white"
-                        //                 movedIndex = 34
-                        //             }
-                        //             else{ // if position 22 is nonwhite
-                        //                 //  change block at index 22 to white, i.e., move it
-                        //                 this.currentConfiguration[22] = "white"
-                        //                 movedIndex = 22
-
-                        //             }
-                        //         }
-                        //         else{ // if position 10 is nonwhite
-                        //             this.currentConfiguration[10] = "white"
-                        //             movedIndex = 10
-                        //         } 
-                        //     }
-
-                        // }
-
-                        // // also change color of roomTo
-
-                        // // roomTo's color depends on whatever roomFrom's color was
-                        // // specifically whatever "index" roomFrom contains
-                        // // and the location is the lowest white cell in that column
-
-                        // if(roomTo.includes('A')){ // room A
-                        //     if (positionTo.includes('1')){ // A1
-                        //         // need to change color from first column
-                        //         // so indices 0, 12, 24
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[24] == "white"){
-                        //             this.currentConfiguration[24] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[12] == "white"){
-                        //             this.currentConfiguration[12] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 0 is white
-                        //             this.currentConfiguration[0] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //A2
-                        //         // need to change color from second column
-                        //         // so indices 1, 13, 25
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[25] == "white"){
-                        //             this.currentConfiguration[25] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[13] == "white"){
-                        //             this.currentConfiguration[13] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[1] = this.initialConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // A3
-                        //         // need to change color from third column
-                        //         // so indices 2, 14, 26
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[26] == "white"){
-                        //             this.currentConfiguration[26] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[14] == "white"){
-                        //             this.currentConfiguration[14] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[2] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-
-                        // }
-                        // else if(roomTo.includes('B')){
-
-                        //     if (positionTo.includes('1')){ // B1
-                        //         // need to change color from first column
-                        //         // so indices 4, 16, 28
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[28] == "white"){
-                        //             this.currentConfiguration[28] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[16] == "white"){
-                        //             this.currentConfiguration[16] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 0 is white
-                        //             this.currentConfiguration[4] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //B2
-                        //         // need to change color from second column
-                        //         // so indices 5, 17, 29
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[29] == "white"){
-                        //             this.currentConfiguration[29] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[17] == "white"){
-                        //             this.currentConfiguration[17] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[5] = this.initialConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // B3
-                        //         // need to change color from third column
-                        //         // so indices 6, 18, 30
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[30] == "white"){
-                        //             this.currentConfiguration[30] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[18] == "white"){
-                        //             this.currentConfiguration[18] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[6] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        // }
-
-                        // else{ //room C
-
-                        //     if (positionTo.includes('1')){ // C1
-                        //         // need to change color from first column
-                        //         // so indices 8, 20, 32
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[32] == "white"){
-                        //             this.currentConfiguration[32] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[20] == "white"){
-                        //             this.currentConfiguration[20] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 8 is white
-                        //             this.currentConfiguration[8] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //C2
-                        //         // need to change color from second column
-                        //         // so indices 9, 21, 33
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[33] == "white"){
-                        //             this.currentConfiguration[33] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[21] == "white"){
-                        //             this.currentConfiguration[21] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[9] = this.initialConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // C3
-                        //         // need to change color from third column
-                        //         // so indices 10, 22, 34
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[34] == "white"){
-                        //             this.currentConfiguration[34] = this.initialConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[22] == "white"){
-                        //             this.currentConfiguration[22] = this.initialConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[10] = this.initialConfiguration[movedIndex]
-                        //         } 
-                        //     }
-
-                        // }
+                  //moveToID becomes the color of moveFromID
+                    this.currentConfiguration[moveToID] = this.currentConfiguration[moveFromID]
+                    // and moveFromID becomes white
+                    this.currentConfiguration[moveFromID] = "white"
 
                         // having made changes to currentConfiguration, now make the table
 
@@ -1936,392 +1230,35 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     // now moveChoice contains "row1cell01" and "row2cell02"
                     var moveChoice_from = moveChoice[0];
 
-                    //var moveFrom = moveChoice_from[0]//this.positions[moveChoice_from[0]]
                     var moveTo = moveChoice[1]//this.positions[moveChoice[1]]
 
-                    W.setInnerHTML('cluepast', moveChoice_from + " to " + moveTo);
+                    var row_from = Number(moveChoice_from.charAt(3)) // rowX
+                    var cell_from = Number(moveChoice_from.substr(moveChoice_from.length - 2))// rowXcellXY
+                    
 
-                        // // after reporting, display the changed board to helper
+                    var row_to= Number(moveTo.charAt(3)) // rowX
+                    var cell_to = Number(moveTo.substr(moveTo.length - 2))// rowXcellXY
 
-                        // // find the room and positions
+                    W.setInnerHTML('cluepast', "row " + row_from  + " cell " + cell_from+  " to row " + row_to+ " cell "+ cell_to);
 
-                        // var roomFrom = moveFrom.charAt(0)
-                        // var positionFrom = moveFrom.charAt(1)
+                    // once we have the row/cell to/from, we change the current configuration of those specific cell
+                    
+                    // for each row increment, there is a +12 in index
+                    // for each cell increment, there is +1 in index
+                    // row1cell01 = (row-1)*12 + (cell-1) =  0 + 0
+                    // row2cell01 = (2-1)*12 + (cell -1 ) =  12 + 0
+                    // row3cell4 = (3-1)*12 + (4-1) = 24 + 3 = 27
+  
 
-                        // var roomTo = moveTo.charAt(0)
-                        // var positionTo = moveTo.charAt(1)
+                    var moveFromID = (row_from-1)*12 + (cell_from-1)
+                    var moveToID = (row_to-1)*12 + (cell_to-1)
 
-                        // // change color of roomFrom
-
-                        // var movedIndex = 26 // set default value
-
-                        // // here we need to first make a disconnected copy of the last configuration
-                        // // so we can use it for roomTo
+                  //moveToID becomes the color of moveFromID
+                    this.currentConfiguration[moveToID] = this.currentConfiguration[moveFromID]
+                    // and moveFromID becomes white
+                    this.currentConfiguration[moveFromID] = "white"
 
                         
-
-                        // if(roomFrom.includes('A')){ // room A
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from first column
-                        //         // so indices 0, 12, 24
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[0] == "white"){
-                        //             if(this.currentConfiguration[12] == "white"){
-                        //                 //  change block at index 24 to white, i.e., move it
-                        //                 this.currentConfiguration[24] = "white"
-                        //                 movedIndex = 24
-                        //             }
-                        //             else{ // if position 12 is nonwhite
-                        //                 //  change block at index 12 to white, i.e., move it
-                        //                 this.currentConfiguration[12] = "white"
-                        //                 movedIndex = 12
-                        //             }
-                        //         }
-                        //         else{ // if position 0 is nonwhite
-                        //             this.currentConfiguration[0] = "white"
-                        //             movedIndex = 0
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from second column
-                        //         // so indices 1, 13, 25
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[1] == "white"){
-                        //             if(this.currentConfiguration[13] == "white"){
-                        //                 //  change block at index 25 to white, i.e., move it
-                        //                 this.currentConfiguration[25] = "white"
-                        //                 movedIndex = 25
-                        //             }
-                        //             else{ // if position 13 is nonwhite
-                        //                 //  change block at index 13 to white, i.e., move it
-                        //                 this.currentConfiguration[13] = "white"
-                        //                 movedIndex = 13
-                        //             }
-                        //         }
-                        //         else{ // if position 1 is nonwhite
-                        //             this.currentConfiguration[1] = "white"
-                        //             movedIndex = 1
-                        //         }
-
-                        //     }
-                        //     else {
-                        //         // need to change color from second column
-                        //         // so indices 2, 14, 26
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[2] == "white"){
-                        //             if(this.currentConfiguration[14] == "white"){
-                        //                 //  change block at index 26 to white, i.e., move it
-                        //                 this.currentConfiguration[26] = "white"
-                        //                 movedIndex = 26
-                        //             }
-                        //             else{ // if position 14 is nonwhite
-                        //                 //  change block at index 14 to white, i.e., move it
-                        //                 this.currentConfiguration[14] = "white"
-                        //                 movedIndex = 14
-
-                        //             }
-                        //         }
-                        //         else{ // if position 2 is nonwhite
-                        //             this.currentConfiguration[2] = "white"
-                        //             movedIndex = 2
-                        //         } 
-                        //     }
-
-                        // }
-                        // else if(roomFrom.includes('B')){ //room B
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from fifth column
-                        //         // so indices 4, 16, 28
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[4] == "white"){
-                        //             if(this.currentConfiguration[16] == "white"){
-                        //                 //  change block at index 28 to white, i.e., move it
-                        //                 this.currentConfiguration[28] = "white"
-                        //                 movedIndex = 28
-                        //             }
-                        //             else{ // if position 16 is nonwhite
-                        //                 //  change block at index 16 to white, i.e., move it
-                        //                 this.currentConfiguration[16] = "white"
-                        //                 movedIndex = 16
-                        //             }
-                        //         }
-                        //         else{ // if position 4 is nonwhite
-                        //             this.currentConfiguration[4] = "white"
-                        //             movedIndex = 4
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from sixth column
-                        //         // so indices 5, 17, 29
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[5] == "white"){
-                        //             if(this.currentConfiguration[17] == "white"){
-                        //                 //  change block at index 29 to white, i.e., move it
-                        //                 this.currentConfiguration[29] = "white"
-                        //                 movedIndex = 29
-                        //             }
-                        //             else{ // if position 17 is nonwhite
-                        //                 //  change block at index 17 to white, i.e., move it
-                        //                 this.currentConfiguration[17] = "white"
-                        //                 movedIndex = 17
-                        //             }
-                        //         }
-                        //         else{ // if position 5 is nonwhite
-                        //             this.currentConfiguration[5] = "white"
-                        //             movedIndex = 5
-                        //         }
-
-                        //     }
-                        //     else {
-                        //         // need to change color from second column
-                        //         // so indices 6, 18, 30
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[6] == "white"){
-                        //             if(this.currentConfiguration[18] == "white"){
-                        //                 //  change block at index 30 to white, i.e., move it
-                        //                 this.currentConfiguration[30] = "white"
-                        //                 movedIndex = 30
-                        //             }
-                        //             else{ // if position 18 is nonwhite
-                        //                 //  change block at index 18 to white, i.e., move it
-                        //                 this.currentConfiguration[18] = "white"
-                        //                 movedIndex = 18
-
-                        //             }
-                        //         }
-                        //         else{ // if position 6 is nonwhite
-                        //             this.currentConfiguration[6] = "white"
-                        //             movedIndex = 6
-                        //         } 
-                        //     }
-                        // }
-
-                        // else{ //room C
-
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from fifth column
-                        //         // so indices 8, 20, 32
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[8] == "white"){
-                        //             if(this.currentConfiguration[20] == "white"){
-                        //                 //  change block at index 32 to white, i.e., move it
-                        //                 this.currentConfiguration[32] = "white"
-                        //                 movedIndex = 32
-                        //             }
-                        //             else{ // if position 20 is nonwhite
-                        //                 //  change block at index 20 to white, i.e., move it
-                        //                 this.currentConfiguration[20] = "white"
-                        //                 movedIndex = 20
-                        //             }
-                        //         }
-                        //         else{ // if position 8 is nonwhite
-                        //             this.currentConfiguration[8] = "white"
-                        //             movedIndex = 8
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from sixth column
-                        //         // so indices 9, 21, 33
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[9] == "white"){
-                        //             if(this.currentConfiguration[21] == "white"){
-                        //                 //  change block at index 33 to white, i.e., move it
-                        //                 this.currentConfiguration[33] = "white"
-                        //                 movedIndex = 33
-                        //             }
-                        //             else{ // if position 21 is nonwhite
-                        //                 //  change block at index 21 to white, i.e., move it
-                        //                 this.currentConfiguration[21] = "white"
-                        //                 movedIndex = 21
-                        //             }
-                        //         }
-                        //         else{ // if position 9 is nonwhite
-                        //             this.currentConfiguration[9] = "white"
-                        //             movedIndex = 9
-                        //         }
-
-                        //     }
-                        //     else {
-                        //         // need to change color from second column
-                        //         // so indices 10, 22, 34
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[10] == "white"){
-                        //             if(this.currentConfiguration[22] == "white"){
-                        //                 //  change block at index 34 to white, i.e., move it
-                        //                 this.currentConfiguration[34] = "white"
-                        //                 movedIndex = 34
-                        //             }
-                        //             else{ // if position 22 is nonwhite
-                        //                 //  change block at index 22 to white, i.e., move it
-                        //                 this.currentConfiguration[22] = "white"
-                        //                 movedIndex = 22
-
-                        //             }
-                        //         }
-                        //         else{ // if position 10 is nonwhite
-                        //             this.currentConfiguration[10] = "white"
-                        //             movedIndex = 10
-                        //         } 
-                        //     }
-
-                        // }
-
-                        // // also change color of roomTo
-
-                        // // roomTo's color depends on whatever roomFrom's color was
-                        // // specifically whatever "index" roomFrom contains
-                        // // and the location is the lowest white cell in that column
-
-                        // if(roomTo.includes('A')){ // room A
-                        //     if (positionTo.includes('1')){ // A1
-                        //         // need to change color from first column
-                        //         // so indices 0, 12, 24
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[24] == "white"){
-                        //             this.currentConfiguration[24] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[12] == "white"){
-                        //             this.currentConfiguration[12] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 0 is white
-                        //             this.currentConfiguration[0] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //A2
-                        //         // need to change color from second column
-                        //         // so indices 1, 13, 25
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[25] == "white"){
-                        //             this.currentConfiguration[25] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[13] == "white"){
-                        //             this.currentConfiguration[13] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[1] = this.lastConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // A3
-                        //         // need to change color from third column
-                        //         // so indices 2, 14, 26
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[26] == "white"){
-                        //             this.currentConfiguration[26] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[14] == "white"){
-                        //             this.currentConfiguration[14] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[2] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-
-                        // }
-                        // else if(roomTo.includes('B')){
-
-                        //     if (positionTo.includes('1')){ // B1
-                        //         // need to change color from first column
-                        //         // so indices 4, 16, 28
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[28] == "white"){
-                        //             this.currentConfiguration[28] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[16] == "white"){
-                        //             this.currentConfiguration[16] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 0 is white
-                        //             this.currentConfiguration[4] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //B2
-                        //         // need to change color from second column
-                        //         // so indices 5, 17, 29
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[29] == "white"){
-                        //             this.currentConfiguration[29] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[17] == "white"){
-                        //             this.currentConfiguration[17] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[5] = this.lastConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // B3
-                        //         // need to change color from third column
-                        //         // so indices 6, 18, 30
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[30] == "white"){
-                        //             this.currentConfiguration[30] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[18] == "white"){
-                        //             this.currentConfiguration[18] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[6] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        // }
-
-                        // else{ //room C
-
-                        //     if (positionTo.includes('1')){ // C1
-                        //         // need to change color from first column
-                        //         // so indices 8, 20, 32
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[32] == "white"){
-                        //             this.currentConfiguration[32] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[20] == "white"){
-                        //             this.currentConfiguration[20] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 8 is white
-                        //             this.currentConfiguration[8] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //C2
-                        //         // need to change color from second column
-                        //         // so indices 9, 21, 33
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[33] == "white"){
-                        //             this.currentConfiguration[33] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[21] == "white"){
-                        //             this.currentConfiguration[21] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[9] = this.lastConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // C3
-                        //         // need to change color from third column
-                        //         // so indices 10, 22, 34
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[34] == "white"){
-                        //             this.currentConfiguration[34] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[22] == "white"){
-                        //             this.currentConfiguration[22] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[10] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-
-                        // }
-
                         // having made changes to currentConfiguration, now make the table for helper
 
                         W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
@@ -2364,6 +1301,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
 
                         // now record the response of the Helper
+
+                        // they just click done 
 
 
                     // var el = W.getElementById("blocks");
@@ -2505,392 +1444,35 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     // now moveChoice contains "row1cell01" and "row2cell02"
                     var moveChoice_from = moveChoice[0];
 
-                    //var moveFrom = moveChoice_from[0]//this.positions[moveChoice_from[0]]
                     var moveTo = moveChoice[1]//this.positions[moveChoice[1]]
 
-                    W.setInnerHTML('cluepast', moveChoice_from + " to " + moveTo);
+                    var row_from = Number(moveChoice_from.charAt(3)) // rowX
+                    var cell_from = Number(moveChoice_from.substr(moveChoice_from.length - 2))// rowXcellXY
+                    
 
-                        // // after reporting, display the changed board to helper
+                    var row_to= Number(moveTo.charAt(3)) // rowX
+                    var cell_to = Number(moveTo.substr(moveTo.length - 2))// rowXcellXY
 
-                        // // find the room and positions
+                    W.setInnerHTML('cluepast', "row " + row_from  + " cell " + cell_from+  " to row " + row_to+ " cell "+ cell_to);
 
-                        // var roomFrom = moveFrom.charAt(0)
-                        // var positionFrom = moveFrom.charAt(1)
+                    // once we have the row/cell to/from, we change the current configuration of those specific cell
+                    
+                    // for each row increment, there is a +12 in index
+                    // for each cell increment, there is +1 in index
+                    // row1cell01 = (row-1)*12 + (cell-1) =  0 + 0
+                    // row2cell01 = (2-1)*12 + (cell -1 ) =  12 + 0
+                    // row3cell4 = (3-1)*12 + (4-1) = 24 + 3 = 27
+  
 
-                        // var roomTo = moveTo.charAt(0)
-                        // var positionTo = moveTo.charAt(1)
+                    var moveFromID = (row_from-1)*12 + (cell_from-1)
+                    var moveToID = (row_to-1)*12 + (cell_to-1)
 
-                        // // change color of roomFrom
-
-                        // var movedIndex = 26 // set default value
-
-                        // // here we need to first make a disconnected copy of the last configuration
-                        // // so we can use it for roomTo
+                  //moveToID becomes the color of moveFromID
+                    this.currentConfiguration[moveToID] = this.currentConfiguration[moveFromID]
+                    // and moveFromID becomes white
+                    this.currentConfiguration[moveFromID] = "white"
 
                         
-
-                        // if(roomFrom.includes('A')){ // room A
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from first column
-                        //         // so indices 0, 12, 24
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[0] == "white"){
-                        //             if(this.currentConfiguration[12] == "white"){
-                        //                 //  change block at index 24 to white, i.e., move it
-                        //                 this.currentConfiguration[24] = "white"
-                        //                 movedIndex = 24
-                        //             }
-                        //             else{ // if position 12 is nonwhite
-                        //                 //  change block at index 12 to white, i.e., move it
-                        //                 this.currentConfiguration[12] = "white"
-                        //                 movedIndex = 12
-                        //             }
-                        //         }
-                        //         else{ // if position 0 is nonwhite
-                        //             this.currentConfiguration[0] = "white"
-                        //             movedIndex = 0
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from second column
-                        //         // so indices 1, 13, 25
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[1] == "white"){
-                        //             if(this.currentConfiguration[13] == "white"){
-                        //                 //  change block at index 25 to white, i.e., move it
-                        //                 this.currentConfiguration[25] = "white"
-                        //                 movedIndex = 25
-                        //             }
-                        //             else{ // if position 13 is nonwhite
-                        //                 //  change block at index 13 to white, i.e., move it
-                        //                 this.currentConfiguration[13] = "white"
-                        //                 movedIndex = 13
-                        //             }
-                        //         }
-                        //         else{ // if position 1 is nonwhite
-                        //             this.currentConfiguration[1] = "white"
-                        //             movedIndex = 1
-                        //         }
-
-                        //     }
-                        //     else {
-                        //         // need to change color from second column
-                        //         // so indices 2, 14, 26
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[2] == "white"){
-                        //             if(this.currentConfiguration[14] == "white"){
-                        //                 //  change block at index 26 to white, i.e., move it
-                        //                 this.currentConfiguration[26] = "white"
-                        //                 movedIndex = 26
-                        //             }
-                        //             else{ // if position 14 is nonwhite
-                        //                 //  change block at index 14 to white, i.e., move it
-                        //                 this.currentConfiguration[14] = "white"
-                        //                 movedIndex = 14
-
-                        //             }
-                        //         }
-                        //         else{ // if position 2 is nonwhite
-                        //             this.currentConfiguration[2] = "white"
-                        //             movedIndex = 2
-                        //         } 
-                        //     }
-
-                        // }
-                        // else if(roomFrom.includes('B')){ //room B
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from fifth column
-                        //         // so indices 4, 16, 28
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[4] == "white"){
-                        //             if(this.currentConfiguration[16] == "white"){
-                        //                 //  change block at index 28 to white, i.e., move it
-                        //                 this.currentConfiguration[28] = "white"
-                        //                 movedIndex = 28
-                        //             }
-                        //             else{ // if position 16 is nonwhite
-                        //                 //  change block at index 16 to white, i.e., move it
-                        //                 this.currentConfiguration[16] = "white"
-                        //                 movedIndex = 16
-                        //             }
-                        //         }
-                        //         else{ // if position 4 is nonwhite
-                        //             this.currentConfiguration[4] = "white"
-                        //             movedIndex = 4
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from sixth column
-                        //         // so indices 5, 17, 29
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[5] == "white"){
-                        //             if(this.currentConfiguration[17] == "white"){
-                        //                 //  change block at index 29 to white, i.e., move it
-                        //                 this.currentConfiguration[29] = "white"
-                        //                 movedIndex = 29
-                        //             }
-                        //             else{ // if position 17 is nonwhite
-                        //                 //  change block at index 17 to white, i.e., move it
-                        //                 this.currentConfiguration[17] = "white"
-                        //                 movedIndex = 17
-                        //             }
-                        //         }
-                        //         else{ // if position 5 is nonwhite
-                        //             this.currentConfiguration[5] = "white"
-                        //             movedIndex = 5
-                        //         }
-
-                        //     }
-                        //     else {
-                        //         // need to change color from second column
-                        //         // so indices 6, 18, 30
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[6] == "white"){
-                        //             if(this.currentConfiguration[18] == "white"){
-                        //                 //  change block at index 30 to white, i.e., move it
-                        //                 this.currentConfiguration[30] = "white"
-                        //                 movedIndex = 30
-                        //             }
-                        //             else{ // if position 18 is nonwhite
-                        //                 //  change block at index 18 to white, i.e., move it
-                        //                 this.currentConfiguration[18] = "white"
-                        //                 movedIndex = 18
-
-                        //             }
-                        //         }
-                        //         else{ // if position 6 is nonwhite
-                        //             this.currentConfiguration[6] = "white"
-                        //             movedIndex = 6
-                        //         } 
-                        //     }
-                        // }
-
-                        // else{ //room C
-
-                        //     if (positionFrom.includes('1')){
-                        //         // need to change color from fifth column
-                        //         // so indices 8, 20, 32
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[8] == "white"){
-                        //             if(this.currentConfiguration[20] == "white"){
-                        //                 //  change block at index 32 to white, i.e., move it
-                        //                 this.currentConfiguration[32] = "white"
-                        //                 movedIndex = 32
-                        //             }
-                        //             else{ // if position 20 is nonwhite
-                        //                 //  change block at index 20 to white, i.e., move it
-                        //                 this.currentConfiguration[20] = "white"
-                        //                 movedIndex = 20
-                        //             }
-                        //         }
-                        //         else{ // if position 8 is nonwhite
-                        //             this.currentConfiguration[8] = "white"
-                        //             movedIndex = 8
-                        //         }
-                        //     }
-                        //     else if(positionFrom.includes('2')){
-                        //         // need to change color from sixth column
-                        //         // so indices 9, 21, 33
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[9] == "white"){
-                        //             if(this.currentConfiguration[21] == "white"){
-                        //                 //  change block at index 33 to white, i.e., move it
-                        //                 this.currentConfiguration[33] = "white"
-                        //                 movedIndex = 33
-                        //             }
-                        //             else{ // if position 21 is nonwhite
-                        //                 //  change block at index 21 to white, i.e., move it
-                        //                 this.currentConfiguration[21] = "white"
-                        //                 movedIndex = 21
-                        //             }
-                        //         }
-                        //         else{ // if position 9 is nonwhite
-                        //             this.currentConfiguration[9] = "white"
-                        //             movedIndex = 9
-                        //         }
-
-                        //     }
-                        //     else {
-                        //         // need to change color from second column
-                        //         // so indices 10, 22, 34
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[10] == "white"){
-                        //             if(this.currentConfiguration[22] == "white"){
-                        //                 //  change block at index 34 to white, i.e., move it
-                        //                 this.currentConfiguration[34] = "white"
-                        //                 movedIndex = 34
-                        //             }
-                        //             else{ // if position 22 is nonwhite
-                        //                 //  change block at index 22 to white, i.e., move it
-                        //                 this.currentConfiguration[22] = "white"
-                        //                 movedIndex = 22
-
-                        //             }
-                        //         }
-                        //         else{ // if position 10 is nonwhite
-                        //             this.currentConfiguration[10] = "white"
-                        //             movedIndex = 10
-                        //         } 
-                        //     }
-
-                        // }
-
-                        // // also change color of roomTo
-
-                        // // roomTo's color depends on whatever roomFrom's color was
-                        // // specifically whatever "index" roomFrom contains
-                        // // and the location is the lowest white cell in that column
-
-                        // if(roomTo.includes('A')){ // room A
-                        //     if (positionTo.includes('1')){ // A1
-                        //         // need to change color from first column
-                        //         // so indices 0, 12, 24
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[24] == "white"){
-                        //             this.currentConfiguration[24] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[12] == "white"){
-                        //             this.currentConfiguration[12] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 0 is white
-                        //             this.currentConfiguration[0] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //A2
-                        //         // need to change color from second column
-                        //         // so indices 1, 13, 25
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[25] == "white"){
-                        //             this.currentConfiguration[25] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[13] == "white"){
-                        //             this.currentConfiguration[13] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[1] = this.lastConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // A3
-                        //         // need to change color from third column
-                        //         // so indices 2, 14, 26
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[26] == "white"){
-                        //             this.currentConfiguration[26] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[14] == "white"){
-                        //             this.currentConfiguration[14] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[2] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-
-                        // }
-                        // else if(roomTo.includes('B')){
-
-                        //     if (positionTo.includes('1')){ // B1
-                        //         // need to change color from first column
-                        //         // so indices 4, 16, 28
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[28] == "white"){
-                        //             this.currentConfiguration[28] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[16] == "white"){
-                        //             this.currentConfiguration[16] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 0 is white
-                        //             this.currentConfiguration[4] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //B2
-                        //         // need to change color from second column
-                        //         // so indices 5, 17, 29
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[29] == "white"){
-                        //             this.currentConfiguration[29] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[17] == "white"){
-                        //             this.currentConfiguration[17] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[5] = this.lastConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // B3
-                        //         // need to change color from third column
-                        //         // so indices 6, 18, 30
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[30] == "white"){
-                        //             this.currentConfiguration[30] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[18] == "white"){
-                        //             this.currentConfiguration[18] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[6] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        // }
-
-                        // else{ //room C
-
-                        //     if (positionTo.includes('1')){ // C1
-                        //         // need to change color from first column
-                        //         // so indices 8, 20, 32
-                        //         // find the topmost index that is white:
-                        //         if(this.currentConfiguration[32] == "white"){
-                        //             this.currentConfiguration[32] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[20] == "white"){
-                        //             this.currentConfiguration[20] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 8 is white
-                        //             this.currentConfiguration[8] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-                        //     else if(positionTo.includes('2')){ //C2
-                        //         // need to change color from second column
-                        //         // so indices 9, 21, 33
-                        //         // find the topmost index that is non-white
-                        //         if(this.currentConfiguration[33] == "white"){
-                        //             this.currentConfiguration[33] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[21] == "white"){
-                        //             this.currentConfiguration[21] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 1 is white
-                        //             this.currentConfiguration[9] = this.lastConfiguration[movedIndex]
-                        //         } 
-
-                        //     }
-                        //     else { // C3
-                        //         // need to change color from third column
-                        //         // so indices 10, 22, 34
-                        //         // find the bottom-most index that is non-white
-                        //         if(this.currentConfiguration[34] == "white"){
-                        //             this.currentConfiguration[34] = this.lastConfiguration[movedIndex]
-                                    
-                        //         }
-                        //         else if(this.currentConfiguration[22] == "white"){
-                        //             this.currentConfiguration[22] = this.lastConfiguration[movedIndex]
-                        //         }
-                        //         else{ // if position 2 is white
-                        //             this.currentConfiguration[10] = this.lastConfiguration[movedIndex]
-                        //         } 
-                        //     }
-
-                        // }
-
                     W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
                     W.getElementById("row1cell02").style.backgroundColor = this.currentConfiguration[1]
                     W.getElementById("row1cell03").style.backgroundColor = this.currentConfiguration[2]
@@ -3017,15 +1599,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             }
         }
     });
-
-
-
-
-
-
-
-
-
 
     stager.extendStep('clueOptions', {
         role: function() { return this.role; },//This code is repeated to maintain roles throughout steps of experiment
