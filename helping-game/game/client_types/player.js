@@ -53,10 +53,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         this.positions = ["A1", "A2", "B1", "B2", "C1", "C2"]
         this.colors = ["red", "blue", "green", "white", "pink", "LightBlue", "LightGreen"] // possible colors: white is used when there is no "block"
+        this.shape = ["square", "circle"]
 
         this.yesno = ["yes", "no"]
 
         // set initial configuration of the 27 cells - 9 in each row. 12 colored and 15 white
+
+        // may need to have a separate config array for circles and squares?
 
         this.currentConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[3], // room A - top row
                                     this.colors[3],this.colors[3],this.colors[3], this.colors[3], // room B - top row
@@ -67,7 +70,19 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                                     this.colors[1],this.colors[4],this.colors[6], this.colors[3], // room A - bottom row
                                     this.colors[2],this.colors[0],this.colors[3],this.colors[5], // room B - bottom row
                                     this.colors[6],this.colors[1],this.colors[2],this.colors[0]] // room C - bottom row
+
+        // shape is square by default, and circular otherwise 
+        // logic is that if shape is "circle" then circle is updated and square is set to white or vice versa                        
         
+        this.currentShape = [this.shape[0],this.shape[0],this.shape[0],this.shape[0], // room A - top row
+                                    this.shape[0],this.shape[0],this.shape[0], this.shape[0], // room B - top row
+                                    this.shape[1],this.shape[0],this.shape[0],this.shape[0], // room C - top row
+                                    this.shape[0],this.shape[0],this.shape[0],this.shape[0], //room A - mid row
+                                    this.shape[1],this.shape[0],this.shape[0],this.shape[0], // room B - mid row
+                                    this.shape[1],this.shape[0],this.shape[1],this.shape[1], // room C - mid row
+                                    this.shape[0],this.shape[1],this.shape[1], this.shape[0], // room A - bottom row
+                                    this.shape[0],this.shape[0],this.shape[0],this.shape[1], // room B - bottom row
+                                    this.shape[0],this.shape[0],this.shape[0],this.shape[0]]                            
         // create a "current" array that is disconnected to the original configuration                            
         this.initialConfiguration = JSON.parse(JSON.stringify(this.currentConfiguration));                            
 
@@ -78,7 +93,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         this.verbalGoal = "Move all " + random_color + " blocks to room "+ random_room
 
-         this.goalConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[3], // room A - top row
+        this.goalConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[3], // room A - top row
                                     this.colors[3],this.colors[3],this.colors[3], this.colors[3], // room B - top row
                                     this.colors[5],this.colors[3],this.colors[3],this.colors[3], // room C - top row
                                     this.colors[2],this.colors[3],this.colors[3],this.colors[3], //room A - mid row
@@ -187,6 +202,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     
                     W.getElementById("row3cell01").style.backgroundColor = this.currentConfiguration[24]
                     W.getElementById("row3cell02").style.backgroundColor = this.currentConfiguration[25]
+                    //W.getElementById("circlerow3cell03").style.backgroundColor = this.currentConfiguration[25]
                     W.getElementById("row3cell03").style.backgroundColor = this.currentConfiguration[26]
                     W.getElementById("row3cell04").style.backgroundColor = this.currentConfiguration[27]
                     W.getElementById("row3cell05").style.backgroundColor = this.currentConfiguration[28]
@@ -203,20 +219,36 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var dropid = 0;
                 var total = 0;
                 var dragtarget = W.getElementById("blocks");
+                // not all items should be "draggable" in the table
+                // we could check for whether there is anything non-white above a particular index
                 dragtarget.addEventListener('dragstart', dragStart);
-                
-                var droptarget = W.getElementById("blocks"); // need to make this only some specific drag choices
-                // could try to filter for only "white" cells
 
-                
-                var filteredTableIndices = this.currentConfiguration.reduce(function(a, e, i) {
-                    if (e === 'white')
-                        a.push(i);
+                // code for modifying drag target
+
+                function reduceDragArray(indexArray, configArray) {
+                    var newArr = indexArray.reduce(function(a, e, i) {
+                    // only push if cell is non-white
+                    if(configArray[e] !=="white"){
+                        // if the index is not in the first row
+                    if (e > 11){
+                        // if the element on top is white, then it's draggable
+                        if(configArray[e-12] === "white"){a.push(e);}
+                    }
+                    else{a.push(e);}}    
                     return a;
-                }, []);
-                console.log("filtered table indices="+filteredTableIndices);
+                    }, []);
+                    return newArr
+                }
+                
+                var fulldragindices= Array(this.currentConfiguration.length).fill().map((x,i)=>i)
+                console.log("fulldragindices ="+fulldragindices);
+                var validDragargets = reduceDragArray(fulldragindices, this.currentConfiguration)
+                
+                console.log("validDragargets ="+validDragargets);
 
-                filteredTableIndices = filteredTableIndices.map(x => {
+                // convert to table cell IDs
+
+                var filteredDragTableIDs = validDragargets.map(x => {
                     if (x < 9){
                         return "row1" + "cell0"+ (x + 1) ;
                     }
@@ -234,45 +266,105 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     }
                 })
 
-                console.log("filtered table IDS="+filteredTableIndices);
-        
+                console.log("filteredDragTableIDs ="+filteredDragTableIDs);
+                
+                // code for modifying drop targets
+
+                var droptarget = W.getElementById("blocks"); 
+                // need to make this only some specific drag choices
+                // could try to filter for only "white" cells
+
+                var filtereddropIndices = this.currentConfiguration.reduce(function(a, e, i) {
+                    if (e === 'white')
+                        a.push(i);
+                    return a;
+                }, []);
+                console.log("filtered table indices="+filtereddropIndices);
+
+                // ultimately we want to further restrict this to only white cells that
+                // have something non-white below them, but for now 
+
+                // logic for more filtering: if the color of the cell at the bottom is white too then exclude
+                // x+12
+
+                function reduceDropArray(indexArray, configArray) {
+                    var newArr = indexArray.reduce(function(a, e, i) {
+                    if (e-12 < 36){
+                        if(configArray[e+12] !== "white"){a.push(e);}
+                    }
+                    else{a.push(e);}    
+                    return a;
+                }, []);
+                  return newArr
+                }
+
+             var validWhiteBoxes = reduceDropArray(filtereddropIndices, this.currentConfiguration) 
+                
+
+             console.log("validWhiteBoxes="+validWhiteBoxes);
+
+
+                var filteredDropTableIDs = validWhiteBoxes.map(x => {
+                    if (x < 9){
+                        return "row1" + "cell0"+ (x + 1) ;
+                    }
+                    else if (x < 12){
+                        return "row1" + "cell"+ (x + 1) ;
+                    }else if(x < 24){
+                        var val = (x-12)+1
+                        if(val < 10){return "row2" + "cell0"+ ((x-12)+1);}
+                        else{return "row2" + "cell"+ ((x-12)+1);}
+                    }
+                    else{
+                        var val = (x-24)+1
+                        if(val < 10){return "row3" + "cell0"+ ((x-24)+1);}
+                        else{return "row3" + "cell"+ ((x-24)+1);}
+                    }
+                })
+
+                console.log("filtered table IDS="+filteredDropTableIDs);
+
                 // we restrict dropping to these "white" cells only
+
                 droptarget.addEventListener('dragenter', dragEnter)
                 droptarget.addEventListener('dragover', dragOver);
                 droptarget.addEventListener('dragleave', dragLeave);
                 droptarget.addEventListener('drop', drop);
 
                     function dragStart(e) {
+                        if(filteredDragTableIDs.includes(e.target.id)){
                         console.log('drag starts...');
                         e.dataTransfer.setData('text/plain', e.target.id);
                         setTimeout(() => {
                             e.target.classList.add('hide');
                         }, 0);
 
-                        
+                        }
                         }
                     function dragEnter(e) {
-                        if(filteredTableIndices.includes(e.target.id)){
+                        
+                        if(filteredDropTableIDs.includes(e.target.id)){
                         e.preventDefault();
                         e.target.classList.add('drag-over');
                         }
                     }
 
                     function dragOver(e) {
-                        if(filteredTableIndices.includes(e.target.id)){
+
+                        if(filteredDropTableIDs.includes(e.target.id)){
                         e.preventDefault();
                         e.target.classList.add('drag-over');
                         }
                     }
 
                     function dragLeave(e) {
-                        if(filteredTableIndices.includes(e.target.id)){
+                        if(filteredDropTableIDs.includes(e.target.id)){
                         e.target.classList.remove('drag-over');
                         }
                     }
                     function drop(e) {
 
-                        if(filteredTableIndices.includes(e.target.id)){
+                        if(filteredDropTableIDs.includes(e.target.id)){
                         
                         e.target.classList.remove('drag-over');
                         // get the draggable element
@@ -553,6 +645,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 frame: 'studyboard.htm',
 
                 cb: function() {
+
 
                     W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
                     W.getElementById("row1cell02").style.backgroundColor = this.currentConfiguration[1]
@@ -839,7 +932,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                     // moveChoice will either be a question string or of the form "A2 to B2" or "Pass"
 
-                    if (moveChoice1.includes("move a block from ")){
+                    if (moveChoice1.includes("move a block from ")){                        
+
                         W.setInnerHTML('cluepasttxt', "The helper selected to move a block from: ");
                         var moveInfo = this.cluespast.at(-1)
                     // get last 
@@ -858,6 +952,29 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     var cell_to = Number(moveTo.substr(moveTo.length - 2))// rowXcellXY
 
                     W.setInnerHTML('cluepast', "row " + row_from  + " cell " + cell_from+  " to row " + row_to+ " cell "+ cell_to);
+
+                    // // animation code
+
+                    // var imgObj = null;
+                    // var animate ;
+                    
+                    // function init() {
+                    // imgObj = document.getElementById(moveChoice_from);
+                    // imgObj.style.position= 'relative'; 
+                    // imgObj.style.left = '0px'; 
+                    // }
+                    // function moveRight() {
+                    // imgObj.style.left = parseInt(imgObj.style.left) + 10 + 'px';
+                    // animate = setTimeout(moveRight,20);    // call moveRight in 20msec
+                    // }
+                    // function stop() {
+                    // clearTimeout(animate);
+                    // imgObj.style.left = '0px'; 
+                    // }
+                    
+                    // window.onload = init;
+
+                    // moveRight();
 
                     // once we have the row/cell to/from, we change the current configuration of those specific cell
                     
@@ -921,99 +1038,175 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                         // now architect moves blocks
 
-                var dragid = 0;
-                var dropid = 0;
-                var total = 0;
-                var dragtarget = W.getElementById("gbrd");
-                dragtarget.addEventListener('dragstart', dragStart);
-                
-                var droptarget = W.getElementById("gbrd"); // need to make this only some specific drag choices
-                // could try to filter for only "white" cells
-
-                
-                var filteredTableIndices = this.currentConfiguration.reduce(function(a, e, i) {
-                    if (e === 'white')
-                        a.push(i);
-                    return a;
-                }, []);
-                console.log("filtered table indices="+filteredTableIndices);
-
-                filteredTableIndices = filteredTableIndices.map(x => {
-                    if (x < 9){
-                        return "row1" + "cell0"+ (x + 1) ;
-                    }
-                    else if (x < 12){
-                        return "row1" + "cell"+ (x + 1) ;
-                    }else if(x < 24){
-                        var val = (x-12)+1
-                        if(val < 10){return "row2" + "cell0"+ ((x-12)+1);}
-                        else{return "row2" + "cell"+ ((x-12)+1);}
-                    }
-                    else{
-                        var val = (x-24)+1
-                        if(val < 10){return "row3" + "cell0"+ ((x-24)+1);}
-                        else{return "row3" + "cell"+ ((x-24)+1);}
-                    }
-                })
-
-                console.log("filtered table IDS="+filteredTableIndices);
+                        var dragid = 0;
+                        var dropid = 0;
+                        var total = 0;
+                        var dragtarget = W.getElementById("gbrd");
+                        // not all items should be "draggable" in the table
+                        // we could check for whether there is anything non-white above a particular index
+                        dragtarget.addEventListener('dragstart', dragStart);
         
-                // we restrict dropping to these "white" cells only
-                droptarget.addEventListener('dragenter', dragEnter)
-                droptarget.addEventListener('dragover', dragOver);
-                droptarget.addEventListener('dragleave', dragLeave);
-                droptarget.addEventListener('drop', drop);
-
-                    function dragStart(e) {
-                        console.log('drag starts...');
-                        e.dataTransfer.setData('text/plain', e.target.id);
-                        setTimeout(() => {
-                            e.target.classList.add('hide');
-                        }, 0);
-
-                        
-                        }
-                    function dragEnter(e) {
-                        if(filteredTableIndices.includes(e.target.id)){
-                        e.preventDefault();
-                        e.target.classList.add('drag-over');
-                        }
-                    }
-
-                    function dragOver(e) {
-                        if(filteredTableIndices.includes(e.target.id)){
-                        e.preventDefault();
-                        e.target.classList.add('drag-over');
-                        }
-                    }
-
-                    function dragLeave(e) {
-                        if(filteredTableIndices.includes(e.target.id)){
-                        e.target.classList.remove('drag-over');
-                        }
-                    }
-                    function drop(e) {
-
-                        if(filteredTableIndices.includes(e.target.id)){
-                        
-                        e.target.classList.remove('drag-over');
-                        // get the draggable element
-                        const id = e.dataTransfer.getData('text/plain');
-                        const draggable = W.getElementById(id);
-                        dragid = id;
-                        dropid = JSON.parse(JSON.stringify(e.target.id));
-                        console.log("dragid="+dragid);
-                        console.log("dropid="+dropid);
-                        // add it to the drop target
-                        e.target.appendChild(draggable);
-                    
-                        // display the draggable element
-                        draggable.classList.remove('hide');
-                        // call the function that records these move IDs
-                        setTotalValue();
+                        // code for modifying drag target
+        
+                        function reduceDragArray(indexArray, configArray) {
+                            var newArr = indexArray.reduce(function(a, e, i) {
+                            // only push if cell is non-white
+                            if(configArray[e] !=="white"){
+                                // if the index is not in the first row
+                            if (e > 11){
+                                // if the element on top is white, then it's draggable
+                                if(configArray[e-12] === "white"){a.push(e);}
+                            }
+                            else{a.push(e);}}    
+                            return a;
+                            }, []);
+                            return newArr
                         }
                         
-                    }                
+                        var fulldragindices= Array(this.currentConfiguration.length).fill().map((x,i)=>i)
+                        console.log("fulldragindices ="+fulldragindices);
+                        var validDragargets = reduceDragArray(fulldragindices, this.currentConfiguration)
+                        
+                        console.log("validDragargets ="+validDragargets);
+        
+                        // convert to table cell IDs
+        
+                        var filteredDragTableIDs = validDragargets.map(x => {
+                            if (x < 9){
+                                return "row1" + "cell0"+ (x + 1) ;
+                            }
+                            else if (x < 12){
+                                return "row1" + "cell"+ (x + 1) ;
+                            }else if(x < 24){
+                                var val = (x-12)+1
+                                if(val < 10){return "row2" + "cell0"+ ((x-12)+1);}
+                                else{return "row2" + "cell"+ ((x-12)+1);}
+                            }
+                            else{
+                                var val = (x-24)+1
+                                if(val < 10){return "row3" + "cell0"+ ((x-24)+1);}
+                                else{return "row3" + "cell"+ ((x-24)+1);}
+                            }
+                        })
+        
+                        console.log("filteredDragTableIDs ="+filteredDragTableIDs);
+                        
+                        // code for modifying drop targets
+        
+                        var droptarget = W.getElementById("gbrd"); 
+                        // need to make this only some specific drag choices
+                        // could try to filter for only "white" cells
+        
+                        var filtereddropIndices = this.currentConfiguration.reduce(function(a, e, i) {
+                            if (e === 'white')
+                                a.push(i);
+                            return a;
+                        }, []);
+                        console.log("filtered table indices="+filtereddropIndices);
+        
+                        // ultimately we want to further restrict this to only white cells that
+                        // have something non-white below them, but for now 
+        
+                        // logic for more filtering: if the color of the cell at the bottom is white too then exclude
+                        // x+12
+        
+                        function reduceDropArray(indexArray, configArray) {
+                            var newArr = indexArray.reduce(function(a, e, i) {
+                            if (e-12 < 36){
+                                if(configArray[e+12] !== "white"){a.push(e);}
+                            }
+                            else{a.push(e);}    
+                            return a;
+                        }, []);
+                          return newArr
+                        }
+        
+                     var validWhiteBoxes = reduceDropArray(filtereddropIndices, this.currentConfiguration) 
+                        
+        
+                     console.log("validWhiteBoxes="+validWhiteBoxes);
+        
+        
+                        var filteredDropTableIDs = validWhiteBoxes.map(x => {
+                            if (x < 9){
+                                return "row1" + "cell0"+ (x + 1) ;
+                            }
+                            else if (x < 12){
+                                return "row1" + "cell"+ (x + 1) ;
+                            }else if(x < 24){
+                                var val = (x-12)+1
+                                if(val < 10){return "row2" + "cell0"+ ((x-12)+1);}
+                                else{return "row2" + "cell"+ ((x-12)+1);}
+                            }
+                            else{
+                                var val = (x-24)+1
+                                if(val < 10){return "row3" + "cell0"+ ((x-24)+1);}
+                                else{return "row3" + "cell"+ ((x-24)+1);}
+                            }
+                        })
+        
+                        console.log("filtered table IDS="+filteredDropTableIDs);
+        
+                        // we restrict dropping to these "white" cells only
+        
+                        droptarget.addEventListener('dragenter', dragEnter)
+                        droptarget.addEventListener('dragover', dragOver);
+                        droptarget.addEventListener('dragleave', dragLeave);
+                        droptarget.addEventListener('drop', drop);
+        
+                            function dragStart(e) {
+                                if(filteredDragTableIDs.includes(e.target.id)){
+                                console.log('drag starts...');
+                                e.dataTransfer.setData('text/plain', e.target.id);
+                                setTimeout(() => {
+                                    e.target.classList.add('hide');
+                                }, 0);
+        
+                                }
+                                }
+                            function dragEnter(e) {
+                                
+                                if(filteredDropTableIDs.includes(e.target.id)){
+                                e.preventDefault();
+                                e.target.classList.add('drag-over');
+                                }
+                            }
+        
+                            function dragOver(e) {
+        
+                                if(filteredDropTableIDs.includes(e.target.id)){
+                                e.preventDefault();
+                                e.target.classList.add('drag-over');
+                                }
+                            }
+        
+                            function dragLeave(e) {
+                                if(filteredDropTableIDs.includes(e.target.id)){
+                                e.target.classList.remove('drag-over');
+                                }
+                            }
+                            function drop(e) {
+        
+                                if(filteredDropTableIDs.includes(e.target.id)){
+                                
+                                e.target.classList.remove('drag-over');
+                                // get the draggable element
+                                const id = e.dataTransfer.getData('text/plain');
+                                const draggable = W.getElementById(id);
+                                dragid = id;
+                                dropid = JSON.parse(JSON.stringify(e.target.id));
+                                console.log("dragid="+dragid);
+                                console.log("dropid="+dropid);
+                                // add it to the drop target
+                                e.target.appendChild(draggable);
+                            
+                                // display the draggable element
+                                draggable.classList.remove('hide');
+                                // call the function that records these move IDs
+                                setTotalValue();
+                                }
+                                
+                            }                 
 
                 function setTotalValue(){
 
@@ -1093,20 +1286,36 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var dropid = 0;
                 var total = 0;
                 var dragtarget = W.getElementById("gbrd");
+                // not all items should be "draggable" in the table
+                // we could check for whether there is anything non-white above a particular index
                 dragtarget.addEventListener('dragstart', dragStart);
-                
-                var droptarget = W.getElementById("gbrd"); // need to make this only some specific drag choices
-                // could try to filter for only "white" cells
 
-                
-                var filteredTableIndices = this.currentConfiguration.reduce(function(a, e, i) {
-                    if (e === 'white')
-                        a.push(i);
+                // code for modifying drag target
+
+                function reduceDragArray(indexArray, configArray) {
+                    var newArr = indexArray.reduce(function(a, e, i) {
+                    // only push if cell is non-white
+                    if(configArray[e] !=="white"){
+                        // if the index is not in the first row
+                    if (e > 11){
+                        // if the element on top is white, then it's draggable
+                        if(configArray[e-12] === "white"){a.push(e);}
+                    }
+                    else{a.push(e);}}    
                     return a;
-                }, []);
-                console.log("filtered table indices="+filteredTableIndices);
+                    }, []);
+                    return newArr
+                }
+                
+                var fulldragindices= Array(this.currentConfiguration.length).fill().map((x,i)=>i)
+                console.log("fulldragindices ="+fulldragindices);
+                var validDragargets = reduceDragArray(fulldragindices, this.currentConfiguration)
+                
+                console.log("validDragargets ="+validDragargets);
 
-                filteredTableIndices = filteredTableIndices.map(x => {
+                // convert to table cell IDs
+
+                var filteredDragTableIDs = validDragargets.map(x => {
                     if (x < 9){
                         return "row1" + "cell0"+ (x + 1) ;
                     }
@@ -1124,45 +1333,105 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     }
                 })
 
-                console.log("filtered table IDS="+filteredTableIndices);
-        
+                console.log("filteredDragTableIDs ="+filteredDragTableIDs);
+                
+                // code for modifying drop targets
+
+                var droptarget = W.getElementById("gbrd"); 
+                // need to make this only some specific drag choices
+                // could try to filter for only "white" cells
+
+                var filtereddropIndices = this.currentConfiguration.reduce(function(a, e, i) {
+                    if (e === 'white')
+                        a.push(i);
+                    return a;
+                }, []);
+                console.log("filtered table indices="+filtereddropIndices);
+
+                // ultimately we want to further restrict this to only white cells that
+                // have something non-white below them, but for now 
+
+                // logic for more filtering: if the color of the cell at the bottom is white too then exclude
+                // x+12
+
+                function reduceDropArray(indexArray, configArray) {
+                    var newArr = indexArray.reduce(function(a, e, i) {
+                    if (e-12 < 36){
+                        if(configArray[e+12] !== "white"){a.push(e);}
+                    }
+                    else{a.push(e);}    
+                    return a;
+                }, []);
+                  return newArr
+                }
+
+             var validWhiteBoxes = reduceDropArray(filtereddropIndices, this.currentConfiguration) 
+                
+
+             console.log("validWhiteBoxes="+validWhiteBoxes);
+
+
+                var filteredDropTableIDs = validWhiteBoxes.map(x => {
+                    if (x < 9){
+                        return "row1" + "cell0"+ (x + 1) ;
+                    }
+                    else if (x < 12){
+                        return "row1" + "cell"+ (x + 1) ;
+                    }else if(x < 24){
+                        var val = (x-12)+1
+                        if(val < 10){return "row2" + "cell0"+ ((x-12)+1);}
+                        else{return "row2" + "cell"+ ((x-12)+1);}
+                    }
+                    else{
+                        var val = (x-24)+1
+                        if(val < 10){return "row3" + "cell0"+ ((x-24)+1);}
+                        else{return "row3" + "cell"+ ((x-24)+1);}
+                    }
+                })
+
+                console.log("filtered table IDS="+filteredDropTableIDs);
+
                 // we restrict dropping to these "white" cells only
+
                 droptarget.addEventListener('dragenter', dragEnter)
                 droptarget.addEventListener('dragover', dragOver);
                 droptarget.addEventListener('dragleave', dragLeave);
                 droptarget.addEventListener('drop', drop);
 
                     function dragStart(e) {
+                        if(filteredDragTableIDs.includes(e.target.id)){
                         console.log('drag starts...');
                         e.dataTransfer.setData('text/plain', e.target.id);
                         setTimeout(() => {
                             e.target.classList.add('hide');
                         }, 0);
 
-                        
+                        }
                         }
                     function dragEnter(e) {
-                        if(filteredTableIndices.includes(e.target.id)){
+                        
+                        if(filteredDropTableIDs.includes(e.target.id)){
                         e.preventDefault();
                         e.target.classList.add('drag-over');
                         }
                     }
 
                     function dragOver(e) {
-                        if(filteredTableIndices.includes(e.target.id)){
+
+                        if(filteredDropTableIDs.includes(e.target.id)){
                         e.preventDefault();
                         e.target.classList.add('drag-over');
                         }
                     }
 
                     function dragLeave(e) {
-                        if(filteredTableIndices.includes(e.target.id)){
+                        if(filteredDropTableIDs.includes(e.target.id)){
                         e.target.classList.remove('drag-over');
                         }
                     }
                     function drop(e) {
 
-                        if(filteredTableIndices.includes(e.target.id)){
+                        if(filteredDropTableIDs.includes(e.target.id)){
                         
                         e.target.classList.remove('drag-over');
                         // get the draggable element
