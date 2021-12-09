@@ -90,19 +90,190 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // get a random color and room
         const random_color = this.colors[Math.floor(Math.random() * this.colors.length)];
         const random_room = this.positions[Math.floor(Math.random() * this.positions.length)];
+        // this.shapeColor = random_color;
+        // this.goalRoom = random_room;
+        this.shapeColor = 'red';
+        this.goalRoom = 'A1';
+        this.goalColorRoom = random_color + " " + random_room;
+        this.isGoalConfiguration = false;
+        this.numberOfArchitectMoves = 0;
+        this.numberOfHelperMoves = 0;
 
-        this.verbalGoal = "Move all " + random_color + " blocks to room "+ random_room
 
-        this.goalConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[3], // room A - top row
-                                    this.colors[3],this.colors[3],this.colors[3], this.colors[3], // room B - top row
-                                    this.colors[5],this.colors[3],this.colors[3],this.colors[3], // room C - top row
-                                    this.colors[2],this.colors[3],this.colors[3],this.colors[3], //room A - mid row
-                                    this.colors[3],this.colors[1],this.colors[3],this.colors[0], // room B - mid row
-                                    this.colors[5],this.colors[3],this.colors[4],this.colors[6], // room C - mid row
-                                    this.colors[1],this.colors[4],this.colors[6], this.colors[4], // room A - bottom row
-                                    this.colors[2],this.colors[0],this.colors[3],this.colors[5], // room B - bottom row
-                                    this.colors[6],this.colors[1],this.colors[2],this.colors[0]] // room C - bottom row                   
+        // this.colors = ["red", "blue", "green", "white", "pink", "LightBlue", "LightGreen"] // possible colors: white is used when there is no "block"
+        //This is so that placement is only allowed for the lowest avaiable row for the given room
 
+        //for goal configuration only certain placements are allowed as the goal confiugariton can be acheived multiple ways
+
+        this.goalCheck = function (currentConfig, indexes, colorRoom) {
+            console.log("Checking Goal")
+            const colorRoomSplit = colorRoom.split(" ");
+            const color = colorRoomSplit[0]
+            const room = colorRoomSplit[1]
+            let numberOfColoredBlocksInRoom = 0
+            debugger;
+            for (let i = 0; i < indexes.length; i++) {
+                if (currentConfig[indexes[i]] == color) {
+                    numberOfColoredBlocksInRoom = numberOfColoredBlocksInRoom + 1;
+                }
+                if (numberOfColoredBlocksInRoom == 3) {
+                    node.say('END_GAME', 'SERVER', true);
+                    console.log("goalReached");
+                }
+            }
+        };
+        //check goal using the above index 
+        this.goalsSwitchCase = function (currentConfig, color, room) {
+            const A1Indexes = [0, 1, 12, 13, 24, 25]
+            const A2Indexes = [2, 3, 14, 15, 26, 27]
+            const B1ndexes = [4, 5, 16, 17, 28, 29]
+            const B2Indexes = [6, 7, 18, 19, 30, 31]
+            const C1ndexes = [8, 9, 20, 21, 32, 33]
+            const C2ndexes = [10, 11, 22, 23, 34, 35]
+            const colorRoom = color + " " + room
+            console.log("Checking Goal")
+            debugger;
+            switch (colorRoom) {
+                case "red A1":
+                    console.log("Color Room")
+                    console.log(colorRoom);
+                    this.goalCheck(currentConfig, A1Indexes, colorRoom);
+                    // code block
+                    break;
+                case "red A2":
+                    // code block
+                    break;
+                case "red B1":
+                    // code block
+                    break;
+                case "red B2":
+                    // code block
+                    break;
+                case "red C1":
+                    // code block
+                    break;
+                case "red C2":
+                    // code block
+                    break;
+                case "blue A1":
+                    // code block
+                    break;
+                case "blue A2":
+                    // code block
+                    break;
+                case "blue B1":
+                    // code block
+                    break;
+                case "blue B2":
+                    // code block
+                    break;
+                case "blue C1":
+                    // code block
+                    break;
+                case "blue C2":
+                    // code block
+                    break;
+                case "green A1":
+                    // code block
+                    break;
+                case "green A2":
+                    // code block
+                    break;
+                case "green B1":
+                    // code block
+                    break;
+                case "green B2":
+                    // code block
+                    break;
+                case "green C1":
+                    // code block
+                    break;
+                case "green C2":
+                    // code block
+                    break;
+                case "pink A1":
+                    // code block
+                    break;
+                case "pink A2":
+                    // code block
+                    break;
+                case "pink B1":
+                    // code block
+                    break;
+                case "pink B2":
+                    // code block
+                    break;
+                case "pink C1":
+                    // code block
+                    break;
+                case "pink C2":
+                    // code block
+                    break;
+                case "LightBlue A1":
+                    // code block
+                    break;
+                case "LightBlue A2":
+                    // code block
+                    break;
+                case "LightBlue B1":
+                    // code block
+                    break;
+                case "LightBlue B2":
+                    // code block
+                    break;
+                case "LightBlue C1":
+                    // code block
+                    break;
+                case "LightBlue C2":
+                    // code block
+                    break;
+                case "LightGreen A1":
+                    // code block
+                    break;
+                case "LightGreen A2":
+                    // code block
+                    break;
+                case "LightGreen B1":
+                    // code block
+                    break;
+                case "LightGreen B2":
+                    // code block
+                    break;
+                case "LightGreen C1":
+                    // code block
+                    break;
+                case "LightGreen C2":
+                    // code block
+                    break;
+
+                default:
+                // code block
+            }
+        };
+
+        this.redToA1 = [this.colors[0], this.colors[0], this.colors[3], this.colors[3], // room A - top row
+        this.colors[1], this.colors[3], this.colors[3], this.colors[3], // room B - top row
+        this.colors[5], this.colors[3], this.colors[6], this.colors[3], // room C - top row
+        this.colors[2], this.colors[0], this.colors[3], this.colors[3], //room A - mid row
+        this.colors[4], this.colors[3], this.colors[3], this.colors[3], // room B - mid row
+        this.colors[5], this.colors[3], this.colors[4], this.colors[3], // room C - mid row
+        this.colors[1], this.colors[4], this.colors[6], this.colors[3], // room A - bottom row
+        this.colors[2], this.colors[3], this.colors[3], this.colors[5], // room B - bottom row
+        this.colors[6], this.colors[1], this.colors[2], this.colors[3]] // room C - bottom row    
+
+        //set up manually for one run through of the game
+        this.verbalGoal = "Move all " + 'Red' + " blocks to room " + "A1";
+        // this.verbalGoal = "Move all " + random_color + " blocks to room "+ random_room
+        // this.goalConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[3], // room A - top row
+        //                             this.colors[3],this.colors[3],this.colors[3], this.colors[3], // room B - top row
+        //                             this.colors[5],this.colors[3],this.colors[3],this.colors[3], // room C - top row
+        //                             this.colors[2],this.colors[3],this.colors[3],this.colors[3], //room A - mid row
+        //                             this.colors[3],this.colors[1],this.colors[3],this.colors[0], // room B - mid row
+        //                             this.colors[5],this.colors[3],this.colors[4],this.colors[6], // room C - mid row
+        //                             this.colors[1],this.colors[4],this.colors[6], this.colors[4], // room A - bottom row
+        //                             this.colors[2],this.colors[0],this.colors[3],this.colors[5], // room B - bottom row
+        //                             this.colors[6],this.colors[1],this.colors[2],this.colors[0]] // room C - bottom row                   
+        this.goalConfiguration = this.redToA1;
        
         this.cluespast = [];
 
@@ -152,9 +323,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         role: function() { return this.role; },
         partner: function() { return this.partner; },
         roles: {
+            //Helper
             CLUEGIVER:{
                 frame: 'instructionsCG.htm',
             },
+            //Architect
             GUESSER:{
                 frame: 'instructions.htm',
                 cb: function(){
@@ -169,11 +342,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         partner: function() { return this.partner; },
 
         roles: {
+            //helper side blocks are not updating, architect side are updating 
             CLUEGIVER:{
                 frame: 'helperChoice.htm',
                 donebutton: true,
                 cb: function() {
-
                     W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
                     W.getElementById("row1cell02").style.backgroundColor = this.currentConfiguration[1]
                     W.getElementById("row1cell03").style.backgroundColor = this.currentConfiguration[2]
@@ -213,8 +386,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
                     W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
                     W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
-
-                
+               
+                // var dragid = 0;
+                var config = this.currentConfiguration;
                 var dragid = 0;
                 var dropid = 0;
                 var total = 0;
@@ -229,12 +403,15 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     var newArr = indexArray.reduce(function(a, e, i) {
                     // only push if cell is non-white
                     if(configArray[e] !=="white"){
-                        // if the index is not in the first row
-                    if (e > 11){
-                        // if the element on top is white, then it's draggable
-                        if(configArray[e-12] === "white"){a.push(e);}
-                    }
-                    else{a.push(e);}}    
+                            // if the index is not in the first row
+                        if (e > 11){
+                            // if the element on top is white, then it's draggable
+                            if(configArray[e-12] === "white"){a.push(e);}
+                        }
+                        else {
+                            a.push(e);
+                        }
+                    }                     
                     return a;
                     }, []);
                     return newArr
@@ -295,7 +472,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     else{a.push(e);}    
                     return a;
                 }, []);
-                  return newArr
+                return newArr
                 }
 
              var validWhiteBoxes = reduceDropArray(filtereddropIndices, this.currentConfiguration) 
@@ -397,8 +574,39 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     stage: node.game.getCurrentGameStage(),
                     Guess1: total
                 }); 
-             
                 node.game.memory.tag("GUESS");
+
+                var choice = total.substr(total.length - 24); 
+                var choiceMove = choice.split(" to ");
+                // now moveChoice contains "row1cell01" and "row2cell02"
+                
+                var choiceMove_from = choiceMove[0];
+
+                var toMove = choiceMove[1];//this.positions[moveChoice[1]]
+
+                var from_row = Number(choiceMove_from.charAt(3));// rowX
+                var from_cell = Number(choiceMove_from.substr(choiceMove_from.length - 2));// rowXcellXY
+                
+ 
+                var to_row= Number(toMove.charAt(3)); // rowX
+                var to_cell = Number(toMove.substr(toMove.length - 2));// rowXcellXY
+
+                W.setInnerHTML('cluepast', "row " + from_row  + " cell " + from_cell+  " to row " + to_row+ " cell "+ to_cell);
+
+                // once we have the row/cell to/from, we change the current configuration of those specific cell
+                
+                // for each row increment, there is a +12 in index
+                // for each cell increment, there is +1 in index
+                // row1cell01 = (row-1)*12 + (cell-1) =  0 + 0
+                // row2cell01 = (2-1)*12 + (cell -1 ) =  12 + 0
+                // row3cell4 = (3-1)*12 + (4-1) = 24 + 3 = 27
+
+
+                var fromIndex = (from_row-1)*12 + (from_cell-1);
+                var toIndex = (to_row-1)*12 + (to_cell-1);
+                config[toIndex] = config[fromIndex];
+                // and moveFromID becomes white
+                config[fromIndex] = "white";
                 }
 
                 // called when no action is taken
@@ -408,7 +616,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     stage: node.game.getCurrentGameStage(),
                     Guess1: total
                 }); 
-             
+                      
                 node.game.memory.tag("GUESS");
 
                 W.setInnerHTML('clue2', "You are the Helper. Please move a block OR choose whether you want to ask the architect a yes/no question or pass." ),
@@ -442,9 +650,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 }
                 el.addEventListener('click', this.clicker2);
-                   
+                this.currentConfiguration = config;   
                 },
                 done: function() {
+                    debugger;
+                    if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                        this.isGoalConfiguration = true;
+                        node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+                    }
                     var choiceTXT = node.game.memory.resolveTag("GUESS").Guess1;
                     node.say('GUESS', node.game.partner, choiceTXT);
                     return;
@@ -458,7 +671,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 donebutton: false,//disable done button so they cannot proceed without their partner finishing
                 frame: 'studyboard.htm',
                 cb: function() {//set the board for the guesser
-
+                    // debugger;
+                    // if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                    //     this.isGoalConfiguration = true;
+                    //     node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+                    //     // node.say('END_GAME', 'SERVER', true);
+                    // }
                     W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
                     W.getElementById("row1cell02").style.backgroundColor = this.currentConfiguration[1]
                     W.getElementById("row1cell03").style.backgroundColor = this.currentConfiguration[2]
@@ -498,6 +716,46 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
                     W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
 
+                    W.getElementById("goalrow1cell01").style.backgroundColor = this.goalConfiguration[0]
+                    W.getElementById("goalrow1cell02").style.backgroundColor = this.goalConfiguration[1]
+                    W.getElementById("goalrow1cell03").style.backgroundColor = this.goalConfiguration[2]
+                    W.getElementById("goalrow1cell04").style.backgroundColor = this.goalConfiguration[3]
+                    W.getElementById("goalrow1cell05").style.backgroundColor = this.goalConfiguration[4]
+                    W.getElementById("goalrow1cell06").style.backgroundColor = this.goalConfiguration[5]
+                    W.getElementById("goalrow1cell07").style.backgroundColor = this.goalConfiguration[6]
+                    W.getElementById("goalrow1cell08").style.backgroundColor = this.goalConfiguration[7]
+                    W.getElementById("goalrow1cell09").style.backgroundColor = this.goalConfiguration[8]
+                    W.getElementById("goalrow1cell10").style.backgroundColor = this.goalConfiguration[9]
+                    W.getElementById("goalrow1cell11").style.backgroundColor = this.goalConfiguration[10]
+                    W.getElementById("goalrow1cell12").style.backgroundColor = this.goalConfiguration[11]
+                    
+                    W.getElementById("goalrow2cell01").style.backgroundColor = this.goalConfiguration[12]
+                    W.getElementById("goalrow2cell02").style.backgroundColor = this.goalConfiguration[13]
+                    W.getElementById("goalrow2cell03").style.backgroundColor = this.goalConfiguration[14]
+                    W.getElementById("goalrow2cell04").style.backgroundColor = this.goalConfiguration[15]
+                    W.getElementById("goalrow2cell05").style.backgroundColor = this.goalConfiguration[16]
+                    W.getElementById("goalrow2cell06").style.backgroundColor = this.goalConfiguration[17]
+                    W.getElementById("goalrow2cell07").style.backgroundColor = this.goalConfiguration[18]
+                    W.getElementById("goalrow2cell08").style.backgroundColor = this.goalConfiguration[19]
+                    W.getElementById("goalrow2cell09").style.backgroundColor = this.goalConfiguration[20]
+                    W.getElementById("goalrow2cell10").style.backgroundColor = this.goalConfiguration[21]
+                    W.getElementById("goalrow2cell11").style.backgroundColor = this.goalConfiguration[22]
+                    W.getElementById("goalrow2cell12").style.backgroundColor = this.goalConfiguration[23]
+                    
+                    W.getElementById("goalrow3cell01").style.backgroundColor = this.goalConfiguration[24]
+                    W.getElementById("goalrow3cell02").style.backgroundColor = this.goalConfiguration[25]
+                    //W.getElementById("circlerow3cell03").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("goalrow3cell03").style.backgroundColor = this.goalConfiguration[26]
+                    W.getElementById("goalrow3cell04").style.backgroundColor = this.goalConfiguration[27]
+                    W.getElementById("goalrow3cell05").style.backgroundColor = this.goalConfiguration[28]
+                    W.getElementById("goalrow3cell06").style.backgroundColor = this.goalConfiguration[29]
+                    W.getElementById("goalrow3cell07").style.backgroundColor = this.goalConfiguration[30]
+                    W.getElementById("goalrow3cell08").style.backgroundColor = this.goalConfiguration[31]
+                    W.getElementById("goalrow3cell09").style.backgroundColor = this.goalConfiguration[32]
+                    W.getElementById("goalrow3cell10").style.backgroundColor = this.goalConfiguration[33]
+                    W.getElementById("goalrow3cell11").style.backgroundColor = this.goalConfiguration[34]
+                    W.getElementById("goalrow3cell12").style.backgroundColor = this.goalConfiguration[35]
+
                     var that;//force proceed when clue is sent from other player
                     if (this.clueReceived !== null) node.done();
                     that = this;
@@ -510,6 +768,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     
                 },
                 done: function() {
+                    // debugger;
+                    // if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                    //     this.isGoalConfiguration = true;
+                    //     node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+                    // }
                     node.say('GUESS', node.game.partner);
                     node.on.data('GUESS', function(msg) {
                         that.clueReceived = msg.data;
@@ -533,10 +796,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 },
                 frame: 'feedbackCG.htm',
                 cb: function() {
-
-                    if(this.currentConfiguration === this.goalConfiguration){
-                    node.say('END_GAME', 'SERVER', true);
-                    }
+                    // debugger;
+                    // if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                    //     this.isGoalConfiguration = true;
+                    //     node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+                    // }
 
                     W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
                     W.getElementById("row1cell02").style.backgroundColor = this.currentConfiguration[1]
@@ -599,8 +863,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 
                 },
                 done: function() {//send clue to other player and clue and time info to database
-                    
-
+                    // debugger;
+                    // if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                    //     this.isGoalConfiguration = true;
+                    //     node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+                    // }
                     var choiceTXT = node.game.memory.resolveTag("GUESS").Guess1;//use tags to get our response from memory and validate
 
                     if(["Ask a yes/no question"].includes(choiceTXT)){
@@ -643,9 +910,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 },
                 donebutton: false,
                 frame: 'studyboard.htm',
-
+            
                 cb: function() {
-
+                    // debugger;
+                    // if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                    //     this.isGoalConfiguration = true;
+                    //     node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+                    // }
 
                     W.getElementById("row1cell01").style.backgroundColor = this.currentConfiguration[0]
                     W.getElementById("row1cell02").style.backgroundColor = this.currentConfiguration[1]
@@ -686,6 +957,45 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
                     W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
                     
+                    W.getElementById("goalrow1cell01").style.backgroundColor = this.goalConfiguration[0]
+                    W.getElementById("goalrow1cell02").style.backgroundColor = this.goalConfiguration[1]
+                    W.getElementById("goalrow1cell03").style.backgroundColor = this.goalConfiguration[2]
+                    W.getElementById("goalrow1cell04").style.backgroundColor = this.goalConfiguration[3]
+                    W.getElementById("goalrow1cell05").style.backgroundColor = this.goalConfiguration[4]
+                    W.getElementById("goalrow1cell06").style.backgroundColor = this.goalConfiguration[5]
+                    W.getElementById("goalrow1cell07").style.backgroundColor = this.goalConfiguration[6]
+                    W.getElementById("goalrow1cell08").style.backgroundColor = this.goalConfiguration[7]
+                    W.getElementById("goalrow1cell09").style.backgroundColor = this.goalConfiguration[8]
+                    W.getElementById("goalrow1cell10").style.backgroundColor = this.goalConfiguration[9]
+                    W.getElementById("goalrow1cell11").style.backgroundColor = this.goalConfiguration[10]
+                    W.getElementById("goalrow1cell12").style.backgroundColor = this.goalConfiguration[11]
+                    
+                    W.getElementById("goalrow2cell01").style.backgroundColor = this.goalConfiguration[12]
+                    W.getElementById("goalrow2cell02").style.backgroundColor = this.goalConfiguration[13]
+                    W.getElementById("goalrow2cell03").style.backgroundColor = this.goalConfiguration[14]
+                    W.getElementById("goalrow2cell04").style.backgroundColor = this.goalConfiguration[15]
+                    W.getElementById("goalrow2cell05").style.backgroundColor = this.goalConfiguration[16]
+                    W.getElementById("goalrow2cell06").style.backgroundColor = this.goalConfiguration[17]
+                    W.getElementById("goalrow2cell07").style.backgroundColor = this.goalConfiguration[18]
+                    W.getElementById("goalrow2cell08").style.backgroundColor = this.goalConfiguration[19]
+                    W.getElementById("goalrow2cell09").style.backgroundColor = this.goalConfiguration[20]
+                    W.getElementById("goalrow2cell10").style.backgroundColor = this.goalConfiguration[21]
+                    W.getElementById("goalrow2cell11").style.backgroundColor = this.goalConfiguration[22]
+                    W.getElementById("goalrow2cell12").style.backgroundColor = this.goalConfiguration[23]
+                    
+                    W.getElementById("goalrow3cell01").style.backgroundColor = this.goalConfiguration[24]
+                    W.getElementById("goalrow3cell02").style.backgroundColor = this.goalConfiguration[25]
+                    //W.getElementById("circlerow3cell03").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("goalrow3cell03").style.backgroundColor = this.goalConfiguration[26]
+                    W.getElementById("goalrow3cell04").style.backgroundColor = this.goalConfiguration[27]
+                    W.getElementById("goalrow3cell05").style.backgroundColor = this.goalConfiguration[28]
+                    W.getElementById("goalrow3cell06").style.backgroundColor = this.goalConfiguration[29]
+                    W.getElementById("goalrow3cell07").style.backgroundColor = this.goalConfiguration[30]
+                    W.getElementById("goalrow3cell08").style.backgroundColor = this.goalConfiguration[31]
+                    W.getElementById("goalrow3cell09").style.backgroundColor = this.goalConfiguration[32]
+                    W.getElementById("goalrow3cell10").style.backgroundColor = this.goalConfiguration[33]
+                    W.getElementById("goalrow3cell11").style.backgroundColor = this.goalConfiguration[34]
+                    W.getElementById("goalrow3cell12").style.backgroundColor = this.goalConfiguration[35]
                     var that;//force proceed when clue is sent from other player
                     if (this.clueReceived !== null) node.done();
                     that = this;    
@@ -697,10 +1007,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 
                 },
+                done: function(){
+                    debugger;
+                //     if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                //         this.isGoalConfiguration = true;
+                //         node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+                // }
+                }
             }
         }
     });
 
+    //Functionality is change current configuration
     stager.extendStep('guessOptionsprac', {
         role: function() { return this.role; },
         partner: function() { return this.partner; },
@@ -716,7 +1034,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     // need to change the block configuration for Helper if a move has been made
 
                     //could use cluespast here
-
+                    debugger;
+        //             if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+        //                 this.isGoalConfiguration = true;
+        //                 node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+        // }
                     var choiceTXT = node.game.memory.resolveTag("GUESS").Guess1;//use tags to get our response from memory and validate
 
                     if(["Ask a yes/no question"].includes(choiceTXT)){
@@ -850,9 +1172,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     var moveToID = (row_to-1)*12 + (cell_to-1)
 
                   //moveToID becomes the color of moveFromID
-                    this.currentConfiguration[moveToID] = this.currentConfiguration[moveFromID]
-                    // and moveFromID becomes white
-                    this.currentConfiguration[moveFromID] = "white"
+                    // this.currentConfiguration[moveToID] = this.currentConfiguration[moveFromID]
+                    // // and moveFromID becomes white
+                    // this.currentConfiguration[moveFromID] = "white"
                 
                         // having made changes to currentConfiguration, now make the table
 
@@ -909,6 +1231,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 },
 
             done: function() {
+                debugger;
+                // if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                //     node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+                //     this.isGoalConfiguration = true;
+                // }
                     node.say('ANSWER', node.game.partner);
                     node.on.data('ANSWER', function(msg) {
                         that.guessesReceived = msg.data;
@@ -926,6 +1253,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 
                 cb: function() {
 
+                    // debugger;
+                    // if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                    //     this.isGoalConfiguration = true;
+                    //     node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+    
+                    // }
                     // here we want to tell the architect what the Helper did and also change the block positions
 
                     var moveChoice1 = this.clueReceived
@@ -1033,6 +1366,46 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
                         W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
                         W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
+                        
+                        W.getElementById("goalrow1cell01").style.backgroundColor = this.goalConfiguration[0]
+                        W.getElementById("goalrow1cell02").style.backgroundColor = this.goalConfiguration[1]
+                        W.getElementById("goalrow1cell03").style.backgroundColor = this.goalConfiguration[2]
+                        W.getElementById("goalrow1cell04").style.backgroundColor = this.goalConfiguration[3]
+                        W.getElementById("goalrow1cell05").style.backgroundColor = this.goalConfiguration[4]
+                        W.getElementById("goalrow1cell06").style.backgroundColor = this.goalConfiguration[5]
+                        W.getElementById("goalrow1cell07").style.backgroundColor = this.goalConfiguration[6]
+                        W.getElementById("goalrow1cell08").style.backgroundColor = this.goalConfiguration[7]
+                        W.getElementById("goalrow1cell09").style.backgroundColor = this.goalConfiguration[8]
+                        W.getElementById("goalrow1cell10").style.backgroundColor = this.goalConfiguration[9]
+                        W.getElementById("goalrow1cell11").style.backgroundColor = this.goalConfiguration[10]
+                        W.getElementById("goalrow1cell12").style.backgroundColor = this.goalConfiguration[11]
+                        
+                        W.getElementById("goalrow2cell01").style.backgroundColor = this.goalConfiguration[12]
+                        W.getElementById("goalrow2cell02").style.backgroundColor = this.goalConfiguration[13]
+                        W.getElementById("goalrow2cell03").style.backgroundColor = this.goalConfiguration[14]
+                        W.getElementById("goalrow2cell04").style.backgroundColor = this.goalConfiguration[15]
+                        W.getElementById("goalrow2cell05").style.backgroundColor = this.goalConfiguration[16]
+                        W.getElementById("goalrow2cell06").style.backgroundColor = this.goalConfiguration[17]
+                        W.getElementById("goalrow2cell07").style.backgroundColor = this.goalConfiguration[18]
+                        W.getElementById("goalrow2cell08").style.backgroundColor = this.goalConfiguration[19]
+                        W.getElementById("goalrow2cell09").style.backgroundColor = this.goalConfiguration[20]
+                        W.getElementById("goalrow2cell10").style.backgroundColor = this.goalConfiguration[21]
+                        W.getElementById("goalrow2cell11").style.backgroundColor = this.goalConfiguration[22]
+                        W.getElementById("goalrow2cell12").style.backgroundColor = this.goalConfiguration[23]
+                        
+                        W.getElementById("goalrow3cell01").style.backgroundColor = this.goalConfiguration[24]
+                        W.getElementById("goalrow3cell02").style.backgroundColor = this.goalConfiguration[25]
+                        //W.getElementById("circlerow3cell03").style.backgroundColor = this.currentConfiguration[25]
+                        W.getElementById("goalrow3cell03").style.backgroundColor = this.goalConfiguration[26]
+                        W.getElementById("goalrow3cell04").style.backgroundColor = this.goalConfiguration[27]
+                        W.getElementById("goalrow3cell05").style.backgroundColor = this.goalConfiguration[28]
+                        W.getElementById("goalrow3cell06").style.backgroundColor = this.goalConfiguration[29]
+                        W.getElementById("goalrow3cell07").style.backgroundColor = this.goalConfiguration[30]
+                        W.getElementById("goalrow3cell08").style.backgroundColor = this.goalConfiguration[31]
+                        W.getElementById("goalrow3cell09").style.backgroundColor = this.goalConfiguration[32]
+                        W.getElementById("goalrow3cell10").style.backgroundColor = this.goalConfiguration[33]
+                        W.getElementById("goalrow3cell11").style.backgroundColor = this.goalConfiguration[34]
+                        W.getElementById("goalrow3cell12").style.backgroundColor = this.goalConfiguration[35]
 
                         // after seeing new block configuration, the architect makes their move
 
@@ -1280,9 +1653,49 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
                         W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
 
+                        W.getElementById("goalrow1cell01").style.backgroundColor = this.goalConfiguration[0]
+                        W.getElementById("goalrow1cell02").style.backgroundColor = this.goalConfiguration[1]
+                        W.getElementById("goalrow1cell03").style.backgroundColor = this.goalConfiguration[2]
+                        W.getElementById("goalrow1cell04").style.backgroundColor = this.goalConfiguration[3]
+                        W.getElementById("goalrow1cell05").style.backgroundColor = this.goalConfiguration[4]
+                        W.getElementById("goalrow1cell06").style.backgroundColor = this.goalConfiguration[5]
+                        W.getElementById("goalrow1cell07").style.backgroundColor = this.goalConfiguration[6]
+                        W.getElementById("goalrow1cell08").style.backgroundColor = this.goalConfiguration[7]
+                        W.getElementById("goalrow1cell09").style.backgroundColor = this.goalConfiguration[8]
+                        W.getElementById("goalrow1cell10").style.backgroundColor = this.goalConfiguration[9]
+                        W.getElementById("goalrow1cell11").style.backgroundColor = this.goalConfiguration[10]
+                        W.getElementById("goalrow1cell12").style.backgroundColor = this.goalConfiguration[11]
+                        
+                        W.getElementById("goalrow2cell01").style.backgroundColor = this.goalConfiguration[12]
+                        W.getElementById("goalrow2cell02").style.backgroundColor = this.goalConfiguration[13]
+                        W.getElementById("goalrow2cell03").style.backgroundColor = this.goalConfiguration[14]
+                        W.getElementById("goalrow2cell04").style.backgroundColor = this.goalConfiguration[15]
+                        W.getElementById("goalrow2cell05").style.backgroundColor = this.goalConfiguration[16]
+                        W.getElementById("goalrow2cell06").style.backgroundColor = this.goalConfiguration[17]
+                        W.getElementById("goalrow2cell07").style.backgroundColor = this.goalConfiguration[18]
+                        W.getElementById("goalrow2cell08").style.backgroundColor = this.goalConfiguration[19]
+                        W.getElementById("goalrow2cell09").style.backgroundColor = this.goalConfiguration[20]
+                        W.getElementById("goalrow2cell10").style.backgroundColor = this.goalConfiguration[21]
+                        W.getElementById("goalrow2cell11").style.backgroundColor = this.goalConfiguration[22]
+                        W.getElementById("goalrow2cell12").style.backgroundColor = this.goalConfiguration[23]
+                        
+                        W.getElementById("goalrow3cell01").style.backgroundColor = this.goalConfiguration[24]
+                        W.getElementById("goalrow3cell02").style.backgroundColor = this.goalConfiguration[25]
+                        //W.getElementById("circlerow3cell03").style.backgroundColor = this.currentConfiguration[25]
+                        W.getElementById("goalrow3cell03").style.backgroundColor = this.goalConfiguration[26]
+                        W.getElementById("goalrow3cell04").style.backgroundColor = this.goalConfiguration[27]
+                        W.getElementById("goalrow3cell05").style.backgroundColor = this.goalConfiguration[28]
+                        W.getElementById("goalrow3cell06").style.backgroundColor = this.goalConfiguration[29]
+                        W.getElementById("goalrow3cell07").style.backgroundColor = this.goalConfiguration[30]
+                        W.getElementById("goalrow3cell08").style.backgroundColor = this.goalConfiguration[31]
+                        W.getElementById("goalrow3cell09").style.backgroundColor = this.goalConfiguration[32]
+                        W.getElementById("goalrow3cell10").style.backgroundColor = this.goalConfiguration[33]
+                        W.getElementById("goalrow3cell11").style.backgroundColor = this.goalConfiguration[34]
+                        W.getElementById("goalrow3cell12").style.backgroundColor = this.goalConfiguration[35]
+
                         // now architect moves blocks
 
-                        var dragid = 0;
+                var dragid = 0;
                 var dropid = 0;
                 var total = 0;
                 var dragtarget = W.getElementById("gbrd");
@@ -1527,6 +1940,45 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
                         W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
 
+                        W.getElementById("goalrow1cell01").style.backgroundColor = this.goalConfiguration[0]
+                        W.getElementById("goalrow1cell02").style.backgroundColor = this.goalConfiguration[1]
+                        W.getElementById("goalrow1cell03").style.backgroundColor = this.goalConfiguration[2]
+                        W.getElementById("goalrow1cell04").style.backgroundColor = this.goalConfiguration[3]
+                        W.getElementById("goalrow1cell05").style.backgroundColor = this.goalConfiguration[4]
+                        W.getElementById("goalrow1cell06").style.backgroundColor = this.goalConfiguration[5]
+                        W.getElementById("goalrow1cell07").style.backgroundColor = this.goalConfiguration[6]
+                        W.getElementById("goalrow1cell08").style.backgroundColor = this.goalConfiguration[7]
+                        W.getElementById("goalrow1cell09").style.backgroundColor = this.goalConfiguration[8]
+                        W.getElementById("goalrow1cell10").style.backgroundColor = this.goalConfiguration[9]
+                        W.getElementById("goalrow1cell11").style.backgroundColor = this.goalConfiguration[10]
+                        W.getElementById("goalrow1cell12").style.backgroundColor = this.goalConfiguration[11]
+                        
+                        W.getElementById("goalrow2cell01").style.backgroundColor = this.goalConfiguration[12]
+                        W.getElementById("goalrow2cell02").style.backgroundColor = this.goalConfiguration[13]
+                        W.getElementById("goalrow2cell03").style.backgroundColor = this.goalConfiguration[14]
+                        W.getElementById("goalrow2cell04").style.backgroundColor = this.goalConfiguration[15]
+                        W.getElementById("goalrow2cell05").style.backgroundColor = this.goalConfiguration[16]
+                        W.getElementById("goalrow2cell06").style.backgroundColor = this.goalConfiguration[17]
+                        W.getElementById("goalrow2cell07").style.backgroundColor = this.goalConfiguration[18]
+                        W.getElementById("goalrow2cell08").style.backgroundColor = this.goalConfiguration[19]
+                        W.getElementById("goalrow2cell09").style.backgroundColor = this.goalConfiguration[20]
+                        W.getElementById("goalrow2cell10").style.backgroundColor = this.goalConfiguration[21]
+                        W.getElementById("goalrow2cell11").style.backgroundColor = this.goalConfiguration[22]
+                        W.getElementById("goalrow2cell12").style.backgroundColor = this.goalConfiguration[23]
+                        
+                        W.getElementById("goalrow3cell01").style.backgroundColor = this.goalConfiguration[24]
+                        W.getElementById("goalrow3cell02").style.backgroundColor = this.goalConfiguration[25]
+                        //W.getElementById("circlerow3cell03").style.backgroundColor = this.currentConfiguration[25]
+                        W.getElementById("goalrow3cell03").style.backgroundColor = this.goalConfiguration[26]
+                        W.getElementById("goalrow3cell04").style.backgroundColor = this.goalConfiguration[27]
+                        W.getElementById("goalrow3cell05").style.backgroundColor = this.goalConfiguration[28]
+                        W.getElementById("goalrow3cell06").style.backgroundColor = this.goalConfiguration[29]
+                        W.getElementById("goalrow3cell07").style.backgroundColor = this.goalConfiguration[30]
+                        W.getElementById("goalrow3cell08").style.backgroundColor = this.goalConfiguration[31]
+                        W.getElementById("goalrow3cell09").style.backgroundColor = this.goalConfiguration[32]
+                        W.getElementById("goalrow3cell10").style.backgroundColor = this.goalConfiguration[33]
+                        W.getElementById("goalrow3cell11").style.backgroundColor = this.goalConfiguration[34]
+                        W.getElementById("goalrow3cell12").style.backgroundColor = this.goalConfiguration[35]
                         // after question has been displayed, architect responds with yes/no
 
                         this.yesNoArchitect = node.widgets.append('ChoiceTable', W.gid('containerbottom2'), {
@@ -1544,6 +1996,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                 },
                 done: function() {
+                    debugger;
+                    if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                        this.isGoalConfiguration = true;
+                        node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+                    }
                     // need to store the values being generated
 
                     var moveChoice1 = this.clueReceived
@@ -1586,7 +2043,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         }
     });
 
-
+//updates need to be made to guessFinalprac to continue throuhg rounds
     stager.extendStep('guessFinalprac', {
         role: function() { return this.role; },
         partner: function() { return this.partner; },
@@ -1599,7 +2056,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 donebutton: true,
                 frame: 'feedbackCG.htm',
                 cb: function() {
-
+                    debugger;
+                    // if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                    //     this.isGoalConfiguration = true;
+                    //     node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+    
+                    // }
                     var moveChoice1 = this.cluespast.at(-1)
 
                     this.lastConfiguration = JSON.parse(JSON.stringify(this.currentConfiguration));
@@ -1798,9 +2260,15 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     // el.addEventListener('click', this.clicker2);
 
                 }
+                
                 },
         done:  function(){
-
+            debugger;
+            // if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+            //     this.isGoalConfiguration = true;
+            //     node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+            //     debugger;
+            // }
             node.say('GUESS', node.game.partner);
             return;
         }
@@ -1814,7 +2282,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 cb: function() {//set the board for the guesser
 
                     // here we need to change the positions
-
+                    debugger;
+                    // if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                    //     this.isGoalConfiguration = true;
+                    //     node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+                    // }
                     var moveChoice1 = this.cluespast.at(-1)
 
                     this.lastConfiguration = JSON.parse(JSON.stringify(this.currentConfiguration));
@@ -1855,6 +2327,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     var moveToID = (row_to-1)*12 + (cell_to-1)
 
                   //moveToID becomes the color of moveFromID
+
+                  //this is where the configuration is upddates 
                     this.currentConfiguration[moveToID] = this.currentConfiguration[moveFromID]
                     // and moveFromID becomes white
                     this.currentConfiguration[moveFromID] = "white"
@@ -1898,6 +2372,46 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
                     W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
                     W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
+
+                    W.getElementById("goalrow1cell01").style.backgroundColor = this.goalConfiguration[0]
+                    W.getElementById("goalrow1cell02").style.backgroundColor = this.goalConfiguration[1]
+                    W.getElementById("goalrow1cell03").style.backgroundColor = this.goalConfiguration[2]
+                    W.getElementById("goalrow1cell04").style.backgroundColor = this.goalConfiguration[3]
+                    W.getElementById("goalrow1cell05").style.backgroundColor = this.goalConfiguration[4]
+                    W.getElementById("goalrow1cell06").style.backgroundColor = this.goalConfiguration[5]
+                    W.getElementById("goalrow1cell07").style.backgroundColor = this.goalConfiguration[6]
+                    W.getElementById("goalrow1cell08").style.backgroundColor = this.goalConfiguration[7]
+                    W.getElementById("goalrow1cell09").style.backgroundColor = this.goalConfiguration[8]
+                    W.getElementById("goalrow1cell10").style.backgroundColor = this.goalConfiguration[9]
+                    W.getElementById("goalrow1cell11").style.backgroundColor = this.goalConfiguration[10]
+                    W.getElementById("goalrow1cell12").style.backgroundColor = this.goalConfiguration[11]
+                    
+                    W.getElementById("goalrow2cell01").style.backgroundColor = this.goalConfiguration[12]
+                    W.getElementById("goalrow2cell02").style.backgroundColor = this.goalConfiguration[13]
+                    W.getElementById("goalrow2cell03").style.backgroundColor = this.goalConfiguration[14]
+                    W.getElementById("goalrow2cell04").style.backgroundColor = this.goalConfiguration[15]
+                    W.getElementById("goalrow2cell05").style.backgroundColor = this.goalConfiguration[16]
+                    W.getElementById("goalrow2cell06").style.backgroundColor = this.goalConfiguration[17]
+                    W.getElementById("goalrow2cell07").style.backgroundColor = this.goalConfiguration[18]
+                    W.getElementById("goalrow2cell08").style.backgroundColor = this.goalConfiguration[19]
+                    W.getElementById("goalrow2cell09").style.backgroundColor = this.goalConfiguration[20]
+                    W.getElementById("goalrow2cell10").style.backgroundColor = this.goalConfiguration[21]
+                    W.getElementById("goalrow2cell11").style.backgroundColor = this.goalConfiguration[22]
+                    W.getElementById("goalrow2cell12").style.backgroundColor = this.goalConfiguration[23]
+                    
+                    W.getElementById("goalrow3cell01").style.backgroundColor = this.goalConfiguration[24]
+                    W.getElementById("goalrow3cell02").style.backgroundColor = this.goalConfiguration[25]
+                    //W.getElementById("circlerow3cell03").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("goalrow3cell03").style.backgroundColor = this.goalConfiguration[26]
+                    W.getElementById("goalrow3cell04").style.backgroundColor = this.goalConfiguration[27]
+                    W.getElementById("goalrow3cell05").style.backgroundColor = this.goalConfiguration[28]
+                    W.getElementById("goalrow3cell06").style.backgroundColor = this.goalConfiguration[29]
+                    W.getElementById("goalrow3cell07").style.backgroundColor = this.goalConfiguration[30]
+                    W.getElementById("goalrow3cell08").style.backgroundColor = this.goalConfiguration[31]
+                    W.getElementById("goalrow3cell09").style.backgroundColor = this.goalConfiguration[32]
+                    W.getElementById("goalrow3cell10").style.backgroundColor = this.goalConfiguration[33]
+                    W.getElementById("goalrow3cell11").style.backgroundColor = this.goalConfiguration[34]
+                    W.getElementById("goalrow3cell12").style.backgroundColor = this.goalConfiguration[35]
 
                     }    // close the movement if
                     
@@ -1944,6 +2458,46 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     W.getElementById("row3cell10").style.backgroundColor = this.currentConfiguration[33]
                     W.getElementById("row3cell11").style.backgroundColor = this.currentConfiguration[34]
                     W.getElementById("row3cell12").style.backgroundColor = this.currentConfiguration[35]
+
+                    W.getElementById("goalrow1cell01").style.backgroundColor = this.goalConfiguration[0]
+                    W.getElementById("goalrow1cell02").style.backgroundColor = this.goalConfiguration[1]
+                    W.getElementById("goalrow1cell03").style.backgroundColor = this.goalConfiguration[2]
+                    W.getElementById("goalrow1cell04").style.backgroundColor = this.goalConfiguration[3]
+                    W.getElementById("goalrow1cell05").style.backgroundColor = this.goalConfiguration[4]
+                    W.getElementById("goalrow1cell06").style.backgroundColor = this.goalConfiguration[5]
+                    W.getElementById("goalrow1cell07").style.backgroundColor = this.goalConfiguration[6]
+                    W.getElementById("goalrow1cell08").style.backgroundColor = this.goalConfiguration[7]
+                    W.getElementById("goalrow1cell09").style.backgroundColor = this.goalConfiguration[8]
+                    W.getElementById("goalrow1cell10").style.backgroundColor = this.goalConfiguration[9]
+                    W.getElementById("goalrow1cell11").style.backgroundColor = this.goalConfiguration[10]
+                    W.getElementById("goalrow1cell12").style.backgroundColor = this.goalConfiguration[11]
+                    
+                    W.getElementById("goalrow2cell01").style.backgroundColor = this.goalConfiguration[12]
+                    W.getElementById("goalrow2cell02").style.backgroundColor = this.goalConfiguration[13]
+                    W.getElementById("goalrow2cell03").style.backgroundColor = this.goalConfiguration[14]
+                    W.getElementById("goalrow2cell04").style.backgroundColor = this.goalConfiguration[15]
+                    W.getElementById("goalrow2cell05").style.backgroundColor = this.goalConfiguration[16]
+                    W.getElementById("goalrow2cell06").style.backgroundColor = this.goalConfiguration[17]
+                    W.getElementById("goalrow2cell07").style.backgroundColor = this.goalConfiguration[18]
+                    W.getElementById("goalrow2cell08").style.backgroundColor = this.goalConfiguration[19]
+                    W.getElementById("goalrow2cell09").style.backgroundColor = this.goalConfiguration[20]
+                    W.getElementById("goalrow2cell10").style.backgroundColor = this.goalConfiguration[21]
+                    W.getElementById("goalrow2cell11").style.backgroundColor = this.goalConfiguration[22]
+                    W.getElementById("goalrow2cell12").style.backgroundColor = this.goalConfiguration[23]
+                    
+                    W.getElementById("goalrow3cell01").style.backgroundColor = this.goalConfiguration[24]
+                    W.getElementById("goalrow3cell02").style.backgroundColor = this.goalConfiguration[25]
+                    //W.getElementById("circlerow3cell03").style.backgroundColor = this.currentConfiguration[25]
+                    W.getElementById("goalrow3cell03").style.backgroundColor = this.goalConfiguration[26]
+                    W.getElementById("goalrow3cell04").style.backgroundColor = this.goalConfiguration[27]
+                    W.getElementById("goalrow3cell05").style.backgroundColor = this.goalConfiguration[28]
+                    W.getElementById("goalrow3cell06").style.backgroundColor = this.goalConfiguration[29]
+                    W.getElementById("goalrow3cell07").style.backgroundColor = this.goalConfiguration[30]
+                    W.getElementById("goalrow3cell08").style.backgroundColor = this.goalConfiguration[31]
+                    W.getElementById("goalrow3cell09").style.backgroundColor = this.goalConfiguration[32]
+                    W.getElementById("goalrow3cell10").style.backgroundColor = this.goalConfiguration[33]
+                    W.getElementById("goalrow3cell11").style.backgroundColor = this.goalConfiguration[34]
+                    W.getElementById("goalrow3cell12").style.backgroundColor = this.goalConfiguration[35]
                 }
                     
                 
@@ -1958,6 +2512,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     });
                 },
                 done: function() {
+                    debugger;
+                    // if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
+                    //     this.isGoalConfiguration = true;
+                    //     node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
+                    //  }
                     node.say('GUESS', node.game.partner);
                     node.on.data('GUESS', function(msg) {
                         that.clueReceived = msg.data;
@@ -1971,7 +2530,131 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     });
 
-    /// CODE HASNT BEEN UPDATED AFTER THIS!!
+    //     /// CODE HASNT BEEN UPDATED AFTER THIS!!
+    // /// onc goal check need to ensure that feedbackprac is 
+    // stager.extendStep('feedbackprac', {//tells each player whether the guesser was successful
+    //     role: function() { return this.role; },
+    //     partner: function() { return this.partner; },
+
+    //     roles: {
+    //         CLUEGIVER:{
+    //             frame: 'feedbackCG.htm',
+    //             cb: function() {
+    //                 var myDiv = W.getElementById("cganswers");
+    //                 var myDiv2 = W.getElementById("cgcorrect");
+    //                 var myDiv3 = W.getElementById("cgnextstep");
+    //                 if(JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)){
+    //                     myDiv.innerHTML = "Helper the game is finished";
+    //                 myDiv2.innerHTML = "Click done to move forward ";
+    //                 myDiv3.innerHTML = "The statistics will be calculated.";
+    //                 }
+
+    //                 myDiv.innerHTML = "Helper click done to continue the game";
+
+    //                 // this.smallRoundCounter += 1;
+    //                 //var myDiv4 = W.getElementById("cgnextboard");
+    //                 // if(this.pairList[this.roundCounter].includes(this.guess1Received)&&this.pairList[this.roundCounter].includes(this.guess2Received)){//if they were correct it ends the stage and moves on to the next word pair
+    //                 //     myDiv.innerHTML = "The Guesser responded with " + this.guess1Received + " and " + this.guess2Received + " which is CORRECT!";
+    //                 //     myDiv2.innerHTML = "You will now move on to the next word pair. Please click Done.";
+    //                 //     myDiv3.innerHTML = "";
+    //                 //     this.roundCounter += 1;
+    //                 //     this.randomOrder = Math.floor(Math.random()*2)//randomize the order of target words for the clue-giver
+    //                 //     var j;
+    //                 //     for(j=0; j < this.smallRoundCounter; j++){
+    //                 //         this.cluespast.pop();
+    //                 //     }
+    //                 //     this.smallRoundCounter = 0;
+    //                 //     if(this.roundcounter%3 == 0){
+    //                 //         myDiv2.innerHTML = "You will now move on to the next board. Please click Done.";
+    //                 //     }
+    //                 //     if(this.roundCounter == this.pracpairnumber){//if the next value is equal to number of pairs then we are out of pairs and the experiment is over
+    //                 //         node.say('END_GAME', 'SERVER', true);
+    //                 //     }
+    //                 // }
+    //                 // else if(this.smallRoundCounter == 2){//if this is the third trial the players did not get the word and we move to the next word pair
+    //                 //     myDiv.innerHTML = "The Guesser responded with " + this.guess1Received + " and " + this.guess2Received + " which is INCORRECT!";
+    //                 //     myDiv2.innerHTML = "You have exhausted your three attempts. The correct words were " + this.pairList[this.roundCounter][0] + " and " + this.pairList[this.roundCounter][1] + ".";
+    //                 //     myDiv3.innerHTML = "You will now move on to the next word pair. Please click Done.";
+    //                 //     this.roundCounter += 1;
+    //                 //     this.randomOrder = Math.floor(Math.random()*2)//randomize the order of target words for the clue-giver
+    //                 //     var k;
+    //                 //     for(k=0; k < this.smallRoundCounter; k++){
+    //                 //         this.cluespast.pop();
+    //                 //     }
+    //                 //     this.smallRoundCounter = 0;
+    //                 //     if(this.roundcounter%3 == 0){
+    //                 //         myDiv3.innerHTML = "You will now move on to the next board. Please click Done.";
+    //                 //     }
+    //                 //     if(this.roundCounter == this.pracpairnumber){//if the next value is equal to number of pairs then we are out of pairs and the experiment is over
+    //                 //         node.say('END_GAME', 'SERVER', true);
+    //                 //     }
+    //                 // }
+    //                 // else{//if they are wrong and it isn't the third trial players get another chance
+    //                 //     myDiv.innerHTML = "The Guesser responded with " + this.guess1Received + " and " + this.guess2Received + " which is INCORRECT!";
+    //                 //     myDiv2.innerHTML = "You will now choose a different clue for the same word pair. Please click Done.";
+    //                 //     myDiv3.innerHTML = "";
+    //                 //     this.smallRoundCounter += 1;
+    //                 // }
+    //             }
+    //         },
+    //         GUESSER:{
+    //             frame: 'feedbackGuesser.htm',
+    //             cb: function() {
+    //                 // var guess1TXT = node.game.memory.resolveTag("guess1").Guess1;//use tags to get our response from memory and validate
+    //                 // var guess2TXT = node.game.memory.resolveTag("guess2").Guess2;
+
+    //                 var myDiv = W.getElementById("ganswers");
+    //                 var myDiv2 = W.getElementById("gcorrect");
+    //                 var myDiv3 = W.getElementById("gnextstep");
+    //                 if(JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)){
+    //                     myDiv.innerHTML = "Architec the game is finished";
+    //                     myDiv2.innerHTML = "Click done to move forward ";
+    //                 myDiv3.innerHTML = "The statistics will be calculated.";
+    //                 }
+
+    //                 myDiv.innerHTML = "Architect click done to continue the game";
+    //                 // myDiv.innerHTML = "Architec the game is finished";
+    //                 // myDiv2.innerHTML = "Click done to move forward ";
+    //                 // myDiv3.innerHTML = "The statistics will be calculated.";
+    //                 // if(this.pairList[this.roundCounter].includes(guess1TXT)&&this.pairList[this.roundCounter].includes(guess2TXT)){//if they were correct it ends the stage and moves on to the next word pair
+    //                 //     myDiv.innerHTML = "You responded with " + guess1TXT + " and " + guess2TXT + " which is CORRECT!";
+    //                 //     myDiv2.innerHTML = "You will now move on to the next word pair. Please click Done.";
+    //                 //     myDiv3.innerHTML = "";
+    //                 //     this.roundCounter += 1;
+    //                 //     var j;
+    //                 //     for(j=0; j < this.smallRoundCounter; j++){
+    //                 //         this.cluespast.pop();
+    //                 //     }
+    //                 //     this.smallRoundCounter = 0;
+    //                 //     if(this.roundCounter == this.pairnumber){//if the next value is equal to number of pairs then we are out of pairs and the experiment is over
+    //                 //         node.say('END_GAME', 'SERVER', true);
+    //                 //     }
+    //                 // }
+    //                 // else if(this.smallRoundCounter == 2){//if this is the third trial the players did not get the word and we move to the next word pair
+    //                 //     myDiv.innerHTML = "You responded with " + guess1TXT + " and " + guess2TXT + " which is INCORRECT!";
+    //                 //     myDiv2.innerHTML = "You have exhausted your three attempts. The correct words were " + this.pairList[this.roundCounter][0] + " and " + this.pairList[this.roundCounter][1] + ".";
+    //                 //     myDiv3.innerHTML = "You will now move on to the next word pair. Please click Done.";
+    //                 //     this.roundCounter += 1;
+    //                 //     var l;
+    //                 //     for(l=0; l < this.smallRoundCounter; l++){
+    //                 //         this.cluespast.pop();
+    //                 //     }
+    //                 //     this.smallRoundCounter = 0;
+    //                 //     if(this.roundCounter == this.pairnumber){//if the next value is equal to number of pairs then we are out of pairs and the experiment is over
+    //                 //         node.say('END_GAME', 'SERVER', true);
+    //                 //     }
+    //                 // }
+    //                 // else{//if they are wrong and it isn't the third trial players get another chance
+    //                 //     myDiv.innerHTML = "You responded with " + guess1TXT + " and " + guess2TXT + " which is INCORRECT!";
+    //                 //     myDiv2.innerHTML = "The Speaker will now choose a different clue for the same word pair. Please click Done.";
+    //                 //     myDiv3.innerHTML = "";
+    //                 //     this.smallRoundCounter += 1;
+    //                 // }
+    //             }
+    //         }
+    //     }
+    // });
+    // /// CODE HASNT BEEN UPDATED AFTER THIS!!
 
 
     stager.extendStep('endprac', {

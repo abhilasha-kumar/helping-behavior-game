@@ -15,17 +15,24 @@ module.exports = function(stager, settings) {
     stager.stage('instructions');
     stager.loopStage('gameplayprac', function() {
    // Returns true for executing one more iteration of the loop.
-   return !this.LOOP_ENDED_PRAC;
+   //hit debugger and working to end game, check goal check function 
+//    return !node.game.LOOP_ENDED_PRAC;
+    console.log("Loop Ended")
+    console.log(this.LOOP_ENDED_PRAC)
+    console.log(!this.LOOP_ENDED_PRAC)
+    return !this.LOOP_ENDED_PRAC;
+//    return true;
 });
     //stager.repeatStage('gameplay',3);
     stager.step('helperOptionsprac');
     stager.step('helperAction');
     stager.step('guessOptionsprac');
     stager.step('guessFinalprac');
-    //stager.step('feedbackprac');
+    // stager.step('feedbackprac');
     stager.stage('endprac');
     stager.loopStage('gameplay', function() {
    // Returns true for executing one more iteration of the loop.
+//    return true;
    return !this.LOOP_ENDED;
 });
     //stager.repeatStage('gameplay',3);

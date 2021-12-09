@@ -37,7 +37,10 @@ function endGameFunc(msg) {//ends the game
 }
 
 function endGameFuncPrac(msg) {//ends the game
-    this.LOOP_ENDED_PRAC = true;
+    if(this.LOOP_ENDED_PRAC!=true){
+        console.log("endGameFuncPrac");
+        this.LOOP_ENDED_PRAC = true;
+    }
 }
 
 
@@ -73,7 +76,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         //     db.view('feedbackprac', function() {
         //     return node.game.isStage('gameplay');
         // });
-
+        return node.game.isStage('gameplay');
 
         }
 
@@ -83,6 +86,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('helperOptionsprac', {
         cb: function() {
+            console.log("Goal Complete");       
+            node.on.data('END_GAME', endGameFuncPrac);
             /*include for board shuffling
             var board = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
 
@@ -92,10 +97,51 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     });
 
+    stager.extendStep('helperAction', {
+        cb: function() {
+            console.log("Goal Complete");
+            node.on.data('END_GAME', endGameFuncPrac);
+
+            /*include for board shuffling
+            var board = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
+
+            var sboard = shuffle(board);
+            */
+        }
+
+    });
+    stager.extendStep('guessOptionsprac', {
+        cb: function() {
+            console.log("Goal Complete");
+            node.on.data('END_GAME', endGameFuncPrac);
+
+            /*include for board shuffling
+            var board = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
+
+            var sboard = shuffle(board);
+            */
+        }
+
+    });
+    stager.extendStep('guessFinalprac', {
+        cb: function() {
+            console.log("Goal Complete");
+            node.on.data('END_GAME', endGameFuncPrac);
+
+            /*include for board shuffling
+            var board = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
+
+            var sboard = shuffle(board);
+            */
+        }
+
+    });
+
+
     // stager.extendStep('feedbackprac', {
-    //     cb: function() {//when the server receives the end game msg it runs the end game function
-    //         node.on.data('END_GAME', endGameFuncPrac);
-    //     },
+        // cb: function() {//when the server receives the end game msg it runs the end game function
+        //     node.on.data('END_GAME', endGameFuncPrac);
+        // },
     //     exit: function(){
     //         db.feedbackprac.save('feedbackprac.csv', {
 
