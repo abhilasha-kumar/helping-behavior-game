@@ -1009,6 +1009,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 },
                 done: function(){
                     debugger;
+                    
                 //     if((JSON.stringify(this.currentConfiguration) == JSON.stringify(this.goalConfiguration)) && this.isGoalConfiguration == false){
                 //         this.isGoalConfiguration = true;
                 //         node.game.goalsSwitchCase(this.currentConfiguration, this.shapeColor, this.goalRoom);
