@@ -37,10 +37,7 @@ function endGameFunc(msg) {//ends the game
 }
 
 function endGameFuncPrac(msg) {//ends the game
-    if(this.LOOP_ENDED_PRAC!=true){
-        console.log("endGameFuncPrac");
-        this.LOOP_ENDED_PRAC = true;
-    }
+    this.LOOP_ENDED_PRAC = true;
 }
 
 
@@ -62,6 +59,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         matcher: {//assign roles for gameplay
             roles: ['CLUEGIVER','GUESSER'],
             match: 'roundrobin',
+            fixedRoles: false
         },
         reconnect: true,
 
@@ -73,10 +71,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStage('gameplayprac', {
         init: function() {//create view for results storage
-        //     db.view('feedbackprac', function() {
-        //     return node.game.isStage('gameplay');
-        // });
-        return node.game.isStage('gameplay');
+             db.view('feedbackprac', function() {
+             return node.game.isStage('gameplay');
+         });
+
 
         }
 
@@ -86,8 +84,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('helperOptionsprac', {
         cb: function() {
-            console.log("Goal Complete");       
-            node.on.data('END_GAME', endGameFuncPrac);
             /*include for board shuffling
             var board = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
 
@@ -98,136 +94,103 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
 
     stager.extendStep('helperAction', {
-        cb: function() {
-            console.log("Goal Complete");
-            node.on.data('END_GAME', endGameFuncPrac);
-
-            /*include for board shuffling
-            var board = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
-
-            var sboard = shuffle(board);
-            */
-        }
-
     });
+
     stager.extendStep('guessOptionsprac', {
-        cb: function() {
-            console.log("Goal Complete");
-            node.on.data('END_GAME', endGameFuncPrac);
+    });
 
+
+   // stager.extendStep('guessFinalprac', {
+    //});
+
+     stager.extendStep('feedbackprac', {
+         cb: function() {//when the server receives the end game msg it runs the end game function
+             node.on.data('END_GAME', endGameFuncPrac);
+         },
+         exit: function(){
+             db.feedbackprac.save('feedbackprac.csv', {
+
+                 // Custom header.
+                 header: ["helperID", "helperRandCode", "architectID", "architectRandCode","goalnumber", "helperChoice", "helperChoiceTime","helperMove",  "helperQuestion", "architectMove", "architectAnswer", "goalSuccess"],
+
+                 // Saves only updates from previous save command.
+                 updatesOnly: true,
+
+                 flatten: true
+             });
+
+          }
+     });
+
+
+   // stager.extendStage('gameplay', {
+     //   init: function() {//create view for results storage
+       //     db.view('feedback', function() {
+         //   return node.game.isStage('gameplay');
+        //});
+
+
+        //},
+
+    //});
+
+
+
+//    stager.extendStep('clueOptions', {
+  //      cb: function() {
             /*include for board shuffling
             var board = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
 
             var sboard = shuffle(board);
             */
-        }
+    //    }
 
-    });
-    stager.extendStep('guessFinalprac', {
-        cb: function() {
-            console.log("Goal Complete");
-            node.on.data('END_GAME', endGameFuncPrac);
+//    });
+    
 
-            /*include for board shuffling
-            var board = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
-
-            var sboard = shuffle(board);
-            */
-        }
-
-    });
-
-
-    // stager.extendStep('feedbackprac', {
-        // cb: function() {//when the server receives the end game msg it runs the end game function
-        //     node.on.data('END_GAME', endGameFuncPrac);
-        // },
-    //     exit: function(){
-    //         db.feedbackprac.save('feedbackprac.csv', {
-
-    //             // Custom header.
-    //             header: ["clueGiverID", "clueGiverRandCode", "guesserID", "guesserRandCode","target1","target2", "clueOption1", "TBOption1", "TEOption1", "clueOption2", "TBOption2", "TEOption2", "clueOption3", "TBOption3", "TEOption3", "clueOption4", "TBOption4", "TEOption4", "clueOption5", "TBOption5", "TEOption5", "clueOption6", "TBOption6", "TEOption6", "clueOption7", "TBOption7", "TEOption7", "clueOption8", "TBOption8", "TEOption8", "clueFinal", "TBFinal", "TEFinal", "GuessOption1", "GUESS_OPTION1_TIME", "GuessOption2", "GUESS_OPTION2_TIME", "GuessOption3", "GUESS_OPTION3_TIME", "GuessOption4", "GUESS_OPTION4_TIME", "GuessOption5", "GUESS_OPTION5_TIME", "GuessOption6", "GUESS_OPTION6_TIME", "GuessOption7", "GUESS_OPTION7_TIME", "GuessOption8", "GUESS_OPTION8_TIME", "GUESS_1_FINAL", "GUESS_1_FINAL_TIME", "GUESS_2_FINAL", "GUESS_2_FINAL_TIME"],
-
-    //             // Saves only updates from previous save command.
-    //             updatesOnly: true,
-
-    //             flatten: true
-    //         });
-
-    //      }
-    // });
-
-
-
-
-
-
-
-    stager.extendStage('gameplay', {
-        init: function() {//create view for results storage
-            db.view('feedback', function() {
-            return node.game.isStage('gameplay');
-        });
-
-
-        },
-
-    });
-
-
-
-    stager.extendStep('clueOptions', {
-        cb: function() {
-            /*include for board shuffling
-            var board = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
-
-            var sboard = shuffle(board);
-            */
-        }
-
-    });
-
-    stager.extendStep('feedback', {
-        cb: function() {//when the server receives the end game msg it runs the end game function
-            node.on.data('END_GAME', endGameFunc);
-        },
-        exit: function(){
-            db.feedback.save('feedback.csv', {
+  //  stager.extendStep('feedback', {
+    //    cb: function() {//when the server receives the end game msg it runs the end game function
+      //      node.on.data('END_GAME', endGameFunc);
+       // },
+       // exit: function(){
+         //   db.feedback.save('feedback.csv', {
 
                 // Custom header.
-                header: ["clueGiverID", "clueGiverRandCode", "guesserID", "guesserRandCode","target1","target2", "clueOption1", "TBOption1", "TEOption1", "clueOption2", "TBOption2", "TEOption2", "clueOption3", "TBOption3", "TEOption3", "clueOption4", "TBOption4", "TEOption4", "clueOption5", "TBOption5", "TEOption5", "clueOption6", "TBOption6", "TEOption6", "clueOption7", "TBOption7", "TEOption7", "clueOption8", "TBOption8", "TEOption8", "clueFinal", "TBFinal", "TEFinal", "GuessOption1", "GUESS_OPTION1_TIME", "GuessOption2", "GUESS_OPTION2_TIME", "GuessOption3", "GUESS_OPTION3_TIME", "GuessOption4", "GUESS_OPTION4_TIME", "GuessOption5", "GUESS_OPTION5_TIME", "GuessOption6", "GUESS_OPTION6_TIME", "GuessOption7", "GUESS_OPTION7_TIME", "GuessOption8", "GUESS_OPTION8_TIME", "GUESS_1_FINAL", "GUESS_1_FINAL_TIME", "GUESS_2_FINAL", "GUESS_2_FINAL_TIME"],
+           //     header: ["clueGiverID", "clueGiverRandCode", "guesserID", "guesserRandCode","target1","target2", "clueOption1", "TBOption1", "TEOption1", "clueOption2", "TBOption2", "TEOption2", "clueOption3", "TBOption3", "TEOption3", "clueOption4", "TBOption4", "TEOption4", "clueOption5", "TBOption5", "TEOption5", "clueOption6", "TBOption6", "TEOption6", "clueOption7", "TBOption7", "TEOption7", "clueOption8", "TBOption8", "TEOption8", "clueFinal", "TBFinal", "TEFinal", "GuessOption1", "GUESS_OPTION1_TIME", "GuessOption2", "GUESS_OPTION2_TIME", "GuessOption3", "GUESS_OPTION3_TIME", "GuessOption4", "GUESS_OPTION4_TIME", "GuessOption5", "GUESS_OPTION5_TIME", "GuessOption6", "GUESS_OPTION6_TIME", "GuessOption7", "GUESS_OPTION7_TIME", "GuessOption8", "GUESS_OPTION8_TIME", "GUESS_1_FINAL", "GUESS_1_FINAL_TIME", "GUESS_2_FINAL", "GUESS_2_FINAL_TIME"],
 
                 // Saves only updates from previous save command.
-                updatesOnly: true,
+             //   updatesOnly: true,
 
-                flatten: true
-            });
+//                flatten: true
+  //          });
 
-         }
-    });
+    //     }
+    //});
 
-    stager.extendStep('demographics', {
-        init: function() {
-            db.view('demographics', function() {//creates view for saving demographics
-                return node.game.isStage('demographics');
-            });
-        },
-        exit: function(){
-            db.feedback.save('demographics.csv', {
+    
+
+   // stager.extendStep('demographics', {
+     //   init: function() {
+       //     db.view('demographics', function() {//creates view for saving demographics
+         //       return node.game.isStage('demographics');
+          //  });
+        //},
+        //exit: function(){
+          //  db.feedback.save('demographics.csv', {
 
                 // Custom header.
-                header: ["player","ID","RandCode","age","gender","education","domHand","alert","racial","hispanic","english","language","english5","englishAge","msc"],
+            //    header: ["player","ID","RandCode","age","gender","education","domHand","alert","racial","hispanic","english","language","english5","englishAge","msc"],
 
                 // Saves only updates from previous save command.
-                updatesOnly: true,
+              //  updatesOnly: true,
 
-                flatten: true,
+                //flatten: true,
 
-                flattenByGroup: 'player'
-            });
+                //flattenByGroup: 'player'
+            //});
 
-         }
-    });
+         //}
+    //});
 
     stager.extendStep('end', {
     });

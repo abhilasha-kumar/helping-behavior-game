@@ -23,12 +23,30 @@ th {
   font-weight: normal;
 }
 
+td {
+  width: 60px;
+  height: 60px;
+  font-size: 20px;
+  text-align: center;
+  color: black;
+  font-weight: normal;
+}
+
 table span{
 	display:block;
 	background-color: rgb(255, 255, 255);
 	height: 100%;
 	width: 100%;
 }
+
+th:nth-of-type(2n) {    
+  border-right: 3px dashed #645c5c;
+}
+
+th:nth-of-type(4n) {    
+  border-right: 3px solid #000000;
+}
+
 .button {
   border: transparent;
   background-color: transparent;
@@ -86,39 +104,29 @@ table span{
     background-color: LimeGreen;
 }
 
-.redsquare {
+.rectangle {
   height: 50px;
-  width: 50px;
-  background-color: rgb(196, 52, 52);
-}
-
-.bluesquare {
-  height: 50px;
-  width: 50px;
-  background-color: rgb(15, 18, 216);
-}
-
-
-.greensquare {
-  height: 50px;
-  width: 50px;
-  background-color: rgb(15, 216, 48);
+  width: 130px;
+  padding-left: 3px;
+  padding-right: 3px;
+  background-color: rgb(84, 231, 199);
+  border:solid;
+  border-color: black;
+  display: inline;
 }
 
 .sphere {
   background-color:rgb(255, 255, 255); 
   display:block;
-  height:50px;
-  width:50px;
+  height:52px;
+  width:52px;
   border-radius:100%;
-  border:1px solid rgb(255, 255, 255);
+  border:none;
   margin:auto;
   color:#fff;
   line-height:50px;
   text-align:center
 }
-
-
 .hide {
   display: none;
 }

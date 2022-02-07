@@ -15,33 +15,28 @@ module.exports = function(stager, settings) {
     stager.stage('instructions');
     stager.loopStage('gameplayprac', function() {
    // Returns true for executing one more iteration of the loop.
-   //hit debugger and working to end game, check goal check function 
-//    return !node.game.LOOP_ENDED_PRAC;
-    console.log("Loop Ended")
-    console.log(this.LOOP_ENDED_PRAC)
-    console.log(!this.LOOP_ENDED_PRAC)
-    return !this.LOOP_ENDED_PRAC;
-//    return true;
+   return !this.LOOP_ENDED_PRAC;
 });
-    //stager.repeatStage('gameplay',3);
+   // stager.repeatStage('gameplayprac',2);
     stager.step('helperOptionsprac');
+    //stager.step('feedbackprac');
     stager.step('helperAction');
+    //stager.step('feedbackprac');
     stager.step('guessOptionsprac');
-    stager.step('guessFinalprac');
-    // stager.step('feedbackprac');
+    //stager.step('guessFinalprac');
+    stager.step('feedbackprac');
     stager.stage('endprac');
-    stager.loopStage('gameplay', function() {
+    //stager.loopStage('gameplay', function() {
    // Returns true for executing one more iteration of the loop.
-//    return true;
-   return !this.LOOP_ENDED;
-});
+   //return !this.LOOP_ENDED;
+//});
     //stager.repeatStage('gameplay',3);
-    stager.step('clueOptions');
-    stager.step('clueFinal');
-    stager.step('guessOptions');
-    stager.step('guessFinal');
-    stager.step('feedback');
-    stager.stage('demographics');
+  //  stager.step('clueOptions');
+   // stager.step('clueFinal');
+   // stager.step('guessOptions');
+   // stager.step('guessFinal');
+   // stager.step('feedback');
+   // stager.stage('demographics');
     stager.stage('end');
     stager.gameover();
 
