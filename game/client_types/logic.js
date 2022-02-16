@@ -1,6 +1,6 @@
 /**
  * # Logic type implementation of the game stages
- * Copyright(c) 2020 Jasper Wilson <jaspermwilson@gmail.com>
+ * Copyright(c) 2022 Abhilasha Kumar (kumaraa@iu.edu)
  * MIT Licensed
  *
  * http://www.nodegame.org
@@ -43,7 +43,7 @@ function endGameFuncPrac(msg) {//ends the game
 
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
-    var node = gameRoom.node;
+    let node = gameRoom.node;
     var channel =  gameRoom.channel;
     let db = node.game.memory;
     // Must implement the stages here.
@@ -52,35 +52,79 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     //     function() { node.game.gotoStep('demographics'); }
     // ]);
 
-    stager.extendStep('instructions', {
-        cb: function() {
-            console.log('Instructions.');
+    stager.extendStage('instructions', {
+        
+       
+
+    });
+
+
+    stager.extendStage('gameplayprac', {
+        init: function() {//create view for results storage
+             db.view('feedbackprac', function() {
+             return node.game.isStage('gameplayprac');
+         });
+
+
         },
+        /*
         matcher: {//assign roles for gameplay
             roles: ['CLUEGIVER','GUESSER'],
             match: 'roundrobin',
             fixedRoles: false
         },
         reconnect: true,
+        */
 
     });
 
+    stager.extendStep('feedbackprac', {
 
+        cb: function() {//when the server receives the end game msg it runs the end game function
 
+           node.on.data('ACHIEVED', function(msg) {
+            console.log("inside feedback logic:"+msg.data)
+               if (msg.data === 1){node.game.goal = 1}
+               else {node.game.goal = 0 }
+           }),
 
+            node.on.data('END_GAME', endGameFuncPrac);
+        },
+        exit: function(){
+            db.feedbackprac.save('feedbackprac.csv', {
 
-    stager.extendStage('gameplayprac', {
-        init: function() {//create view for results storage
-             db.view('feedbackprac', function() {
-             return node.game.isStage('gameplay');
-         });
+                // Custom header.
+                header: ["helperID", "helperRandCode", "architectID", "architectRandCode","goalnumber", "helperChoice", "helperChoiceTime","helperMove",  "helperQuestion", "architectMove", "architectAnswer", "goalSuccess"],
 
+                // Saves only updates from previous save command.
+                updatesOnly: true,
 
+                flatten: true
+            });
+
+         }
+    });
+
+    stager.extendStep('rolesAssigned', {
+        matcher: {//assign roles for gameplay
+            roles: ['CLUEGIVER','GUESSER'],
+            match: 'random_pairs',
+            //fixedRoles: false,
+            //cycle: 'mirror_invert'
+        },
+        reconnect: true,
+
+        assignerCb: function(arrayIds) {
+            console.log("inside assignerCb:"+node.game.goal)
+            if (node.game.goal === 1) {
+                temp = arrayIds[0];
+                arrayIds[0] = arrayIds[1];
+                arrayIds[1] = temp;
+            }
+            return arrayIds;
         }
 
     });
-
-
 
     stager.extendStep('helperOptionsprac', {
         cb: function() {
@@ -103,24 +147,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
    // stager.extendStep('guessFinalprac', {
     //});
 
-     stager.extendStep('feedbackprac', {
-         cb: function() {//when the server receives the end game msg it runs the end game function
-             node.on.data('END_GAME', endGameFuncPrac);
-         },
-         exit: function(){
-             db.feedbackprac.save('feedbackprac.csv', {
-
-                 // Custom header.
-                 header: ["helperID", "helperRandCode", "architectID", "architectRandCode","goalnumber", "helperChoice", "helperChoiceTime","helperMove",  "helperQuestion", "architectMove", "architectAnswer", "goalSuccess"],
-
-                 // Saves only updates from previous save command.
-                 updatesOnly: true,
-
-                 flatten: true
-             });
-
-          }
-     });
+     
 
 
    // stager.extendStage('gameplay', {

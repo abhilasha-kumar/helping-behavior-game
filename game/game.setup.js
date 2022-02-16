@@ -1,6 +1,6 @@
 /**
  * # Game setup
- * Copyright(c) 2020 Jasper Wilson <jaspermwilson@gmail.com>
+ * Copyright(c) 2022 Abhilasha Kumar (kumaraa@iu.edu)
  * MIT Licensed
  *
  * This file includes settings that are shared amongst all client types

@@ -1,6 +1,6 @@
 /**
  * # Requirements settings
- * Copyright(c) 2020 Jasper Wilson <jaspermwilson@gmail.com>
+ * Copyright(c) 2022 Abhilasha Kumar (kumaraa@iu.edu)
  * MIT Licensed
  *
  * Requirements settings file.

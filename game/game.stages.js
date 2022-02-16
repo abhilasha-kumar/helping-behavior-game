@@ -1,6 +1,6 @@
 /**
  * # Game stages definition file
- * Copyright(c) 2020 Jasper Wilson <jaspermwilson@gmail.com>
+ * Copyright(c) 2022 Abhilasha Kumar (kumaraa@iu.edu)
  * MIT Licensed
  *
  * Stages are defined using the stager API
@@ -14,18 +14,16 @@ module.exports = function(stager, settings) {
     stager.stage('idGet');
     stager.stage('instructions');
     stager.loopStage('gameplayprac', function() {
-   // Returns true for executing one more iteration of the loop.
    return !this.LOOP_ENDED_PRAC;
 });
-   // stager.repeatStage('gameplayprac',2);
+    stager.step('rolesAssigned'); // make this conditional on output from feedback, i.e., skip if needed!
     stager.step('helperOptionsprac');
-    //stager.step('feedbackprac');
     stager.step('helperAction');
-    //stager.step('feedbackprac');
     stager.step('guessOptionsprac');
-    //stager.step('guessFinalprac');
-    stager.step('feedbackprac');
+    stager.step('feedbackprac'); 
+
     stager.stage('endprac');
+    
     //stager.loopStage('gameplay', function() {
    // Returns true for executing one more iteration of the loop.
    //return !this.LOOP_ENDED;

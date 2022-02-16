@@ -1,6 +1,6 @@
 /**
  * # Player type implementation of the game stages
- * Copyright(c) 2020 Jasper Wilson <jaspermwilson@gmail.com>
+ * Copyright(c) 2022 Abhilasha Kumar kumaraa@iu.edu
  * MIT Licensed
  *
  * Each client type must extend / implement the stages defined in `game.stages`.
@@ -87,6 +87,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                                     this.shape[1],this.shape[0],this.shape[0],this.shape[0]]   // room C - bottom row                         
 
         this.cluespast = [];
+        this.goalAchieved = 0;
 
 
         this.roundCounter = 0;//iterated value to move through the goals
@@ -198,18 +199,19 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         }
     });
 
-    stager.extendStep('instructions', {
+    stager.extendStage('instructions', {
+        frame: 'game_instructions.htm',
+    });
+
+    stager.extendStep('rolesAssigned', {
         role: function() { return this.role; },
         partner: function() { return this.partner; },
         roles: {
             CLUEGIVER:{
-                frame: 'instructionsCG.htm',
+                frame: 'instructionsCG.htm' // cpnfitionalizw
             },
             GUESSER:{
-                frame: 'instructions.htm',
-                cb: function(){        
-                    //W.setInnerHTML('containerbottom2', '<p>Your goal is to: '+ this.verbalGoal)
-                }
+                frame: 'instructions.htm'
             }
         }
     });
@@ -3068,7 +3070,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         myDiv.innerHTML = "The goal was to: " + this.verbalGoal + ". The goal has been achieved!!";
                         myDiv2.innerHTML = "You will now move on to the next goal. Please click Done.";
                         //myDiv3.innerHTML = "";
+                        node.say('ACHIEVED','SERVER', 1);
 
+                        
                         node.set({goalSuccess: 1});
 
                         this.roundCounter += 1;
@@ -3113,6 +3117,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                        //myDiv.innerHTML = "The goal has not been achieved. Keep going..."
                         //myDiv2.innerHTML = "You will now choose a different clue for the same word pair. Please click Done.";
                         //myDiv3.innerHTML = "";
+                        
+                        node.say('ACHIEVED','SERVER', 0);
                         node.set({goalSuccess: 0});
                         this.attempts += 1;
                         W.setInnerHTML("clue2", "");
@@ -3490,6 +3496,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         myDiv.innerHTML = "The goal was to: " + this.verbalGoal + ". The goal has been achieved!!";
                         myDiv2.innerHTML = "You will now move on to the next goal. Please click Continue.";
                         //myDiv3.innerHTML = "";
+                        node.say('ACHIEVED', 'SERVER', 1);
                         node.set({goalSuccess: 1});
                         this.roundCounter += 1;
                         this.currentConfiguration = this.initialConfiguration
@@ -3533,6 +3540,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         //myDiv.innerHTML = "The goal has not been achieved. Keep going..."
                         //myDiv2.innerHTML = "You will now choose a different clue for the same word pair. Please click Done.";
                         //myDiv3.innerHTML = "";
+                        node.say('ACHIEVED','SERVER', 0);
                         node.set({goalSuccess: 0});
                         this.attempts += 1;
                         W.setInnerHTML("clue2", "");
