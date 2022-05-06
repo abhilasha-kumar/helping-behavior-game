@@ -51,22 +51,38 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     //     settings.MIN_PLAYERS,
     //     function() { node.game.gotoStep('demographics'); }
     // ]);
-
-    stager.extendStage('instructions', {
+    /*
+    stager.extendStage('consent', {
         
-       
-
+    });
+    /*
+    stager.extendStep('idGet', {
+        
     });
 
+   
+    stager.extendStep('instructions', {
+        
+    });
+    */
 
     stager.extendStage('gameplayprac', {
         init: function() {//create view for results storage
-             db.view('feedbackprac', function() {
+            db.view('gameplayprac', function() {
              return node.game.isStage('gameplayprac');
          });
+        }
+    });
 
 
+    stager.extendStep('gameplayprac', {
+        
+        cb: function(){
+            node.on.data('END_GAME', endGameFuncPrac);
         },
+
+        
+        
         /*
         matcher: {//assign roles for gameplay
             roles: ['CLUEGIVER','GUESSER'],
@@ -77,6 +93,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         */
 
     });
+
+    /*
 
     stager.extendStep('feedbackprac', {
 
@@ -105,47 +123,107 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
          }
     });
 
+    */
+
+    /*
+
     stager.extendStep('rolesAssigned', {
         matcher: {//assign roles for gameplay
-            roles: ['CLUEGIVER','GUESSER'],
-            match: 'random_pairs',
-            //fixedRoles: false,
+            roles: ['helper','architect'],
+            match: 'roundrobin',
+            fixedRoles: false,
+            reInit:true,
+            rounds: 1,
             //cycle: 'mirror_invert'
+            assignerCb: function(arrayIds) {
+                console.log("inside assignerCb:"+node.game.goal)
+                if (node.game.goal === 1) {
+                    var temp = arrayIds[0];
+                    arrayIds[0] = arrayIds[1];
+                    arrayIds[1] = temp;
+                }
+                return arrayIds;
+        }
         },
         reconnect: true,
-
-        assignerCb: function(arrayIds) {
-            console.log("inside assignerCb:"+node.game.goal)
-            if (node.game.goal === 1) {
-                temp = arrayIds[0];
-                arrayIds[0] = arrayIds[1];
-                arrayIds[1] = temp;
-            }
-            return arrayIds;
-        }
-
     });
 
+    */
+
     stager.extendStep('helperOptionsprac', {
+        
         cb: function() {
+            node.on.data('END_GAME', endGameFuncPrac);
             /*include for board shuffling
             var board = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
 
             var sboard = shuffle(board);
             */
-        }
+        },
+       
 
     });
 
     stager.extendStep('helperAction', {
+        cb: function(){
+            node.on.data('END_GAME', endGameFuncPrac);
+        },
+        exit: function(){
+            db.gameplayprac.save('gameplayprac.csv', {
+    
+                // Custom header.
+                header: ["helperRandCode", "architectRandCode","goalnumber", "helperChoice", "helperChoiceTime","helperMove",  "helperQuestion", "architectMove", "architectAnswer", "goalSuccess"],
+    
+                // Saves only updates from previous save command.
+                updatesOnly: true,
+                flatten: true
+            });
+    
+         }
     });
 
-    stager.extendStep('guessOptionsprac', {
+    stager.extendStep('architectMoveprac', {
+        matcher: {//assign roles for gameplay
+            roles: ['helper','architect'],
+            match: 'roundrobin',
+            fixedRoles: false,
+            reInit:true,
+            rounds: 1,
+            //cycle: 'mirror_invert'
+            assignerCb: function(arrayIds) {
+                console.log("inside assignerCb:"+node.game.goal)
+                if (node.game.goal === 1) {
+                    var temp = arrayIds[0];
+                    arrayIds[0] = arrayIds[1];
+                    arrayIds[1] = temp;
+                }
+                return arrayIds;
+        }
+        },
+        reconnect: true,
+        cb: function(){
+            node.on.data('END_GAME', endGameFuncPrac);
+        },
+
+        exit: function(){
+            db.gameplayprac.save('gameplayprac.csv', {
+    
+                // Custom header.
+                header: ["helperRandCode", "architectRandCode","goalnumber", "helperChoice", "helperChoiceTime","helperMove",  "helperQuestion", "architectMove", "architectAnswer", "goalSuccess"],
+    
+                // Saves only updates from previous save command.
+                updatesOnly: true,
+                flatten: true
+            });
+    
+         }
+        
     });
 
 
-   // stager.extendStep('guessFinalprac', {
-    //});
+    stager.extendStep('endprac', {
+
+    });
 
      
 

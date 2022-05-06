@@ -10,18 +10,18 @@
  */
 
 module.exports = function(stager, settings) {
-    stager.stage('consent');
-    stager.stage('idGet');
-    stager.stage('instructions');
+   // stager.stage('consent');
+    //stager.stage('idGet');
+    //stager.stage('instructions');
+    //stager.step('rolesAssigned');
+    
     stager.loopStage('gameplayprac', function() {
    return !this.LOOP_ENDED_PRAC;
 });
-    stager.step('rolesAssigned'); // make this conditional on output from feedback, i.e., skip if needed!
+    stager.step('architectMoveprac'); 
     stager.step('helperOptionsprac');
     stager.step('helperAction');
-    stager.step('guessOptionsprac');
-    stager.step('feedbackprac'); 
-
+    //stager.step('feedbackprac'); 
     stager.stage('endprac');
     
     //stager.loopStage('gameplay', function() {

@@ -326,7 +326,7 @@ module.exports = {
      *
      * Default: { title: 'Welcome!', addToBody: true }
      */
-     PAGE_TITLE: { title: 'Welcome to HelpTown!', addToBody: true },
+     PAGE_TITLE: { title: 'Welcome to Big HelpTown!', addToBody: true },
 
     /** ### TEXTS
      *

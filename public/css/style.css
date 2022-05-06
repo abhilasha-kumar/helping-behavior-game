@@ -4,6 +4,11 @@
   font-size: 20px;
 }
 
+div.ex2 {
+  max-width: 500px;
+  margin: auto;
+}
+
 
 .jstext{
     color: red;
@@ -11,22 +16,22 @@
 
 table, th, td {
 border: 0px solid rgb(255, 255, 255);
-margin-left: auto;
-margin-right: auto;
 }
 th {
-  width: 60px;
-  height: 60px;
-  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  font-size: 15px;
   text-align: center;
   color: black;
   font-weight: normal;
+  border-style: "3px solid white";
+  
 }
 
 td {
-  width: 60px;
-  height: 60px;
-  font-size: 20px;
+  width: 15px;
+  height: 15px;
+  font-size: 15px;
   text-align: center;
   color: black;
   font-weight: normal;
@@ -37,13 +42,14 @@ table span{
 	background-color: rgb(255, 255, 255);
 	height: 100%;
 	width: 100%;
+  border-style: "3px solid white";
 }
 
-th:nth-of-type(2n) {    
-  border-right: 3px dashed #645c5c;
+th:nth-of-type(3n) {    
+  border-right: 3px dashed #dad3d3;
 }
 
-th:nth-of-type(4n) {    
+th:nth-of-type(6n) {    
   border-right: 3px solid #000000;
 }
 
@@ -64,7 +70,29 @@ th:nth-of-type(4n) {
 .button1 {background-color: white; color: black;}
 .button2 {background-color: #b7e8f8; border: black} /* Blue */
 .button3 {background-color: #f44336;} /* Red */ 
-.button4 {background-color: #409dad; color: black;} /* Gray */ 
+
+.button5 {
+  background-color: #104144;
+  position: relative;
+display: inline-block;
+left: 50%;
+transform: translateX(-50%);
+}
+
+
+.button6 {
+  background-color: #daae7c;
+  position: relative;
+display: inline-block;
+left: 50%;
+transform: translateX(-50%);
+}
+
+.button4 {
+  border:black;
+  background-color: #409dad; 
+  color: rgb(255, 255, 255); 
+  width: 20%; height: 20%;} /* Gray */ 
 
 .button1:hover {
   background-color: grey;
@@ -80,6 +108,15 @@ th:nth-of-type(4n) {
   color: white;
 }
 
+.button2:disabled{
+  background-color: #84abb8;
+}
+
+.button2:disabled:hover{
+  background-color: none;
+  color: grey;
+}
+
 .button3:hover {
   background-color: grey;
   color: white;
@@ -88,6 +125,55 @@ th:nth-of-type(4n) {
 .button4:hover {
   background-color: grey;
   color: white;
+}
+
+#questiontable{
+  visibility: hidden;
+}
+
+#dotContainer {
+  width: 600px;
+  height: 200px;
+  font-size: 15px;
+}
+
+#dot1 span {
+  animation-name: blink;
+  animation-duration: 1.5s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+}
+
+#dot1 span:nth-child(2) {
+  animation-delay: .2s;
+}
+
+#dot1 span:nth-child(3) {
+  animation-delay: .4s;
+}
+
+@keyframes blink {
+  0% {
+      opacity: .2;
+  }
+  30% {
+      opacity: 1;
+  }
+  100% {
+      opacity: .2;
+  }
+}
+
+
+
+#done[disabled]
+{
+  background-color: grey;
+}
+
+#nextgoal
+{
+  visibility: hidden;
 }
 
 .consentDiv {
@@ -103,6 +189,24 @@ th:nth-of-type(4n) {
 .btn-copy:focus{
     background-color: LimeGreen;
 }
+
+.leftTable { 
+  float: left;
+  padding-right: 15px;
+}
+
+.rightTable {
+  float:right;
+  padding-left: 15px;
+}
+
+.center {
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
 
 .rectangle {
   height: 50px;
