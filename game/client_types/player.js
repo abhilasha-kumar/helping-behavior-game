@@ -1655,6 +1655,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         this.helperActions = []
         this.architectActions = []
         this.optCounter = 0
+        this.architectScore = 0
+        this.helperScore = 0
     }
 
     node.game.checkEnd = function(){
@@ -2035,13 +2037,13 @@ node.game.removeAnimation = function(){
 
         // need to input all possible list of goals and select only 10 out of them
 
-        this.goalSpace = ['cover red all', 'move blue C2', 'move green B', 'clear nocolor A1', 
+        this.goalSpace = ['cover red all', 'move blue C2','clear nocolor A2', 'uncover green all','move green B', 'clear nocolor A1', 
         'clear nocolor B', 'move red C2', 'move red A', 'move green A', 'move blue A', 'move red B', 
-        'clear nocolor C', 'clear nocolor A2', 'move blue A1', 'move green C', 'uncover red all', 
+        'clear nocolor C',  'move blue A1', 'move green C', 'uncover red all', 
         'move green A1', 'move red A1', 'cover green all', 'move red A2', 'clear nocolor A', 
         'move red B1', 'move blue B1', 'move blue C1', 'move blue B', 'move green C1', 'clear nocolor C2',
          'move blue A2', 'cover blue all', 'clear nocolor C1', 'move green C2', 'move green B1', 
-         'uncover green all', 'move red C1', 'move red B2', 'move blue C', 'move green B2', 
+          'move red C1', 'move red B2', 'move blue C', 'move green B2', 
          'move green A2', 'move blue B2', 'uncover blue all', 'clear nocolor B2', 'move red C', 'clear nocolor B1']
 
         
@@ -2055,7 +2057,7 @@ node.game.removeAnimation = function(){
 
         this.goalList = this.valid_goals.slice(0,13)
         this.goalindices = []
-        this.goalnumber = 3; // total number of goals for each game, set to 2 for now
+        this.goalnumber = 5; // total number of goals for each game, set to 2 for now
 
         this.helperScore = 0
         this.architectScore = 0
@@ -2793,8 +2795,9 @@ stager.extendStep('helperOptionsprac', {
                     node.on.data('GUESS', function(msg) {
                         that.clueReceived = msg.data;
                         this.helperActions.push(that.clueReceived);
-                        setTimeout(() => {node.done();}, 1500);
-                        
+                        var feedbackvalue = node.game.provideFeedback();
+                        if(feedbackvalue == 0){ node.done();}
+                        else{setTimeout(() => {node.done();}, 5000);}
                     });
                     
                 },
