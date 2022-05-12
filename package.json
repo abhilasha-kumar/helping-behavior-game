@@ -1,9 +1,8 @@
 {
-    "name": "bigarchitectandbuilder",
+    "name": "moveablock",
     "version": "0.0.1",
-    "description": "A nodeGame based on CodeNames",
-    "author": "Jasper Wilson <jaspermwilson@gmail.com>",
-    "editor": "Pragat Wagle <pragatwagledev@gmail.com>",
+    "description": "A nodeGame",
+    "author": "Abhilasha Kumar <kumaraa@iu.edu>",
     "license": "MIT/X11",
     "dependencies": {
         

@@ -11,10 +11,10 @@
 
 module.exports = function(stager, settings) {
    // stager.stage('consent');
-    //stager.stage('idGet');
+   // stager.stage('idGet');
     //stager.stage('instructions');
-    //stager.step('rolesAssigned');
-    
+    stager.stage('rolesAssigned');
+    stager.stage('gridPractice');
     stager.loopStage('gameplayprac', function() {
    return !this.LOOP_ENDED_PRAC;
 });

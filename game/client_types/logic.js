@@ -12,6 +12,9 @@
 var ngc = require('nodegame-client');
 var J = ngc.JSUS;
 
+
+
+
 /* function for shuffling board on the server side
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -46,6 +49,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     let node = gameRoom.node;
     var channel =  gameRoom.channel;
     let db = node.game.memory;
+
+    
+
+    
+    
     // Must implement the stages here.
     // stager.setDefaultProperty('minPlayers', [
     //     settings.MIN_PLAYERS,
@@ -55,12 +63,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStage('consent', {
         
     });
-    /*
+    */
+   /*
+
     stager.extendStep('idGet', {
+        init: function(){
+            
+        }
+        
         
     });
 
-   
+/*   
     stager.extendStep('instructions', {
         
     });
@@ -125,9 +139,48 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     */
 
-    /*
+    
 
     stager.extendStep('rolesAssigned', {
+        init: function(){
+            function calculateGoals() {
+                this.goalSpace = ['cover red all', 'move blue C2','clear nocolor A2', 'uncover green all','move green B', 'clear nocolor A1', 
+            'clear nocolor B', 'move red C2', 'move red A', 'move green A', 'move blue A', 'move red B', 
+            'clear nocolor C',  'move blue A1', 'move green C', 'uncover red all', 
+            'move green A1', 'move red A1', 'cover green all', 'move red A2', 'clear nocolor A', 
+            'move red B1', 'move blue B1', 'move blue C1', 'move blue B', 'move green C1', 'clear nocolor C2',
+             'move blue A2', 'cover blue all', 'clear nocolor C1', 'move green C2', 'move green B1', 
+              'move red C1', 'move red B2', 'move blue C', 'move green B2', 
+             'move green A2', 'move blue B2', 'uncover blue all', 'clear nocolor B2', 'move red C', 'clear nocolor B1']
+    
+            
+                var unsuccessful_goal_indices  = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41]
+    
+                this.valid_goals = unsuccessful_goal_indices.map((item) => this.goalSpace[item])
+    
+                function getRandomSubarray(arr, size) {
+                    var shuffled = arr.slice(0), i = arr.length, temp, index;
+                    while (i--) {
+                        index = Math.floor((i + 1) * Math.random());
+                        temp = shuffled[index];
+                        shuffled[index] = shuffled[i];
+                        shuffled[i] = temp;
+                    }
+                    return shuffled.slice(0, size);
+                }
+    
+                var goalList = getRandomSubarray(this.goalSpace, 6);
+                console.log("goallist inside logic = ",goalList)
+                
+                node.game.pl.each(function(player) {
+                    console.log("player.id=",player.id)
+                    // Get the value saved in the registry and send it.
+                    node.say('GOAL_LIST', player.id, goalList);
+                });
+            }
+    
+                node.on.data('compute_goal', calculateGoals);
+        },
         matcher: {//assign roles for gameplay
             roles: ['helper','architect'],
             match: 'roundrobin',
@@ -145,10 +198,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 return arrayIds;
         }
         },
-        reconnect: true,
     });
 
-    */
+    
 
     stager.extendStep('helperOptionsprac', {
         
@@ -172,7 +224,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             db.gameplayprac.save('gameplayprac.csv', {
     
                 // Custom header.
-                header: ["helperRandCode", "architectRandCode","goalnumber", "helperChoice", "helperChoiceTime","helperMove",  "helperQuestion", "architectMove", "architectAnswer", "goalSuccess"],
+                header: ["helperRandCode", "architectRandCode","goalnumber", "helperChoice", "helperChoiceTime","helperMove",  "architectMove", "goalSuccess"],
     
                 // Saves only updates from previous save command.
                 updatesOnly: true,
@@ -183,25 +235,15 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
 
     stager.extendStep('architectMoveprac', {
-        matcher: {//assign roles for gameplay
-            roles: ['helper','architect'],
-            match: 'roundrobin',
-            fixedRoles: false,
-            reInit:true,
-            rounds: 1,
-            //cycle: 'mirror_invert'
-            assignerCb: function(arrayIds) {
-                console.log("inside assignerCb:"+node.game.goal)
-                if (node.game.goal === 1) {
-                    var temp = arrayIds[0];
-                    arrayIds[0] = arrayIds[1];
-                    arrayIds[1] = temp;
-                }
-                return arrayIds;
-        }
-        },
+
+        
+        
         reconnect: true,
+        
         cb: function(){
+        
+
+        
             node.on.data('END_GAME', endGameFuncPrac);
         },
 

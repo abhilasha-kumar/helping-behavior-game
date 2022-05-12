@@ -4,29 +4,18 @@
 <link rel="stylesheet" href="css/style.css" />
 <body>
     <br>
-    <!--
-    <table id = "helperinfo" class="rightTable" style = "width:15%;border:3px;border-style:solid; border-color:black;margin-bottom: 0px;">
-        <tr> <th style="background-color: thistle;"><strong>Helper</strong></th></tr>
-        <tr><td id = "helperlastactiontext"><strong>Last action:</strong></td> </tr>
-        <tr><td id = "helperlastaction">xyz</td> </tr>
-        <tr><td id = "helpercurrentactiontext"><strong>Current action:</strong></td></tr>
-        <tr><td id = "helpercurrentaction">xyz</td></tr>
-     </table>
- 
-     <table id = "architectinfo" class="leftTable" style = "width:15%;border:3px;border-style:solid; border-color:black;margin-bottom: 0px;">
-         <tr> <th style="background-color: thistle;"><strong>Architect</strong></th></tr>
-         <tr><td id = "architectlastactiontext"><strong>Last action:</strong></td> </tr>
-         <tr><td id = "architectlastaction">xyz</td> </tr>
-         <tr><td id = "architectcurrentactiontext"><strong>Current action:</strong></td></tr>
-         <tr><td id = "architectcurrentaction">xyz</td></tr>
-      </table>
- -->
- 
+   
     <div class="consentDiv" id="guesscontainer" > 
-        <div class="rectangle" id = "role" style="background-color: rgb(89, 190, 197);">Your role: Architect </div>&nbsp;&nbsp;&nbsp;<div class="rectangle" id = "round" style="background-color: rgb(184, 195, 195);"> </div> <br><br>
-        <div class="rectangle" id = "goal" style="background-color: yellow;">Goal: </div><br><br>  
-        <span id = "cluepasttxt"></span><span id = "cluepast" style="color:blue"></span><span id = "dotContainer"></span><span id = "dot1">&nbsp;</span></span><br>
-        <span id = "cluepast0txt"></span>
+        <div class="rectangle" id = "role" style="background-color: rgb(89, 190, 197);">Your role: Architect </div><br><br>
+        
+        <div style="white-space: pre">
+            You will now practice moving blocks on the grid below. This is the type of grid you will see in each round.
+            To move a block, you will click the block, drag it, and then drop the block in an intended location. 
+            Note that you can only move a block that does not have another block on top of it. You will get a warning message if you try to move an obstructed block.
+            Also, you may only drop a block at the floor of the grid or on top of another colored block. You will see dotted red outlines around valid drop locations.
+            Finally, during the game, you will only be able to move ONE block on each turn.
+            Feel free to drag and drop a few blocks now. Click Done when you are ready to start the game.
+        </div>
         <br>
     </div>
 <br>
@@ -176,15 +165,9 @@
             </table>
 <br>
 
-<table id="questiontable" class="center" style="width:20%; margin-top: 10px;">
-    <tr>
-        <td><button id="yesbutton"  class="button button2" disabled>YES</button></th>
-        <td><button id="nobutton" class="button button2" disabled>NO</button></th>
-    </tr>
-</table>
     <div class="consentDiv" id="containerbottom2" ></div>
     <br>
     <br>
     
-    <div class="consentDiv" id="movebottom3" ><button id="nextgoal" class="button button4" disabled> Next Goal </button></div> 
+    <div class="consentDiv" id="movebottom3" ><button id="done" class="button button4"> Done </button></div> 
 </body>

@@ -13,6 +13,8 @@
 
 "use strict";
 
+const { NodeGameClient } = require("nodegame-client");
+
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.setOnInit(function() {
@@ -687,447 +689,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         
     return W;    
 
-     /*
-
-            // row7
-            if(this.currentShape[108] == "circle"){
-                W.getElementById("circlerow7cell01").style.backgroundColor = this.currentConfiguration[108]
-                W.getElementById("row7cell01").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell01").style.backgroundColor = this.currentConfiguration[108]
-                W.getElementById("row7cell01").style.backgroundColor = this.currentConfiguration[108]}     
-            
-            if(this.currentShape[109] == "circle"){
-                W.getElementById("circlerow7cell02").style.backgroundColor = this.currentConfiguration[109]
-                W.getElementById("row7cell02").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell02").style.backgroundColor = this.currentConfiguration[109]
-                W.getElementById("row7cell02").style.backgroundColor = this.currentConfiguration[109]}     
-            
-            if(this.currentShape[110] == "circle"){
-                W.getElementById("circlerow7cell03").style.backgroundColor = this.currentConfiguration[110]
-                W.getElementById("row7cell03").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell03").style.backgroundColor = this.currentConfiguration[110]
-                W.getElementById("row7cell03").style.backgroundColor = this.currentConfiguration[110]}     
-            
-            if(this.currentShape[111] == "circle"){
-                W.getElementById("circlerow7cell04").style.backgroundColor = this.currentConfiguration[111]
-                W.getElementById("row7cell04").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell04").style.backgroundColor = this.currentConfiguration[111]
-                W.getElementById("row7cell04").style.backgroundColor = this.currentConfiguration[111]}     
-            
-            if(this.currentShape[112] == "circle"){
-                W.getElementById("circlerow7cell05").style.backgroundColor = this.currentConfiguration[112]
-                W.getElementById("row7cell05").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell05").style.backgroundColor = this.currentConfiguration[112]
-                W.getElementById("row7cell05").style.backgroundColor = this.currentConfiguration[112]}     
-            
-            if(this.currentShape[113] == "circle"){
-                W.getElementById("circlerow7cell06").style.backgroundColor = this.currentConfiguration[113]
-                W.getElementById("row7cell06").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell06").style.backgroundColor = this.currentConfiguration[113]
-                W.getElementById("row7cell06").style.backgroundColor = this.currentConfiguration[113]}     
-            
-            if(this.currentShape[114] == "circle"){
-                W.getElementById("circlerow7cell07").style.backgroundColor = this.currentConfiguration[114]
-                W.getElementById("row7cell07").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell07").style.backgroundColor = this.currentConfiguration[114]
-                W.getElementById("row7cell07").style.backgroundColor = this.currentConfiguration[114]}     
-            
-            if(this.currentShape[115] == "circle"){
-                W.getElementById("circlerow7cell08").style.backgroundColor = this.currentConfiguration[115]
-                W.getElementById("row7cell08").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell08").style.backgroundColor = this.currentConfiguration[115]
-                W.getElementById("row7cell08").style.backgroundColor = this.currentConfiguration[115]}     
-            
-            if(this.currentShape[116] == "circle"){
-                W.getElementById("circlerow7cell09").style.backgroundColor = this.currentConfiguration[116]
-                W.getElementById("row7cell09").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell09").style.backgroundColor = this.currentConfiguration[116]
-                W.getElementById("row7cell09").style.backgroundColor = this.currentConfiguration[116]}     
-            
-            if(this.currentShape[117] == "circle"){
-                W.getElementById("circlerow7cell10").style.backgroundColor = this.currentConfiguration[117]
-                W.getElementById("row7cell10").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell10").style.backgroundColor = this.currentConfiguration[117]
-                W.getElementById("row7cell10").style.backgroundColor = this.currentConfiguration[117]}     
-            
-            if(this.currentShape[118] == "circle"){
-                W.getElementById("circlerow7cell11").style.backgroundColor = this.currentConfiguration[118]
-                W.getElementById("row7cell11").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell11").style.backgroundColor = this.currentConfiguration[118]
-                W.getElementById("row7cell11").style.backgroundColor = this.currentConfiguration[118]}     
-
-            if(this.currentShape[119] == "circle"){
-                W.getElementById("circlerow7cell12").style.backgroundColor = this.currentConfiguration[119]
-                W.getElementById("row7cell12").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell12").style.backgroundColor = this.currentConfiguration[119]
-                W.getElementById("row7cell12").style.backgroundColor = this.currentConfiguration[119]}     
-
-            if(this.currentShape[120] == "circle"){
-                W.getElementById("circlerow7cell13").style.backgroundColor = this.currentConfiguration[120]
-                W.getElementById("row7cell13").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell13").style.backgroundColor = this.currentConfiguration[120]
-                W.getElementById("row7cell13").style.backgroundColor = this.currentConfiguration[120]}     
-            
-            if(this.currentShape[121] == "circle"){
-                W.getElementById("circlerow7cell14").style.backgroundColor = this.currentConfiguration[121]
-                W.getElementById("row7cell14").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell14").style.backgroundColor = this.currentConfiguration[121]
-                W.getElementById("row7cell14").style.backgroundColor = this.currentConfiguration[121]}     
-
-            if(this.currentShape[122] == "circle"){
-                W.getElementById("circlerow7cell15").style.backgroundColor = this.currentConfiguration[122]
-                W.getElementById("row7cell15").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell15").style.backgroundColor = this.currentConfiguration[122]
-                W.getElementById("row7cell15").style.backgroundColor = this.currentConfiguration[122]}     
-            
-            if(this.currentShape[123] == "circle"){
-                W.getElementById("circlerow7cell16").style.backgroundColor = this.currentConfiguration[123]
-                W.getElementById("row7cell16").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell16").style.backgroundColor = this.currentConfiguration[123]
-                W.getElementById("row7cell16").style.backgroundColor = this.currentConfiguration[123]}     
-
-            if(this.currentShape[124] == "circle"){
-                W.getElementById("circlerow7cell17").style.backgroundColor = this.currentConfiguration[124]
-                W.getElementById("row7cell17").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell17").style.backgroundColor = this.currentConfiguration[124]
-                W.getElementById("row7cell17").style.backgroundColor = this.currentConfiguration[124]}     
-
-            if(this.currentShape[125] == "circle"){
-                W.getElementById("circlerow7cell18").style.backgroundColor = this.currentConfiguration[125]
-                W.getElementById("row7cell18").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow7cell18").style.backgroundColor = this.currentConfiguration[125]
-                W.getElementById("row7cell18").style.backgroundColor = this.currentConfiguration[125]} 
-
-            // row8
-            if(this.currentShape[126] == "circle"){
-                W.getElementById("circlerow8cell01").style.backgroundColor = this.currentConfiguration[126]
-                W.getElementById("row8cell01").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell01").style.backgroundColor = this.currentConfiguration[126]
-                W.getElementById("row8cell01").style.backgroundColor = this.currentConfiguration[126]}     
-            
-            if(this.currentShape[127] == "circle"){
-                W.getElementById("circlerow8cell02").style.backgroundColor = this.currentConfiguration[127]
-                W.getElementById("row8cell02").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell02").style.backgroundColor = this.currentConfiguration[127]
-                W.getElementById("row8cell02").style.backgroundColor = this.currentConfiguration[127]}     
-            
-            if(this.currentShape[128] == "circle"){
-                W.getElementById("circlerow8cell03").style.backgroundColor = this.currentConfiguration[128]
-                W.getElementById("row8cell03").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell03").style.backgroundColor = this.currentConfiguration[128]
-                W.getElementById("row8cell03").style.backgroundColor = this.currentConfiguration[128]}     
-            
-            if(this.currentShape[129] == "circle"){
-                W.getElementById("circlerow8cell04").style.backgroundColor = this.currentConfiguration[129]
-                W.getElementById("row8cell04").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell04").style.backgroundColor = this.currentConfiguration[129]
-                W.getElementById("row8cell04").style.backgroundColor = this.currentConfiguration[129]}     
-            
-            if(this.currentShape[130] == "circle"){
-                W.getElementById("circlerow8cell05").style.backgroundColor = this.currentConfiguration[130]
-                W.getElementById("row8cell05").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell05").style.backgroundColor = this.currentConfiguration[130]
-                W.getElementById("row8cell05").style.backgroundColor = this.currentConfiguration[130]}     
-            
-            if(this.currentShape[131] == "circle"){
-                W.getElementById("circlerow8cell06").style.backgroundColor = this.currentConfiguration[131]
-                W.getElementById("row8cell06").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell06").style.backgroundColor = this.currentConfiguration[131]
-                W.getElementById("row8cell06").style.backgroundColor = this.currentConfiguration[131]}     
-            
-            if(this.currentShape[132] == "circle"){
-                W.getElementById("circlerow8cell07").style.backgroundColor = this.currentConfiguration[132]
-                W.getElementById("row8cell07").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell07").style.backgroundColor = this.currentConfiguration[132]
-                W.getElementById("row8cell07").style.backgroundColor = this.currentConfiguration[132]}     
-            
-            if(this.currentShape[133] == "circle"){
-                W.getElementById("circlerow8cell08").style.backgroundColor = this.currentConfiguration[133]
-                W.getElementById("row8cell08").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell08").style.backgroundColor = this.currentConfiguration[133]
-                W.getElementById("row8cell08").style.backgroundColor = this.currentConfiguration[133]}     
-            
-            if(this.currentShape[134] == "circle"){
-                W.getElementById("circlerow8cell09").style.backgroundColor = this.currentConfiguration[134]
-                W.getElementById("row8cell09").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell09").style.backgroundColor = this.currentConfiguration[134]
-                W.getElementById("row8cell09").style.backgroundColor = this.currentConfiguration[134]}     
-            
-            if(this.currentShape[135] == "circle"){
-                W.getElementById("circlerow8cell10").style.backgroundColor = this.currentConfiguration[135]
-                W.getElementById("row8cell10").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell10").style.backgroundColor = this.currentConfiguration[135]
-                W.getElementById("row8cell10").style.backgroundColor = this.currentConfiguration[135]}     
-            
-            if(this.currentShape[136] == "circle"){
-                W.getElementById("circlerow8cell11").style.backgroundColor = this.currentConfiguration[136]
-                W.getElementById("row8cell11").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell11").style.backgroundColor = this.currentConfiguration[136]
-                W.getElementById("row8cell11").style.backgroundColor = this.currentConfiguration[136]}     
-
-            if(this.currentShape[137] == "circle"){
-                W.getElementById("circlerow8cell12").style.backgroundColor = this.currentConfiguration[137]
-                W.getElementById("row8cell12").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell12").style.backgroundColor = this.currentConfiguration[137]
-                W.getElementById("row8cell12").style.backgroundColor = this.currentConfiguration[137]}     
-
-            if(this.currentShape[138] == "circle"){
-                W.getElementById("circlerow8cell13").style.backgroundColor = this.currentConfiguration[138]
-                W.getElementById("row8cell13").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell13").style.backgroundColor = this.currentConfiguration[138]
-                W.getElementById("row8cell13").style.backgroundColor = this.currentConfiguration[138]}     
-            
-            if(this.currentShape[139] == "circle"){
-                W.getElementById("circlerow8cell14").style.backgroundColor = this.currentConfiguration[139]
-                W.getElementById("row8cell14").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell14").style.backgroundColor = this.currentConfiguration[139]
-                W.getElementById("row8cell14").style.backgroundColor = this.currentConfiguration[139]}     
-
-            if(this.currentShape[140] == "circle"){
-                W.getElementById("circlerow8cell15").style.backgroundColor = this.currentConfiguration[140]
-                W.getElementById("row8cell15").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell15").style.backgroundColor = this.currentConfiguration[140]
-                W.getElementById("row8cell15").style.backgroundColor = this.currentConfiguration[140]}     
-            
-            if(this.currentShape[141] == "circle"){
-                W.getElementById("circlerow8cell16").style.backgroundColor = this.currentConfiguration[141]
-                W.getElementById("row8cell16").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell16").style.backgroundColor = this.currentConfiguration[141]
-                W.getElementById("row8cell16").style.backgroundColor = this.currentConfiguration[141]}     
-
-            if(this.currentShape[142] == "circle"){
-                W.getElementById("circlerow8cell17").style.backgroundColor = this.currentConfiguration[142]
-                W.getElementById("row8cell17").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell17").style.backgroundColor = this.currentConfiguration[142]
-                W.getElementById("row8cell17").style.backgroundColor = this.currentConfiguration[142]}     
-
-            if(this.currentShape[143] == "circle"){
-                W.getElementById("circlerow8cell18").style.backgroundColor = this.currentConfiguration[143]
-                W.getElementById("row8cell18").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow8cell18").style.backgroundColor = this.currentConfiguration[143]
-                W.getElementById("row8cell18").style.backgroundColor = this.currentConfiguration[143]} 
-
-            // row9
-
-            if(this.currentShape[144] == "circle"){
-                W.getElementById("circlerow9cell01").style.backgroundColor = this.currentConfiguration[144]
-                W.getElementById("row9cell01").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell01").style.backgroundColor = this.currentConfiguration[144]
-                W.getElementById("row9cell01").style.backgroundColor = this.currentConfiguration[144]}     
-            
-            if(this.currentShape[145] == "circle"){
-                W.getElementById("circlerow9cell02").style.backgroundColor = this.currentConfiguration[145]
-                W.getElementById("row9cell02").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell02").style.backgroundColor = this.currentConfiguration[145]
-                W.getElementById("row9cell02").style.backgroundColor = this.currentConfiguration[145]}     
-            
-            if(this.currentShape[146] == "circle"){
-                W.getElementById("circlerow9cell03").style.backgroundColor = this.currentConfiguration[146]
-                W.getElementById("row9cell03").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell03").style.backgroundColor = this.currentConfiguration[146]
-                W.getElementById("row9cell03").style.backgroundColor = this.currentConfiguration[146]}     
-            
-            if(this.currentShape[147] == "circle"){
-                W.getElementById("circlerow9cell04").style.backgroundColor = this.currentConfiguration[147]
-                W.getElementById("row9cell04").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell04").style.backgroundColor = this.currentConfiguration[147]
-                W.getElementById("row9cell04").style.backgroundColor = this.currentConfiguration[147]}     
-            
-            if(this.currentShape[148] == "circle"){
-                W.getElementById("circlerow9cell05").style.backgroundColor = this.currentConfiguration[148]
-                W.getElementById("row9cell05").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell05").style.backgroundColor = this.currentConfiguration[148]
-                W.getElementById("row9cell05").style.backgroundColor = this.currentConfiguration[148]}     
-            
-            if(this.currentShape[149] == "circle"){
-                W.getElementById("circlerow9cell06").style.backgroundColor = this.currentConfiguration[149]
-                W.getElementById("row9cell06").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell06").style.backgroundColor = this.currentConfiguration[149]
-                W.getElementById("row9cell06").style.backgroundColor = this.currentConfiguration[149]}     
-            
-            if(this.currentShape[150] == "circle"){
-                W.getElementById("circlerow9cell07").style.backgroundColor = this.currentConfiguration[150]
-                W.getElementById("row9cell07").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell07").style.backgroundColor = this.currentConfiguration[150]
-                W.getElementById("row9cell07").style.backgroundColor = this.currentConfiguration[150]}     
-            
-            if(this.currentShape[151] == "circle"){
-                W.getElementById("circlerow9cell08").style.backgroundColor = this.currentConfiguration[151]
-                W.getElementById("row9cell08").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell08").style.backgroundColor = this.currentConfiguration[151]
-                W.getElementById("row9cell08").style.backgroundColor = this.currentConfiguration[151]}     
-            
-            if(this.currentShape[152] == "circle"){
-                W.getElementById("circlerow9cell09").style.backgroundColor = this.currentConfiguration[152]
-                W.getElementById("row9cell09").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell09").style.backgroundColor = this.currentConfiguration[152]
-                W.getElementById("row9cell09").style.backgroundColor = this.currentConfiguration[152]}     
-            
-            if(this.currentShape[153] == "circle"){
-                W.getElementById("circlerow9cell10").style.backgroundColor = this.currentConfiguration[153]
-                W.getElementById("row9cell10").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell10").style.backgroundColor = this.currentConfiguration[153]
-                W.getElementById("row9cell10").style.backgroundColor = this.currentConfiguration[153]}     
-            
-            if(this.currentShape[154] == "circle"){
-                W.getElementById("circlerow9cell11").style.backgroundColor = this.currentConfiguration[154]
-                W.getElementById("row9cell11").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell11").style.backgroundColor = this.currentConfiguration[154]
-                W.getElementById("row9cell11").style.backgroundColor = this.currentConfiguration[154]}     
-
-            if(this.currentShape[155] == "circle"){
-                W.getElementById("circlerow9cell12").style.backgroundColor = this.currentConfiguration[155]
-                W.getElementById("row9cell12").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell12").style.backgroundColor = this.currentConfiguration[155]
-                W.getElementById("row9cell12").style.backgroundColor = this.currentConfiguration[155]}     
-
-            if(this.currentShape[156] == "circle"){
-                W.getElementById("circlerow9cell13").style.backgroundColor = this.currentConfiguration[156]
-                W.getElementById("row9cell13").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell13").style.backgroundColor = this.currentConfiguration[156]
-                W.getElementById("row9cell13").style.backgroundColor = this.currentConfiguration[156]}     
-            
-            if(this.currentShape[157] == "circle"){
-                W.getElementById("circlerow9cell14").style.backgroundColor = this.currentConfiguration[157]
-                W.getElementById("row9cell14").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell14").style.backgroundColor = this.currentConfiguration[157]
-                W.getElementById("row9cell14").style.backgroundColor = this.currentConfiguration[157]}     
-
-            if(this.currentShape[158] == "circle"){
-                W.getElementById("circlerow9cell15").style.backgroundColor = this.currentConfiguration[158]
-                W.getElementById("row9cell15").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell15").style.backgroundColor = this.currentConfiguration[158]
-                W.getElementById("row9cell15").style.backgroundColor = this.currentConfiguration[158]}     
-            
-            if(this.currentShape[159] == "circle"){
-                W.getElementById("circlerow9cell16").style.backgroundColor = this.currentConfiguration[159]
-                W.getElementById("row9cell16").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell16").style.backgroundColor = this.currentConfiguration[159]
-                W.getElementById("row9cell16").style.backgroundColor = this.currentConfiguration[159]}     
-
-            if(this.currentShape[160] == "circle"){
-                W.getElementById("circlerow9cell17").style.backgroundColor = this.currentConfiguration[160]
-                W.getElementById("row9cell17").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell17").style.backgroundColor = this.currentConfiguration[160]
-                W.getElementById("row9cell17").style.backgroundColor = this.currentConfiguration[160]}     
-
-            if(this.currentShape[161] == "circle"){
-                W.getElementById("circlerow9cell18").style.backgroundColor = this.currentConfiguration[161]
-                W.getElementById("row9cell18").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow9cell18").style.backgroundColor = this.currentConfiguration[161]
-                W.getElementById("row9cell18").style.backgroundColor = this.currentConfiguration[161]} 
-
-            // row10
-            if(this.currentShape[162] == "circle"){
-                W.getElementById("circlerow10cell01").style.backgroundColor = this.currentConfiguration[162]
-                W.getElementById("row10cell01").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell01").style.backgroundColor = this.currentConfiguration[162]
-                W.getElementById("row10cell01").style.backgroundColor = this.currentConfiguration[162]}     
-            
-            if(this.currentShape[163] == "circle"){
-                W.getElementById("circlerow10cell02").style.backgroundColor = this.currentConfiguration[163]
-                W.getElementById("row10cell02").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell02").style.backgroundColor = this.currentConfiguration[163]
-                W.getElementById("row10cell02").style.backgroundColor = this.currentConfiguration[163]}     
-            
-            if(this.currentShape[164] == "circle"){
-                W.getElementById("circlerow10cell03").style.backgroundColor = this.currentConfiguration[164]
-                W.getElementById("row10cell03").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell03").style.backgroundColor = this.currentConfiguration[164]
-                W.getElementById("row10cell03").style.backgroundColor = this.currentConfiguration[164]}     
-            
-            if(this.currentShape[165] == "circle"){
-                W.getElementById("circlerow10cell04").style.backgroundColor = this.currentConfiguration[165]
-                W.getElementById("row10cell04").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell04").style.backgroundColor = this.currentConfiguration[165]
-                W.getElementById("row10cell04").style.backgroundColor = this.currentConfiguration[165]}     
-            
-            if(this.currentShape[166] == "circle"){
-                W.getElementById("circlerow10cell05").style.backgroundColor = this.currentConfiguration[166]
-                W.getElementById("row10cell05").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell05").style.backgroundColor = this.currentConfiguration[166]
-                W.getElementById("row10cell05").style.backgroundColor = this.currentConfiguration[166]}     
-            
-            if(this.currentShape[167] == "circle"){
-                W.getElementById("circlerow10cell06").style.backgroundColor = this.currentConfiguration[167]
-                W.getElementById("row10cell06").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell06").style.backgroundColor = this.currentConfiguration[167]
-                W.getElementById("row10cell06").style.backgroundColor = this.currentConfiguration[167]}     
-            
-            if(this.currentShape[168] == "circle"){
-                W.getElementById("circlerow10cell07").style.backgroundColor = this.currentConfiguration[168]
-                W.getElementById("row10cell07").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell07").style.backgroundColor = this.currentConfiguration[168]
-                W.getElementById("row10cell07").style.backgroundColor = this.currentConfiguration[168]}     
-            
-            if(this.currentShape[169] == "circle"){
-                W.getElementById("circlerow10cell08").style.backgroundColor = this.currentConfiguration[169]
-                W.getElementById("row10cell08").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell08").style.backgroundColor = this.currentConfiguration[169]
-                W.getElementById("row10cell08").style.backgroundColor = this.currentConfiguration[169]}     
-            
-            if(this.currentShape[170] == "circle"){
-                W.getElementById("circlerow10cell09").style.backgroundColor = this.currentConfiguration[170]
-                W.getElementById("row10cell09").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell09").style.backgroundColor = this.currentConfiguration[170]
-                W.getElementById("row10cell09").style.backgroundColor = this.currentConfiguration[170]}     
-            
-            if(this.currentShape[171] == "circle"){
-                W.getElementById("circlerow10cell10").style.backgroundColor = this.currentConfiguration[171]
-                W.getElementById("row10cell10").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell10").style.backgroundColor = this.currentConfiguration[171]
-                W.getElementById("row10cell10").style.backgroundColor = this.currentConfiguration[171]}     
-            
-            if(this.currentShape[172] == "circle"){
-                W.getElementById("circlerow10cell11").style.backgroundColor = this.currentConfiguration[172]
-                W.getElementById("row10cell11").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell11").style.backgroundColor = this.currentConfiguration[172]
-                W.getElementById("row10cell11").style.backgroundColor = this.currentConfiguration[172]}     
-
-            if(this.currentShape[173] == "circle"){
-                W.getElementById("circlerow10cell12").style.backgroundColor = this.currentConfiguration[173]
-                W.getElementById("row10cell12").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell12").style.backgroundColor = this.currentConfiguration[173]
-                W.getElementById("row10cell12").style.backgroundColor = this.currentConfiguration[173]}     
-
-            if(this.currentShape[174] == "circle"){
-                W.getElementById("circlerow10cell13").style.backgroundColor = this.currentConfiguration[174]
-                W.getElementById("row10cell13").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell13").style.backgroundColor = this.currentConfiguration[174]
-                W.getElementById("row10cell13").style.backgroundColor = this.currentConfiguration[174]}     
-            
-            if(this.currentShape[175] == "circle"){
-                W.getElementById("circlerow10cell14").style.backgroundColor = this.currentConfiguration[175]
-                W.getElementById("row10cell14").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell14").style.backgroundColor = this.currentConfiguration[175]
-                W.getElementById("row10cell14").style.backgroundColor = this.currentConfiguration[175]}     
-
-            if(this.currentShape[176] == "circle"){
-                W.getElementById("circlerow10cell15").style.backgroundColor = this.currentConfiguration[176]
-                W.getElementById("row10cell15").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell15").style.backgroundColor = this.currentConfiguration[176]
-                W.getElementById("row10cell15").style.backgroundColor = this.currentConfiguration[176]}     
-            
-            if(this.currentShape[177] == "circle"){
-                W.getElementById("circlerow10cell16").style.backgroundColor = this.currentConfiguration[177]
-                W.getElementById("row10cell16").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell16").style.backgroundColor = this.currentConfiguration[177]
-                W.getElementById("row10cell16").style.backgroundColor = this.currentConfiguration[177]}     
-
-            if(this.currentShape[178] == "circle"){
-                W.getElementById("circlerow10cell17").style.backgroundColor = this.currentConfiguration[178]
-                W.getElementById("row10cell17").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell17").style.backgroundColor = this.currentConfiguration[178]
-                W.getElementById("row10cell17").style.backgroundColor = this.currentConfiguration[178]}     
-
-            if(this.currentShape[179] == "circle"){
-                W.getElementById("circlerow10cell18").style.backgroundColor = this.currentConfiguration[179]
-                W.getElementById("row10cell18").style.backgroundColor = "white"}else{
-                W.getElementById("circlerow10cell18").style.backgroundColor = this.currentConfiguration[179]
-                W.getElementById("row10cell18").style.backgroundColor = this.currentConfiguration[179]} 
-            
-        */
-
     };
 
     node.game.getMovement = function(moveInfo ){
@@ -1184,12 +745,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     };
 
-    node.game.numMoves = function(W){
-        // a fn that calculates how many of the target blocks are open and obstructed
-        // this is for literal architect basically
-    }
-
-    node.game.enableDragDrop = function(W){
+    node.game.enableDragDrop = function(W, role){
 
         var dragid = 0;
         var dropid = 0;
@@ -1411,13 +967,27 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             
                 // display the draggable element
                 //draggable.classList.remove('hide');
-                const done_button = W.getElementById('done');
-                done_button.disabled = false;
+                //const done_button = W.getElementById('done');
+                //done_button.disabled = false;
                 //node.game.doneButton.enable(); // only enable when we have a valid drop location
                 drag_count = 1
                 console.log("drag_count"+drag_count);
                 // call the function that records these move IDs
                 setTotalValue();
+                
+                if(role == "architect"){
+                    console.log("inside drop for architect")
+                    node.done();}
+                else{
+                    node.game.memory.add({
+                        player: node.player.id,
+                        stage: node.game.getCurrentGameStage(),
+                        choiceoption: "movedirect"
+                    }); 
+                    node.game.memory.tag("CHOICE");//tag this memory for easy access later
+                    console.log("inside drop for helper")
+                    node.done();
+                }
                 }
 
                 }
@@ -1428,19 +998,22 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         function setTotalValue(){
 
-        // if it gets into this function, it will change the drag and dropids and value of total
+            // if it gets into this function, it will change the drag and dropids and value of total
         
-        total = "move a block from " + dragid + " to " + dropid;
-        console.log("inside total = "+total)
-        
-        
-        node.game.memory.add({
-            player: node.player.id,
-            stage: node.game.getCurrentGameStage(),
-            totalmove: total
-        }); 
-  
-        node.game.memory.tag("MOVE");
+            total = "move a block from " + dragid + " to " + dropid;
+            console.log("inside total = "+total)
+            
+            
+            node.game.memory.add({
+                player: node.player.id,
+                stage: node.game.getCurrentGameStage(),
+                totalmove: total
+            }); 
+    
+            node.game.memory.tag("MOVE");
+            // after a move drop has been made, end node
+           
+            
         }
 
         // called when no action is taken
@@ -1450,7 +1023,228 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             stage: node.game.getCurrentGameStage(),
             totalmove: total
         }); 
+    
+       
 
+    };
+
+    node.game.practiceDragDrop = function(W, pracConfig){
+
+        var dragid = 0;
+        var dropid = 0;
+        var total = 0;
+        var dragtarget = W.getElementById("blocks");
+
+        var drag_count = 0;
+
+
+        // not all items should be "draggable" in the table
+        // we could check for whether there is anything non-white above a particular index                
+
+        // code for modifying drag target
+
+        function reduceDragArray(indexArray, configArray) {
+            var newArr = indexArray.reduce(function(a, e, i) {
+            // only push if cell is non-white
+            if(configArray[e] !=="white"){
+                // if the index is not in the first row
+            if (e > 17){
+                // if the element on top is white, then it's draggable
+                if(configArray[e-18] === "white"){a.push(e);}
+            }
+            else{a.push(e);}}    
+            return a;
+            }, []);
+            return newArr
+        }
+        
+        var fulldragindices= Array(pracConfig.length).fill().map((x,i)=>i)
+        var validDragargets = reduceDragArray(fulldragindices, pracConfig)
+        
+        // convert to table cell IDs
+
+        var filteredDragTableIDs = validDragargets.map(x => {
+            if (x < 9){
+                return "row1" + "cell0"+ (x + 1) ;
+            }
+            else if (x < 18){
+                return "row1" + "cell"+ (x + 1) ;
+            }
+            else if(x < 36){
+                var val = (x-18)+1
+                if(val < 10){return "row2" + "cell0"+ ((x-18)+1);}
+                else{return "row2" + "cell"+ ((x-18)+1);}
+            }
+            else if(x < 54){
+                var val = (x-36)+1
+                if(val < 10){return "row3" + "cell0"+ ((x-36)+1);}
+                else{return "row3" + "cell"+ ((x-36)+1);}
+            }
+
+            else if(x < 72){
+                var val = (x-54)+1
+                if(val < 10){return "row4" + "cell0"+ ((x-54)+1);}
+                else{return "row4" + "cell"+ ((x-54)+1);}
+            }
+            else if(x < 90){
+                var val = (x-72)+1
+                if(val < 10){return "row5" + "cell0"+ ((x-72)+1);}
+                else{return "row5" + "cell"+ ((x-72)+1);}
+            }
+
+            else {
+                var val = (x-90)+1
+                if(val < 10){return "row6" + "cell0"+ ((x-90)+1);}
+                else{return "row6" + "cell"+ ((x-90)+1);}
+            }
+        });
+        
+        // code for modifying drop targets
+
+        var droptarget = W.getElementById("blocks"); 
+        // need to make this only some specific drag choices
+        // could try to filter for only "white" cells
+
+        var filtereddropIndices = pracConfig.reduce(function(a, e, i) {
+            if (e === 'white')
+                a.push(i);
+            return a;
+        }, []);
+
+        // ultimately we want to further restrict this to only white cells that
+        // have something non-white below them
+
+        // logic for more filtering: if the color of the cell at the bottom is white too then exclude
+        // x+18
+
+        function reduceDropArray(indexArray, configArray) {
+            var newArr = indexArray.reduce(function(a, e, i) {
+            if (e-18 < 108){
+                if(configArray[e+18] !== "white"){a.push(e);}
+            }
+            else{a.push(e);}    
+            return a;
+        }, []);
+            return newArr
+        }
+
+        var validWhiteBoxes = reduceDropArray(filtereddropIndices, pracConfig) 
+        
+        var filteredDropTableIDs = validWhiteBoxes.map(x => {
+            if (x < 9){
+                return "row1" + "cell0"+ (x + 1) ;
+            }
+            else if (x < 18){
+                return "row1" + "cell"+ (x + 1) ;
+            }
+            else if(x < 36){
+                var val = (x-18)+1
+                if(val < 10){return "row2" + "cell0"+ ((x-18)+1);}
+                else{return "row2" + "cell"+ ((x-18)+1);}
+            }
+            else if(x < 54){
+                var val = (x-36)+1
+                if(val < 10){return "row3" + "cell0"+ ((x-36)+1);}
+                else{return "row3" + "cell"+ ((x-36)+1);}
+            }
+
+            else if(x < 72){
+                var val = (x-54)+1
+                if(val < 10){return "row4" + "cell0"+ ((x-54)+1);}
+                else{return "row4" + "cell"+ ((x-54)+1);}
+            }
+            else if(x < 90){
+                var val = (x-72)+1
+                if(val < 10){return "row5" + "cell0"+ ((x-72)+1);}
+                else{return "row5" + "cell"+ ((x-72)+1);}
+            }
+
+            else {
+                var val = (x-90)+1
+                if(val < 10){return "row6" + "cell0"+ ((x-90)+1);}
+                else{return "row6" + "cell"+ ((x-90)+1);}
+            }
+        })
+
+        var circlefilteredDropTableIDs = filteredDropTableIDs.map(i => 'circle' + i);
+
+
+        var totalDropIDs = filteredDropTableIDs.concat(circlefilteredDropTableIDs);
+
+        // we restrict dropping to these "white" cells only
+
+        dragtarget.addEventListener('dragstart', dragStart);
+        droptarget.addEventListener('dragenter', dragEnter)
+        droptarget.addEventListener('dragover', dragOver);
+        droptarget.addEventListener('dragleave', dragLeave);
+        droptarget.addEventListener('drop', drop);
+        
+
+            function dragStart(e) {
+                
+                if(drag_count == 0){
+                    console.log('targetid='+e.target.id);
+                if(filteredDragTableIDs.includes(e.target.id)){                
+                e.dataTransfer.setData('text/plain', e.target.id);
+                e.target.style.opacity = .7;
+
+                }
+                else{alert("You can only drag/drop ONE UNOBSTRUCTED block on a turn!");}
+
+                }
+                }
+            function dragEnter(e) {
+
+                if(drag_count == 0){
+                if(totalDropIDs.includes(e.target.id)){
+                e.preventDefault();
+                e.target.classList.add('drag-over');
+                }
+            }
+            
+            }
+
+            function dragOver(e) {
+
+                if(drag_count == 0){
+
+                if(totalDropIDs.includes(e.target.id)){
+                e.preventDefault();
+                e.target.classList.add('drag-over');
+                }
+            }
+            
+            }
+
+            function dragLeave(e) {
+                if(drag_count == 0){
+                if(totalDropIDs.includes(e.target.id)){
+                e.target.classList.remove('drag-over');
+                }
+            }
+            
+            }
+            function drop(e) {
+
+                if(drag_count == 0){
+
+                if(totalDropIDs.includes(e.target.id)){
+                
+                e.target.classList.remove('drag-over');
+                // get the draggable element
+                const id = e.dataTransfer.getData('text/plain');
+                const draggable = W.getElementById(id);
+                dragid = id;
+                dropid = JSON.parse(JSON.stringify(e.target.id));
+                // add it to the drop target
+                e.target.appendChild(draggable);
+
+                
+                }
+
+                }
+                else{alert("You can only drag/drop ONE UNOBSTRUCTED block on a turn!");}                
+            }                
     };
 
     node.game.findMoveable = function(){
@@ -1558,17 +1352,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     node.game.countObstructions = function(obstructed, countsamecolor = false, goal_color = []){
         // given a set of obstructed blocks, count the number of obstructions for each
         console.log("inside counting obstructions")
-        console.log("obstructed=",obstructed)
         var dict = new Object();
         for (var i = 0; i < obstructed.length; i++){
-            console.log("o_i = ", i)
             var o = obstructed[i]
-            console.log("o = ", o)
 
             var row = ~~(o/18);
-            console.log("row = ", row)
             for (var r_i = 1; r_i < row + 1; r_i++){
-                console.log("r_i=", r_i)
                 var index = o - (18*r_i)
                 if(index >0){
                     dict[index] = 0
@@ -1656,7 +1445,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         this.architectActions = []
         this.optCounter = 0
         this.architectScore = 0
-        this.helperScore = 0
+        this.helpfulArchitectMove = 0
+        this.helpfulHelperMove = 0
     }
 
     node.game.checkEnd = function(){
@@ -1691,6 +1481,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         
     };
 
+
     node.game.computeGoal = function(){
         // need to compute goal relevant indices
         console.log("inside compute Goal")
@@ -1718,10 +1509,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             else{this.goalindices = Array.from({length: 108}, (item, index) => index);}
            
             console.log("this.goalindices="+this.goalindices)
-            // compute optimal moves for a given goal
+            // compute optimal moves for a given goal but only once
             if(this.optCounter == 0){
             this.optimalMoveCount = node.game.optimalMoves(action, color, goal_location)
             console.log("optimal moves =", this.optimalMoveCount)
+            // set initial optimal to ultimate optimal
+            this.currentOptimalCount = JSON.parse(JSON.stringify(this.optimalMoveCount));
             this.optCounter+=1
             }
 
@@ -1750,6 +1543,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         console.log("inside the click function")
         // reset config for next round
         node.game.resetConfig();
+        /*
         if(moveChoice.length>0){
             var otherShape0 = moveChoice[0]
             if(otherShape0.includes("circle")){otherShape0 = otherShape0;}
@@ -1762,15 +1556,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             W.getElementById(otherShape0).style.backgroundImage = "none"
             W.getElementById(otherShape1).style.backgroundImage = "none"
         }
+        */
         W = node.game.drawTable(W, this.currentShape , this.currentConfiguration);
         node.game.computeGoal();
         W.gid('goal').style.backgroundColor = "lime"
         console.log("after computing new goal")
         W.gid("nextgoal").style.visibility = "hidden"
-        var a = W.getElementById("done")
-        a.style.visibility = 'visible';
-        a.disabled = true;
-        node.game.enableDragDrop(W);
+        node.game.enableDragDrop(W, "architect");
         console.log("after enabling drag drop")
         var dots = W.gid("dotContainer")
         dots.style.visibility = "hidden"
@@ -1779,9 +1571,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         dot1.style.visibility = "hidden"
         node.game.removeAnimation();
         W.setInnerHTML('cluepast0txt', "It is your turn! Please move a block, and note that the goal has changed."); 
+        var newRound = this.roundCounter + 1
+        W.setInnerHTML('round', "Round:" + newRound)
         W.setInnerHTML('cluepasttxt', ""); 
-        W.setInnerHTML('done', 'Continue');
-        a.onclick = function() { node.done() };
     
 }
 
@@ -1792,7 +1584,7 @@ node.game.removeAnimation = function(){
     var newIDs =[], cids  = W.getElementsByClassName('sphere')
     for (var i=cids.length;i--;) newIDs.push(cids[i].id);
 
-    for (var i = 1; i < newIDs.length-1; i++) {
+    for (var i = 0; i < newIDs.length; i++) {
         W.getElementById(newIDs[i]).style.backgroundImage = "none"
         W.getElementById(newIDs[i]).innerHTML = ''
     }
@@ -2009,7 +1801,6 @@ node.game.removeAnimation = function(){
         // set currentConfig - this changes as players make moves                            
 
         this.currentConfiguration = JSON.parse(JSON.stringify(this.initialConfiguration));
-        this.oldConfig = JSON.parse(JSON.stringify(this.currentConfiguration));
 
         // shape is square by default, and circular otherwise 
         // logic is that if shape is "circle" then circle is updated and square is set to white or vice versa                        
@@ -2025,51 +1816,21 @@ node.game.removeAnimation = function(){
         this.optCounter = 0; // counter to keep trakc of when to calculate optimal goals
         
         
-        //this.id;
+        this.id;
         this.randomCode;
         
-
-        // set goal configuration and verbal goal
-        // get a random color and room
-        // create non-white colors array for creating goal
-        // this "random" choice is happening separately for architect & builder - NOT ideal
-        // maybe we need a list of goals 
-
-        // need to input all possible list of goals and select only 10 out of them
-
-        this.goalSpace = ['cover red all', 'move blue C2','clear nocolor A2', 'uncover green all','move green B', 'clear nocolor A1', 
-        'clear nocolor B', 'move red C2', 'move red A', 'move green A', 'move blue A', 'move red B', 
-        'clear nocolor C',  'move blue A1', 'move green C', 'uncover red all', 
-        'move green A1', 'move red A1', 'cover green all', 'move red A2', 'clear nocolor A', 
-        'move red B1', 'move blue B1', 'move blue C1', 'move blue B', 'move green C1', 'clear nocolor C2',
-         'move blue A2', 'cover blue all', 'clear nocolor C1', 'move green C2', 'move green B1', 
-          'move red C1', 'move red B2', 'move blue C', 'move green B2', 
-         'move green A2', 'move blue B2', 'uncover blue all', 'clear nocolor B2', 'move red C', 'clear nocolor B1']
-
-        
-        var unsuccessful_goal_indices  = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41]
-
-        this.valid_goals = unsuccessful_goal_indices.map((item) => this.goalSpace[item])
-
-        console.log("valid_goals=", this.valid_goals);
-
-        // need to find goals that are not complete already from the list above
-
-        this.goalList = this.valid_goals.slice(0,13)
         this.goalindices = []
-        this.goalnumber = 5; // total number of goals for each game, set to 2 for now
+        this.goalnumber = 2; // total number of goals for each game, set to 2 for now
 
-        this.helperScore = 0
         this.architectScore = 0
         this.optimalMoveCount = 0
         this.totalHelp = 0
+        this.helpfulHelperMove = 0
+        this.helpfulArchitectMove = 0
+        this.currentOptimalCount = 0
 
-        // actual goal depends on the color and room generated above
-        // logic might be to count number of "colors" in a given portion of the table
-
-        
-        // once we have the goal indices, we count up the number of random_color occurrences in those indices within
-        // the currentConfiguration
+        this.helperAccumulator = {} // keeps track of total useful moves across from helper across all goals
+        this.architectAccumulator = {} // keeps track of total useful moves across from architect across all goals
         
     });
 
@@ -2084,12 +1845,15 @@ node.game.removeAnimation = function(){
     });
 
 
+*/
 /*
     stager.extendStep('idGet', {
         frame: 'idGet.htm',
         cb: function(){
             console.log("inside idGET")
             this.randomCode = Math.floor(Math.random() * 90000) + 10000;
+
+            
 
             this.idWid = node.widgets.append('CustomInput', W.gid('getid'), {//apend customInput widget with 1 mandatory input
                id: 'clueGive',
@@ -2100,12 +1864,16 @@ node.game.removeAnimation = function(){
 
            var a = W.gid('done');
            a.onclick = function() { node.done() };
+
+           
        },
         done: function() {//send clue to other player and clue and time info to database
             this.id = this.idWid.getValues().value;
             return;
         }
     });
+
+    */
 
     /*
 
@@ -2117,21 +1885,35 @@ node.game.removeAnimation = function(){
         }
     });
     */
-/*
+
     stager.extendStep('rolesAssigned', {
         role: function() { return this.role; },
         partner: function() { return this.partner; },
         roles: {
             helper:{
-                frame: 'instructionsCG.htm', 
+                frame: 'instructionsHelper.htm', 
                 cb: function(){
+                    node.on.data('GOAL_LIST', function(msg) {
+                        console.log("msg = ", msg)
+                        // Write inside the element with ID 'win' the amount of money won.
+                        this.goalList = msg.data
+                    });
+                    
                     var a = W.gid('done');
                     a.onclick = function() { node.done() };
                 }
             },
             architect:{
-                frame: 'instructions.htm',
+                frame: 'instructionsArchitect.htm',
                 cb: function(){
+                    node.say('compute_goal', 'SERVER', 1)
+
+                    node.on.data('GOAL_LIST', function(msg) {
+                        console.log("msg = ", msg)
+                        // Write inside the element with ID 'win' the amount of money won.
+                        this.goalList = msg.data
+                    });
+
                     var a = W.gid('done');
                     a.onclick = function() { node.done() };
             }
@@ -2139,7 +1921,36 @@ node.game.removeAnimation = function(){
         }
     });
 
-    */
+    stager.extendStep('gridPractice', {
+        role: function() { return this.role; },
+        partner: function() { return this.partner; },
+        roles: {
+            helper:{
+                frame: 'gridpractice.htm', 
+                cb: function(){
+                    W.setInnerHTML('role', "Your role: Helper")
+                    node.game.drawTable(W, this.currentShape, this.currentConfiguration);
+                    node.game.practiceDragDrop(W, this.currentConfiguration);
+                    var a = W.gid('done');
+                    a.onclick = function() { node.done() };
+                }
+            },
+            architect:{
+                frame: 'gridpractice.htm',
+                cb: function(){
+                    W.setInnerHTML('role', "Your role: Architect")
+                    node.game.drawTable(W, this.currentShape, this.currentConfiguration);
+                    node.game.practiceDragDrop(W, this.currentConfiguration);
+                    var a = W.gid('done');
+                    a.onclick = function() { node.done() };
+            }
+            }
+        }
+    });
+
+  
+
+    
 
     stager.extendStep('architectMoveprac', {
         role: function() { return this.role; },
@@ -2153,45 +1964,35 @@ node.game.removeAnimation = function(){
                 frame: 'helperStudyBoard.htm',
                 cb: function() {
                     
+                    // need to change the block configuration for Helper if a move has been made 
 
-                    // need to change the block configuration for Helper if a move has been made
+                    W.setInnerHTML('round', "Round:" + this.roundCounter)
                     
-                    /*
-                    W.setInnerHTML('helperlastaction', "-"); 
-                    W.setInnerHTML('helpercurrentaction', "Waiting for Architect..."); 
-
-                    W.setInnerHTML('architectlastaction', "-");
-                    W.setInnerHTML('architectcurrentaction', "Moving a block...");   
-                    */
-                    
-                    // if all goals are complete, then we do nothing
 
                     if(this.helperActions.length > 0){ // if this is not the first trial
                         console.log("this.helperActions=",this.helperActions)
                         
                         var choiceTXT = node.game.memory.resolveTag("CHOICE").choiceoption;
-                        if(["Ask a yes/no question"].includes(choiceTXT)){ 
-                            node.game.drawTable(W, this.currentShape, this.currentConfiguration);
-                            W.setInnerHTML('cluepasttxt', "You chose to ask a question: ");
-                            W.setInnerHTML('cluepast',  this.helperActions.at(-1));    
-                        }
-
-                        else if(["Pass"].includes(choiceTXT)){
+                        if(["Pass"].includes(choiceTXT)){
                             node.game.drawTable(W, this.currentShape, this.currentConfiguration);
                             W.setInnerHTML('cluepasttxt', "You chose to pass your turn.")
-                            W.setInnerHTML('clue2', "Waiting for the Architect")
+                            W.setInnerHTML('clue2', "Waiting for the Architect to make a move")
                             node.game.showDotsAnimation();
                         }
                         else if(["done"].includes(choiceTXT)){
                             node.game.resetConfig();
                             node.game.drawTable(W, this.currentShape, this.currentConfiguration);
                             W.setInnerHTML('cluepasttxt', "This is your next task.")
+                            var updateRound = this.roundCounter + 1
+                            W.setInnerHTML('round', "Round:" + updateRound)
                             node.game.helpergoalAchieved();
-                            W.setInnerHTML('clue2', "Waiting for the Architect")
+                            W.setInnerHTML('clue2', "Waiting for the Architect to make a move")
                             node.game.showDotsAnimation();
                         }
                         
                         else{ // previous helper move: no need for animation
+
+                        W.setInnerHTML('clue2', "Waiting for the Architect to make a move")
                         
                         var moveInfo = this.helperActions.at(-1)
                         let { moved_color, moved_shape, movedfrom_room, movedto_room, moveToID, moveFromID, moveChoice } = node.game.getMovement(moveInfo);
@@ -2207,8 +2008,23 @@ node.game.removeAnimation = function(){
                         this.currentShape[moveFromID] = "square"
                         
                         node.game.drawTable(W, this.currentShape, this.currentConfiguration);
+
+                        // check if the previous helper move reduced the this.optimalMoveCount?
+
+                        var goal = this.goalList[this.roundCounter].split(" ")
+                        var oldOptimalCount = JSON.parse(JSON.stringify(this.currentOptimalCount));
+                        this.currentOptimalCount = node.game.optimalMoves(goal[0], goal[1], goal[2]);
+                        if(this.currentOptimalCount < oldOptimalCount){
+                            
+                            this.helpfulHelperMove+= 1
+                            console.log("a helpful move was made by helper=", this.helpfulHelperMove)
+                        }
+                        else{
+                            console.log("not a helpful move by helper=", this.helpfulHelperMove)
+                        }
+
                         // evaluate
-                        let checkend = node.game.computeGoal();
+                        let checkend = node.game.checkEnd();
 
                         if(checkend == 0){ // if there are goals remaining, then give feedback and move on
                             var feedbackvalue = node.game.provideFeedback();
@@ -2218,21 +2034,28 @@ node.game.removeAnimation = function(){
                                 //W.setInnerHTML('cluepast', moved_color + " " + moved_shape + " from room " + movedfrom_room.charAt(0)+  " to room " + movedto_room.charAt(0));
                             }
                             else{
-                                this.totalHelp  =this.optimalMoveCount - this.helperScore
+                                this.totalHelp  =this.optimalMoveCount - this.architectScore //+ 1  // coming from architect
+                                var goalnum = this.roundCounter
+                                this.helperAccumulator[goalnum] = this.helpfulHelperMove
+                                this.architectAccumulator[goalnum] = this.helpfulArchitectMove
+                                
                                 W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                                W.setInnerHTML('clue2', "The optimal moves were "+ this.optimalMoveCount + " and your help resulted in " + this.totalHelp +  " architect moves! Please wait for the Architect"); 
+                                W.setInnerHTML('clue2', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Please wait for the Architect to start the next task"); 
                                 node.game.showDotsAnimation();
                                 node.game.helpergoalAchieved();
                             }
                         }
                         else{ // no goals remaining - just wait for architect
                             
-                            this.totalHelp  =this.optimalMoveCount - this.helperScore
+                            this.totalHelp  =this.optimalMoveCount - this.architectScore //+ 1 // coming from architect
+                            var goalnum = this.roundCounter
+                            this.helperAccumulator[goalnum] = this.helpfulHelperMove
+                            this.architectAccumulator[goalnum] = this.helpfulArchitectMove
                             W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                            W.setInnerHTML('clue2', "The optimal moves were "+ this.optimalMoveCount + " and your help resulted in " + this.totalHelp +  " architect moves! Please wait for the Architect"); 
+                            W.setInnerHTML('clue2', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Please wait for the Architect to start the next task"); 
+                            node.game.helpergoalAchieved();
 
-                            W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                            //W.setInnerHTML('clue2', "You have completed all goals. Please wait for the Architect"); 
+
                             node.game.showDotsAnimation();
                         }
 
@@ -2266,9 +2089,11 @@ node.game.removeAnimation = function(){
                 node.on.data('ANSWER', function(msg) {
                     that.guessesReceived = msg.data;
                 });
-                
+
+                node.set({helperChoice: 999});
+                node.set({helperMove: 999});                
                // node.set({helperID: this.id});
-                node.set({helperRandCode: this.randomCode});
+                //node.set({helperRandCode: this.randomCode});
                 return;
             }
 
@@ -2288,7 +2113,12 @@ node.game.removeAnimation = function(){
             W.setInnerHTML('architectlastaction', "-");
             W.setInnerHTML('architectcurrentaction', "Making a move...");
             */
+            
+            W.setInnerHTML('round', "Round:" + this.roundCounter)
             W.getElementById('nextgoal').style.visibility = 'hidden';
+            
+    
+            console.log("this.goalList inside architect = ",this.goalList )
 
             node.game.computeGoal();
 
@@ -2297,8 +2127,8 @@ node.game.removeAnimation = function(){
                 // here we want to tell the architect what the Helper did and also change the block positions
                 var moveChoice1 = this.helperActions.at(-1)
                 console.log("moveChoice1="+ moveChoice1)
-                // moveChoice will either be a question string or of the form "A2 to B2" or "Pass"
-                    if (moveChoice1.includes("move a block from ") || moveChoice1.includes("Pass")){
+                // moveChoice will either be of the form "A2 to B2" or "Pass"
+                    
                         if (moveChoice1.includes("move a block from ")){            
                             var moveInfo = this.helperActions.at(-1)
 
@@ -2316,12 +2146,25 @@ node.game.removeAnimation = function(){
                             
                             // if animation is being showed then we should notify them of this
 
-                            W.setInnerHTML('cluepasttxt', "The helper is moving the blocks now");
+                            W.setInnerHTML('cluepasttxt', "The helper is moving a block now");
 
                             node.game.showAnimation(moveChoice, oldShape, oldColor);
 
+                            // check optimal
+
+                            var goal = this.goalList[this.roundCounter].split(" ")
+                            var oldOptimalCount = JSON.parse(JSON.stringify(this.currentOptimalCount));
+                            this.currentOptimalCount = node.game.optimalMoves(goal[0], goal[1], goal[2]);
+                            if(this.currentOptimalCount < oldOptimalCount){
+                                this.helpfulHelperMove+= 1
+                                console.log("a helpful move was made by helper=", this.helpfulHelperMove)
+                            }
+                            else{
+                                console.log("not a helpful move by helper=", this.helpfulHelperMove)
+                            }
+
                             // evaluate
-                            let checkend = node.game.computeGoal();
+                            let checkend = node.game.checkEnd();
 
                             if(checkend == 0){ // if there are goals remaining, then do feedback
                             var feedbackvalue = node.game.provideFeedback();
@@ -2330,143 +2173,120 @@ node.game.removeAnimation = function(){
                                     node.game.removeAnimation();
                                     W.setInnerHTML('cluepasttxt', "It is your turn! Please move a block"); 
                                     W.gid('cluepasttxt').style.color = "red"  
-                                    node.game.enableDragDrop(W);
+                                    node.game.enableDragDrop(W, "architect");
                                     this.architectScore+=1
                                     console.log("this.architectScore=", this.architectScore)
-                                    var a = W.gid('done');
-                                    a.onclick = function() { node.done() };  
+                                    
 
-                                }, 4000);
-                                //W.setInnerHTML('cluepasttxt', "The helper selected to move a: ");
-                                //W.setInnerHTML('cluepast', moved_color + " " + moved_shape + " from "+ "room " + movedfrom_room.charAt(0)+  " to "+  "room " + movedto_room.charAt(0));   
-                                
+                                }, 4000);                                
                             }
                             else{
                                 // if goal has been achieved, they click a button to advance to the next goal   
                                     node.game.architectgoalAchieved();
                                     W.getElementById('nextgoal').style.visibility = 'visible';
-                                    W.getElementById('done').style.visibility = 'hidden';
                                     W.setInnerHTML('cluepasttxt', "Goal has been achieved!!");
+                                    console.log("in the lonely goal achieved section")
                                     W.gid("dot1").style.visibility = "hidden" 
                                     W.gid("dotContainer").style.visibility = "hidden"
-                                    if(node.game.computeGoal()){
+                                    if(node.game.checkEnd()){// if goals complete
                                         W.getElementById('nextgoal').style.visibility = 'hidden';
-                                        W.getElementById('done').style.visibility = 'visible';
-
-                                        this.totalHelp  = this.architectScore 
-                                        W.setInnerHTML('cluepast0txt', "The optimal moves were "+ this.optimalMoveCount + " and Helper's assistance resulted in " + this.totalHelp +  " moves! All goals are complete. Click Done to continue"); 
-
                                         
-                                        W.setInnerHTML('done', 'Done');
+                                        this.totalHelp  = this.optimalMoveCount - this.architectScore 
+
+                                        var goalnum = this.roundCounter
+                                        this.helperAccumulator[goalnum] = this.helpfulHelperMove
+                                        this.architectAccumulator[goalnum] = this.helpfulArchitectMove
+                                        
+                                        W.setInnerHTML('cluepast0txt', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! All goals are complete. Click Done to continue");
+                                        W.setInnerHTML('nextgoal', 'Done');
+                                        var g = W.gid('nextgoal');
+                                        g.disabled = false;
+                                        g.style.visibility = "visible"
+                                        g.onclick = function() { node.done() };                                        
                                         W.gid("dot1").style.visibility = "hidden" 
                                         W.gid("dotContainer").style.visibility = "hidden"
                                         node.say('END_GAME', 'SERVER', true);
-                                        var a = W.gid('done');
-                                        a.disabled = false;
-                                        a.onclick = function() { node.done() };
+                                       
 
                                     }
-                                    else{
-                                        this.totalHelp  = this.architectScore 
-                                        W.setInnerHTML('cluepast0txt', "The optimal moves were "+ this.optimalMoveCount + " and Helper's assistance resulted in " + this.totalHelp +  " moves! You will now move on to the next task. Please click Next Goal to continue."); 
+                                    else{ // goals still remaining
+                                        this.totalHelp  = this.optimalMoveCount - this.architectScore 
+
+                                        var goalnum = this.roundCounter
+                                        this.helperAccumulator[goalnum] = this.helpfulHelperMove
+                                        this.architectAccumulator[goalnum] = this.helpfulArchitectMove
+                                        
+                                        W.setInnerHTML('cluepast0txt', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Please click Next Goal to continue."); 
                                         
                                         W.setInnerHTML('nextgoal', 'Next goal');
                                         var g = W.gid('nextgoal');
                                         g.disabled = false;
                                         g.addEventListener('click', 
-                                        function() {node.game.nextGoalActions(moveChoice)}
+                                        function() {
+                                            node.game.nextGoalActions(moveChoice)
+                                            this.architectScore+=1
+                                            console.log("this.architectScore=", this.architectScore)
+                                        }
                                         );
                                     }
                                 }
                                 
                             }
-                            else{ // no goals remaining
+                            else { // no goals remaining
                                 W.getElementById('nextgoal').style.visibility = 'hidden';
-                                W.getElementById('done').style.visibility = 'visible';
                                 W.setInnerHTML('cluepasttxt', "Goal has been achieved!!"); 
                                 W.gid("dot1").style.visibility = "hidden" 
                                 W.gid("dotContainer").style.visibility = "hidden"
 
-                                this.totalHelp  = this.architectScore 
-                                W.setInnerHTML('cluepast0txt', "The optimal moves were "+ this.optimalMoveCount + " and Helper's assistance resulted in " + this.totalHelp +  " moves! All goals are complete. Please click Next Goal to continue."); 
-                                W.setInnerHTML('done', 'Done');
+                                this.totalHelp  = this.optimalMoveCount - this.architectScore
+                                W.setInnerHTML('cluepast0txt', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! All goals are complete. Click Done to continue"); 
+                                W.setInnerHTML('nextgoal', 'Done');
+                                var g = W.gid('nextgoal');
+                                g.disabled = false;
+                                g.style.visibility = "visible"
+                                g.onclick = function() { node.done() };
+
+                                
                                 node.say('END_GAME', 'SERVER', true);
-                                var a = W.gid('done');
-                                a.disabled = false;
-                                a.onclick = function() { node.done() };
+
 
                             }
                         }
-                    else {// pass
+                    else if (moveChoice1.includes("Pass")) {// pass
                             W = node.game.drawTable(W, this.currentShape, this.currentConfiguration);
-                            
-                            var a = W.gid('done');
-                            a.onclick = function() { node.done() };
+                            // this could happen from nextgoal actions or passing
+                           
                             W.setInnerHTML('cluepasttxt', "The helper chose to pass their turn"); 
                             setTimeout(() => {
                                 W.setInnerHTML('cluepast0txt', 'It is your turn! Please drag and drop a block.')
                                 W.gid("cluepast0txt").style.color = "red"
                             }, 1000); 
-                            node.game.enableDragDrop(W);
+                            node.game.enableDragDrop(W, "architect");
                             this.architectScore+= 1
                             console.log("this.architectScore=", this.architectScore)
                         }
+                    else{ // if moveChoice1.includes("done")
+                        // what to do if it is a new goal
+
+                        node.game.architectgoalAchieved();
+                        let checkend = node.game.checkEnd();
+                        if(checkend){node.done();}
+                        else{
+                        node.game.nextGoalActions();
+                        W.setInnerHTML('cluepasttxt', "This is your next task.");
+                        W.setInnerHTML('round', "Round:" + this.roundCounter)
+                     }
                     }
-                else if(moveChoice1.includes("done")){
-                    node.game.architectgoalAchieved();
-                    let checkend = node.game.checkEnd();
-                    if(checkend){node.done();}
-                    else{
-                    node.game.nextGoalActions();
-                    W.setInnerHTML('cluepasttxt', "This is your next task.");   
-                    }
-
-                }
-                else{ // asked a question
-                W.getElementById('done').style.visibility = 'hidden';
+                    
+               
                 
-                W = node.game.drawTable(W, this.currentShape, this.currentConfiguration);
-                W.setInnerHTML('cluepasttxt', "The helper has asked you a question: ");
-                W.setInnerHTML('cluepast', moveChoice1 ); 
-                setTimeout(() => {
-                    W.setInnerHTML('cluepast0txt', "Please respond with a YES or NO.");
-                    W.gid("cluepast0txt").style.color = "red"
-
-                }, 1000);
-                
-                
-                // after question has been displayed, architect responds with yes/no
-
-                W.gid("questiontable").style.visibility = "visible"
-                W.gid("yesbutton").disabled = false
-                W.gid("nobutton").disabled = false
-
-                var el = W.getElementById("questiontable");
-                this.clicker2 = function (e){
-                    var target = e.target;
-                    if(target.className.match("button button2")){
-                        node.game.memory.add({
-                            player: node.player.id,
-                            stage: node.game.getCurrentGameStage(),
-                            choiceoption: target.innerHTML
-                        }); 
-                        node.game.memory.tag("QUESTIONCHOICE");//tag this memory for easy access later
-                        el.removeEventListener('click', this.clicker2);
-                        node.done(); 
-                    }
-                }
-                el.addEventListener('click', this.clicker2);
-
-                }
             }// end not first trial if
         else {
         W.setInnerHTML('cluepast0txt', "It is your turn! Please drag and drop a block."); 
         node.game.drawTable(W, this.currentShape, this.currentConfiguration);
-        node.game.enableDragDrop(W);
+        node.game.enableDragDrop(W, "architect");
         this.architectScore+=1 
         console.log("this.architectScore=", this.architectScore)
-        var a = W.gid('done');
-        a.onclick = function() { node.done() };
         }
 
     }, // end cb architect
@@ -2498,14 +2318,7 @@ node.game.removeAnimation = function(){
                 node.say('ANSWER', node.game.partner, choiceTXT);
             }
 
-            else{ // answered a question
-                var answer = node.game.memory.resolveTag("QUESTIONCHOICE").choiceoption;
-                console.log("answer=", answer)
-                var question_plus_answer = moveChoice1 + "---" + answer
-                this.architectActions.push(question_plus_answer);
-                node.set({architectAnswer: answer});
-                node.say('ANSWER', node.game.partner, question_plus_answer);
-            }
+            
         return;
     }
 
@@ -2515,14 +2328,18 @@ node.game.removeAnimation = function(){
         this.architectActions.push(choiceTXT);
         node.set({goalnumber: this.roundCounter+1});
         node.set({architectMove: choiceTXT});
+        node.set({helperChoice: 999});
+        node.set({helperMove: 999});
         node.say('ANSWER', node.game.partner, choiceTXT);
     }
+
 } // end done
 } // end architect
 } // end roles
 }); // end step
 
 stager.extendStep('helperOptionsprac', {
+    // needs to be open to simple movement or passing/helping options
         role: function() { return this.role; },
         partner: function() { return this.partner; },
 
@@ -2534,6 +2351,8 @@ stager.extendStep('helperOptionsprac', {
                 frame: 'helperChoice.htm',
                 cb: function() {
                     console.log("inside helperChoice!!!!")
+
+                    W.setInnerHTML('round', "Round:" + this.roundCounter)
                     
                     //const info = W.getElementById("helperinfo")
                     //info.style.border = "3px solid red"
@@ -2543,12 +2362,15 @@ stager.extendStep('helperOptionsprac', {
                     W.setInnerHTML('architectlastaction', "-");
                     W.setInnerHTML('architectcurrentaction', "Waiting for Helper...");
                     */
-                    // figure out update message based on whether a move was made or not
+                
+        
                     var moveChoice1 = this.architectActions.at(-1)
                     console.log("architect's moveChoice1=",moveChoice1)
-                    let checkend = node.game.computeGoal();
-                
+                    var checkend = node.game.computeGoal();
+
+                    // helperChoice is always after an architect move
                     if (moveChoice1.includes("move a block from ")){
+                        this.architectScore+=1
                         var moveInfo = this.architectActions.at(-1)
                         let { moved_color, moved_shape, movedfrom_room, movedto_room, moveToID, moveFromID, moveChoice } = node.game.getMovement(moveInfo);
                         
@@ -2565,35 +2387,79 @@ stager.extendStep('helperOptionsprac', {
                         this.currentShape[moveToID] = this.currentShape[moveFromID]
                         this.currentShape[moveFromID] = "square"
                         // draw
-                        W.setInnerHTML('cluepasttxt', "The Architect is moving the blocks now");
+                        W.setInnerHTML('cluepasttxt', "The Architect is moving a block now");
                         W.gid('cluepasttxt').style.color = "red"
                         node.game.showAnimation(moveChoice, oldShape, oldColor);
+
+                        // check optimal
+
+                        var goal = this.goalList[this.roundCounter].split(" ")
+                        var oldOptimalCount = JSON.parse(JSON.stringify(this.currentOptimalCount));
+                        this.currentOptimalCount = node.game.optimalMoves(goal[0], goal[1], goal[2]);
+                        if(this.currentOptimalCount < oldOptimalCount){
+                            this.helpfulArchitectMove+= 1
+                            console.log("a helpful move was made by architect=", this.helpfulArchitectMove)
+                        }
+                        else{
+                            console.log("not a helpful move by architect =", this.helpfulArchitectMove)
+                        }
+
                         // evaluate
-                        let checkend = node.game.computeGoal();
+                        let checkend = node.game.checkEnd();
 
                         if(checkend == 0){ // if goals remaining, then provide feedback
                             var feedbackvalue = node.game.provideFeedback();
                             if(feedbackvalue == 0){
                                 setTimeout(() => {
                                     W.setInnerHTML('cluepasttxt', "It is your turn! Choose your action"); 
+                                    node.game.removeAnimation();
+                                    node.game.enableDragDrop(W, "helper");
+                                    node.set({helperChoiceTime : node.timer.getTimeSince('step')})
+                                    
+                                
+                                    // record click
+                                    // now record click
+                                    // this needs to be delayed if there was a move
+                                        var el = W.getElementById("gbrd");
+                                        this.clicker2 = function (e){
+                                            var target = e.target;
+                                            if(target.className.match("button button2")){
+                                                node.say('GUESS', node.game.partner, target.innerHTML);
+                                                node.set({helperChoice : target.innerHTML});
+                                                node.set({helperChoiceTime : node.timer.getTimeSince('step')})
+                                                node.game.memory.add({
+                                                    player: node.player.id,
+                                                    stage: node.game.getCurrentGameStage(),
+                                                    choiceoption: target.innerHTML
+                                                }); 
+                                                node.game.memory.tag("CHOICE");//tag this memory for easy access later
+                                                el.removeEventListener('click', this.clicker2);
+                                                node.done(); 
+                                            }
+                                        }
+                                        el.addEventListener('click', this.clicker2);
+                                    
                                     W.gid('cluepasttxt').style.color = "red"  
                                     W.gid("help").disabled = false
-                                    W.gid("ask").disabled = false
                                     W.gid("pass").disabled = false    
 
                                 }, 3000);
                                 //W.setInnerHTML('cluepasttxt', "The Architect chose to move a: ");
                                 //W.setInnerHTML('cluepast', moved_color + " " + moved_shape + " from room " + movedfrom_room.charAt(0)+  " to room " + movedto_room.charAt(0));
                             }
-                            else{
+                            else{ // if you get correct, then check again
+ 
+                                this.totalHelp  = this.optimalMoveCount  - this.architectScore 
 
-                                this.totalHelp  = this.optimalMoveCount  - this.helperScore
+                                var goalnum = this.roundCounter
+                                this.helperAccumulator[goalnum] = this.helpfulHelperMove
+                                this.architectAccumulator[goalnum] = this.helpfulArchitectMove
+                                
                                 W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                                W.setInnerHTML('clue2', "The optimal moves were "+ this.optimalMoveCount + " and your help resulted in " + this.totalHelp +  " moves! Click done to continue to the next task"); 
+                                W.setInnerHTML('clue2', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Click done to continue to the next task."); 
 
                                 
                                 W.gid("help").style.visibility = "hidden"
-                                W.gid("ask").style.visibility = "hidden"
                                 W.gid("pass").style.visibility = "hidden" 
                                 node.say('GUESS', node.game.partner, "done"); 
                                 node.game.memory.add({
@@ -2609,61 +2475,34 @@ stager.extendStep('helperOptionsprac', {
                 
                             }
                         }
-                    else{
-                        this.totalHelp  = this.optimalMoveCount  - this.helperScore
-                                W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                                W.setInnerHTML('clue2', "The optimal moves were "+ this.optimalMoveCount + " and your help resulted in " + this.totalHelp +  " moves! Click done to continue to the next task"); 
+                    else{ // goals complete
+                        this.totalHelp  = this.optimalMoveCount  - this.architectScore
+
+                        var goalnum = this.roundCounter
+                        this.helperAccumulator[goalnum] = this.helpfulHelperMove
+                        this.architectAccumulator[goalnum] = this.helpfulArchitectMove
+                        
+                        W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
+                        W.setInnerHTML('clue2', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Goals are complete. Click Continue to move to next phase."); 
                         }
                     }
-                    
-                    else if(moveChoice1.includes("done")){
-                        node.done();
-                    }
-
-                    else{
-                        W.gid("help").disabled = false
-                        W.gid("ask").disabled = false
-                        W.gid("pass").disabled = false
-                        // if the architect answered a question
-                        var qplusa = this.architectActions.at(-1)
-                        var q = qplusa.split('---')[0]
-                        W.setInnerHTML('cluepasttxt', "You asked the Architect: <span style='color:red;'>  "+ q + "</span>. The Architect's answer is: ");
-                        var a = qplusa.split('---')[1]
-                        W.setInnerHTML('cluepast',  a);
-                        setTimeout(() => {
-                            W.setInnerHTML('clue2', 'It is your turn! Choose your action.')
-                            W.gid("clue2").style.color = "red"
-                        }, 3000);
-                        
-                        W = node.game.drawTable(W, this.currentShape, this.currentConfiguration);
-                    }
-
-            if(checkend == 0){
-               // now record click
-               // this needs to be delayed if there was a move
-                var el = W.getElementById("gbrd");
-                this.clicker2 = function (e){
-                    var target = e.target;
-                    if(target.className.match("button button2")){
-                        node.say('GUESS', node.game.partner, target.innerHTML);
-                        node.set({helperChoice : target.innerHTML});
-                        node.set({helperChoiceTime : node.timer.getTimeSince('step')})
-                        node.game.memory.add({
-                            player: node.player.id,
-                            stage: node.game.getCurrentGameStage(),
-                            choiceoption: target.innerHTML
-                        }); 
-                        node.game.memory.tag("CHOICE");//tag this memory for easy access later
-                        el.removeEventListener('click', this.clicker2);
-                        node.done(); 
-                    }
+                else if(moveChoice1.includes("done")){
+                    // maybe not show table here?
+                    W.gid("blocks").style.visibility = "hidden"
+                    W.gid("gbrd").style.visibility = "hidden"
+                    W.gid("containerbottom2").style.visibility = "hidden"
+                    node.done();
                 }
-                el.addEventListener('click', this.clicker2);
-            }
-            else{
+
+                    
+
+            if(checkend == 1){
                 W.gid("help").style.visibility = "hidden"
-                W.gid("ask").style.visibility = "hidden"
                 W.gid("pass").style.visibility = "hidden"
+
+                W.gid("blocks").style.visibility = "hidden"
+                W.gid("gbrd").style.visibility = "hidden"
+                W.gid("containerbottom2").style.visibility = "hidden"
                 
                 node.say('GUESS', node.game.partner, "done");
                 node.say('END_GAME', 'SERVER', true);
@@ -2673,7 +2512,8 @@ stager.extendStep('helperOptionsprac', {
                    
             }, // end helper cb function
         done: function() { 
-        var moveChoice1 = this.architectActions.at(-1)   
+        var moveChoice1 = this.architectActions.at(-1)  
+        console.log("moveChoice1=", moveChoice1) 
         if(moveChoice1.includes("done")){
             node.say('CHOICE', node.game.partner, "done");
             this.helperActions.push("done");
@@ -2681,22 +2521,37 @@ stager.extendStep('helperOptionsprac', {
             //node.set({helperID: this.id});
             node.set({helperRandCode: this.randomCode});
             node.set({helperMove: 999});
-            node.set({helperQuestion: 999});
             return;
 
         }
+
         else{
+
             var choiceTXT = node.game.memory.resolveTag("CHOICE").choiceoption;
-            node.say('CHOICE', node.game.partner, choiceTXT);
-            this.helperActions.push(choiceTXT);
-            node.set({goalnumber: this.roundCounter+1});
-            //node.set({helperID: this.id});
-            node.set({helperRandCode: this.randomCode});
-            node.set({helperMove: 999});
-            node.set({helperQuestion: 999});
-            return;
-        }
-        }
+
+            if(choiceTXT == "movedirect"){ // helper made a move directly
+                
+                var choiceTXT = node.game.memory.resolveTag("MOVE").totalmove
+                this.helperActions.push(choiceTXT);
+                node.set({helperMove: choiceTXT});
+                node.set({helperChoice: "move"});
+                
+                
+                node.say('CHOICE', node.game.partner, choiceTXT);
+
+            }
+            else{ // chose to pass
+                node.say('CHOICE', node.game.partner, choiceTXT);
+                this.helperActions.push(choiceTXT);
+                node.set({goalnumber: this.roundCounter+1});
+                //node.set({helperID: this.id});
+                node.set({helperRandCode: this.randomCode});
+                node.set({helperMove: "pass"});
+                node.set({helperChoice: "pass"});
+                return;
+            }
+         }
+     }
 
         }, //end helper function
     architect:{
@@ -2712,13 +2567,15 @@ stager.extendStep('helperOptionsprac', {
                     W.setInnerHTML('architectlastaction', "-");
                     W.setInnerHTML('architectcurrentaction', "Waiting for Helper...");
                     */
+
+                    W.setInnerHTML('round', "Round:" + this.roundCounter)
                     node.game.computeGoal();
 
                     //let checkend = node.game.computeGoal();
                     
                     // here we need to change the positions
                     var moveChoice1 = this.architectActions.at(-1)
-                    // moveChoice will either be a question string or of the form "A2 to B2" or "Pass"
+                    // moveChoice will either be of the form "A2 to B2" or "Pass"
                     if (moveChoice1.includes("move a block from ")){
                         // if the Architect moved
                         var moveInfo = this.architectActions.at(-1)
@@ -2737,8 +2594,22 @@ stager.extendStep('helperOptionsprac', {
                         this.currentShape[moveFromID] = "square"
                         // draw
                         node.game.drawTable(W, this.currentShape, this.currentConfiguration);
+
+                        // check optimal
+
+                        var goal = this.goalList[this.roundCounter].split(" ")
+                        var oldOptimalCount = JSON.parse(JSON.stringify(this.currentOptimalCount));
+                        this.currentOptimalCount = node.game.optimalMoves(goal[0], goal[1], goal[2]);
+                        if(this.currentOptimalCount < oldOptimalCount){
+                            this.helpfulArchitectMove+= 1
+                            console.log("a helpful move was made by architect=", this.helpfulArchitectMove)
+                        }
+                        else{
+                            console.log("not a helpful move by architect =", this.helpfulArchitectMove)
+                        }
+
                         // evaluate
-                        let checkend = node.game.computeGoal();
+                        let checkend = node.game.checkEnd();
                         if(checkend == 0){ // goals still remaining
 
                             var feedbackvalue = node.game.provideFeedback();
@@ -2750,24 +2621,25 @@ stager.extendStep('helperOptionsprac', {
                             else{ // if goal has been achieved
                                 //W.gid("nextgoal").style.visibility = "visible"
                                 
-                                this.totalHelp  = this.architectScore 
+                                this.totalHelp  = this.optimalMoveCount  - this.architectScore //+ 1 // coming from helper
+
+                                var goalnum = this.roundCounter
+                                this.helperAccumulator[goalnum] = this.helpfulHelperMove
+                                this.architectAccumulator[goalnum] = this.helpfulArchitectMove
+
+
                                 W.setInnerHTML('cluepasttxt', "Goal has been achieved!!"); 
-                                W.setInnerHTML('cluepast0txt', "The optimal moves were "+ this.optimalMoveCount + " and Helper's assistance resulted in " + this.totalHelp +  " moves! You will now move on to the next task. Waiting for the Helper"); 
+                                W.setInnerHTML('cluepast0txt', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Waiting for the Helper to start the next task"); 
                                 
                                 node.game.showDotsAnimation();
-                                //W.setInnerHTML('nextgoal', 'Next goal');
-                                //var g = W.gid('nextgoal');
-                                //g.disabled = false;
-                                //g.addEventListener('click', 
-                                //function() {node.game.nextGoalActions(moveChoice)}
-                                //  );
+                                
                                     
                             }
                         }
                         else{ // goals done
                             node.game.computeGoal();
                             W.setInnerHTML('cluepasttxt', ""); 
-                            W.setInnerHTML('cluepast0txt', "Goals are complete. Waiting for the Helper"); 
+                            W.setInnerHTML('cluepast0txt', "Goals are complete. Waiting for the Helper to end this phase of the experiment"); 
                             node.game.showDotsAnimation();
                         }
                         
@@ -2777,37 +2649,26 @@ stager.extendStep('helperOptionsprac', {
                         W.setInnerHTML('cluepast0txt', "Waiting for the Helper");
                         node.game.showDotsAnimation();
                     }   
-                    else{  // if architect answered a question  
-                        W = node.game.drawTable(W, this.currentShape, this.currentConfiguration);
-                        var qplusa = this.architectActions.at(-1)
-                        console.log("qplusa=",qplusa)
-                        var q = qplusa.split('---')[0]
-                        W.setInnerHTML('cluepasttxt', "The Helper asked you: <span style='color:red;'>"+ q + "</span>. You responded with: ");
-                        var a = qplusa.split('---')[1]
-                        W.setInnerHTML('cluepast', a);  
-                        node.game.showDotsAnimation();
-                    }
                     
                     
                     var that;//force proceed when clue is sent from other player
                     that = this; 
                     if (this.clueReceived !== null) node.done();
-                    node.on.data('GUESS', function(msg) {
+                    node.on.data('CHOICE', function(msg) {
                         that.clueReceived = msg.data;
                         this.helperActions.push(that.clueReceived);
                         var feedbackvalue = node.game.provideFeedback();
                         if(feedbackvalue == 0){ node.done();}
-                        else{setTimeout(() => {node.done();}, 5000);}
+                        else{setTimeout(() => {node.done();}, 1000);}
                     });
                     
                 },
                 done: function() {
-                    node.say('GUESS', node.game.partner);
+                    node.say('CHOICE', node.game.partner);
                     node.set({goalnumber: this.roundCounter+1});
                     //node.set({architectID: this.id});
-                    node.set({architectRandCode: this.randomCode});
+                    //node.set({architectRandCode: this.randomCode});
                     node.set({architectMove: 999});
-                    node.set({architectAnswer: 999});
                     return;
                 }
             }
@@ -2825,8 +2686,13 @@ stager.extendStep('helperOptionsprac', {
             frame: 'helperActiondisplay.htm',
             donebutton: false,
             cb: function() {
+
+                W.setInnerHTML('round', "Round:" + this.roundCounter)
+                W.gid("dot1").style.visibility = "hidden" 
+                W.gid("dotContainer").style.visibility = "hidden"
+
                 W = node.game.drawTable(W, this.currentShape, this.currentConfiguration);
-                let checkend = node.game.computeGoal();
+                let checkend = node.game.checkEnd();
 
                 if(checkend == 0){ // goals remaining
                 
@@ -2838,56 +2704,37 @@ stager.extendStep('helperOptionsprac', {
                         help_button.style.backgroundColor = "DarkSeaGreen"
                         });
                     W.setInnerHTML("cluepasttxt", "Please drag and drop an unobstructed block to any location.")   
-                    W.setInnerHTML("clue2", "Click Continue when you are done")
-                    node.game.enableDragDrop(W);
-                    this.helperScore+=1 
-                    console.log("helperScore=", this.helperScore)
-                    var a = W.gid('done');
-                    a.onclick = function() { node.done() };
-                }
                     
-                else if(["Ask a yes/no question"].includes(choiceTXT)){
-                    node.once('PLAYING', function() {
-                        W.gid("dotContainer").style.visibility = "hidden"
-                        W.gid("dot1").style.visibility = "hidden"
-                        const done_button = W.getElementById('done');
-                        done_button.disabled = false;
-                        const ask_button = W.getElementById("askbutton")
-                        ask_button.style.backgroundColor = "DarkSeaGreen"
-                    });
-                    this.clueGive2 = node.widgets.append('CustomInput', W.gid('containerbottom2'), {
-                       id: 'clueGive',
-                       mainText: 'Enter your yes/no question here:',
-                       type: 'text',
-                       className: 'centered',
-                       requiredChoice: true  
-                   });
-                   var a = W.gid('done');
-                   a.onclick = function() { node.done() };
-                        
+                    node.game.enableDragDrop(W, "helper");
+                    
                 }
                 else{ // pass
+                    W.gid("blocks").style.visibility = "hidden"
+                    W.gid("gbrd").style.visibility = "hidden"
+                    W.gid("containerbottom2").style.visibility = "hidden"
                     node.done();
                 }
             }
             else{// goals are complete
+                W.gid("blocks").style.visibility = "hidden"
+                W.gid("gbrd").style.visibility = "hidden"
+                W.gid("containerbottom2").style.visibility = "hidden"
+
                 node.done();
             }
         }, // end cb func
     done: function() {
         var choiceTXT = node.game.memory.resolveTag("CHOICE").choiceoption;
-        if(["Ask a yes/no question"].includes(choiceTXT)){
-            this.helperActions.push(this.clueGive2.getValues().value);
-            node.set({helperQuestion: this.clueGive2.getValues().value}); 
-            node.set({helperMove: 999}); 
-            node.say('CLUE', node.game.partner, this.clueGive2.getValues().value);
-        }
-        else if(["Pass"].includes(choiceTXT)){
-            this.helperActions.push("Pass");
+        if(["Pass"].includes(choiceTXT)){
+            this.helperActions.push("Pass")
+            node.set({helperMove: "pass"});;
+            node.set({helperChoice: "pass"});;
             node.say('CLUE', node.game.partner, "Pass");
         }
         else if(["done"].includes(choiceTXT)){
             this.helperActions.push("done")
+            node.set({helperMove: "done"});
+            node.set({helperChoice: "pass"});;
             node.say('CLUE', node.game.partner, "done");
         }
         else{
@@ -2895,7 +2742,7 @@ stager.extendStep('helperOptionsprac', {
             choiceTXT = node.game.memory.resolveTag("MOVE").totalmove
             this.helperActions.push(choiceTXT);
             node.set({helperMove: choiceTXT});
-            node.set({helperQuestion: 999});
+            node.set({helperChoice: "move"});;
             node.say('CLUE', node.game.partner, choiceTXT);
         }
 
@@ -2919,6 +2766,8 @@ architect:{
         W.setInnerHTML('architectcurrentaction', "Waiting for Helper...");
         */
 
+        W.setInnerHTML('round', "Round:" + this.roundCounter)
+
         node.game.computeGoal();
 
         W = node.game.drawTable(W, this.currentShape, this.currentConfiguration);
@@ -2926,11 +2775,6 @@ architect:{
         var choiceTXT = this.helperActions.at(-1) 
         if(["I'll help!"].includes(choiceTXT)){
             W.setInnerHTML('cluepast0txt', 'The helper is moving a block')
-            node.game.showDotsAnimation();
-        }
-
-        else if(["Ask a yes/no question"].includes(choiceTXT)){
-            W.setInnerHTML('cluepast0txt', 'The helper is typing a question')
             node.game.showDotsAnimation();
         }
 
@@ -2947,6 +2791,9 @@ architect:{
 
                 
     }, // end cb
+    done: function() {
+        node.set({architectMove: 999});
+    }
  } // end architect func
 } // end roles
 }); // end step
@@ -3130,10 +2977,19 @@ stager.extendStep('endprac', {
         roles: {
             helper:{
                 frame: 'pracend.htm',
-                cb: function(){
-
+                cb: function(){  
+                    var hkeys = Object.keys(this.helperAccumulator)
+                    var hvals = Object.values(this.helperAccumulator)
+                    var akeys = Object.keys(this.architectAccumulator)
+                    var avals = Object.values(this.architectAccumulator)
                     
-
+                    W.getElementById("goal1").innerHTML = 1
+                    W.getElementById("help1").innerHTML = hvals[0];
+                    W.getElementById("arch1").innerHTML = avals[0];
+                    
+                    W.getElementById("goal2").innerHTML = 2
+                    W.getElementById("help2").innerHTML = hvals[1];
+                    W.getElementById("arch2").innerHTML = avals[1];
 
                     var a = W.gid("done")
                     a.onclick = function(){node.done()};
@@ -3142,6 +2998,20 @@ stager.extendStep('endprac', {
             architect:{
                 frame: 'pracend.htm',
                 cb: function(){
+
+                    var hkeys = Object.keys(this.helperAccumulator)
+                    var hvals = Object.values(this.helperAccumulator)
+                    var akeys = Object.keys(this.architectAccumulator)
+                    var avals = Object.values(this.architectAccumulator)
+                    
+                    W.getElementById("goal1").innerHTML = 1
+                    W.getElementById("help1").innerHTML = hvals[0];
+                    W.getElementById("arch1").innerHTML = avals[0];
+                    
+                    W.getElementById("goal2").innerHTML = 2
+                    W.getElementById("help2").innerHTML = hvals[1];
+                    W.getElementById("arch2").innerHTML = avals[1];
+
                     
                     var a = W.gid("done")
                     a.onclick = function(){node.done()};

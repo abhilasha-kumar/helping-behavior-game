@@ -28,7 +28,7 @@ module.exports = {
      *
      * Default: the name of the game, as found in the package.json file.
      */
-     name: 'bigarchitectandbuilder',
+     name: 'moveablock',
      alias: (["game"]),
     /**
      * ##  Optional
@@ -71,7 +71,7 @@ module.exports = {
      *
      * Default: name-of-the-channel/admin
      */
-    adminServer: 'bigarchitectandbuilder/admin',
+    adminServer: 'moveablock/admin',
 
     /**
      * ## getFromAdmins (boolean) Optional
