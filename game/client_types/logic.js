@@ -169,7 +169,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     return shuffled.slice(0, size);
                 }
     
-                var goalList = getRandomSubarray(this.goalSpace, 6);
+                var goalList = getRandomSubarray(this.goalSpace, 11);
                 console.log("goallist inside logic = ",goalList)
                 
                 node.game.pl.each(function(player) {

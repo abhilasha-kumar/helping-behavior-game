@@ -747,13 +747,52 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     node.game.enableDragDrop = function(W, role){
 
+        node.game.genericDragDrop(W, this.currentConfiguration, "real", role);
+        
+    };
+
+    node.game.genericDragDrop = function(W, pracConfig, mode, role){
+        // define a generic drag drop function that can be used for both actual and practice
+
         var dragid = 0;
         var dropid = 0;
         var total = 0;
         var dragtarget = W.getElementById("blocks");
 
-        var drag_count = 0;
 
+        var drag_count = 0;
+        
+        function getIDnames(x){
+            if (x < 9){return "row1" + "cell0"+ (x + 1) ;}
+            else if (x < 18){return "row1" + "cell"+ (x + 1) ;}
+            else if(x < 36){
+                var val = (x-18)+1
+                if(val < 10){return "row2" + "cell0"+ ((x-18)+1);}
+                else{return "row2" + "cell"+ ((x-18)+1);}
+            }
+            else if(x < 54){
+                var val = (x-36)+1
+                if(val < 10){return "row3" + "cell0"+ ((x-36)+1);}
+                else{return "row3" + "cell"+ ((x-36)+1);}
+            }
+    
+            else if(x < 72){
+                var val = (x-54)+1
+                if(val < 10){return "row4" + "cell0"+ ((x-54)+1);}
+                else{return "row4" + "cell"+ ((x-54)+1);}
+            }
+            else if(x < 90){
+                var val = (x-72)+1
+                if(val < 10){return "row5" + "cell0"+ ((x-72)+1);}
+                else{return "row5" + "cell"+ ((x-72)+1);}
+            }
+    
+            else {
+                var val = (x-90)+1
+                if(val < 10){return "row6" + "cell0"+ ((x-90)+1);}
+                else{return "row6" + "cell"+ ((x-90)+1);}
+            }
+        }
 
         // not all items should be "draggable" in the table
         // we could check for whether there is anything non-white above a particular index                
@@ -775,46 +814,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             return newArr
         }
         
-        var fulldragindices= Array(this.currentConfiguration.length).fill().map((x,i)=>i)
-        var validDragargets = reduceDragArray(fulldragindices, this.currentConfiguration)
+        var fulldragindices= Array(pracConfig.length).fill().map((x,i)=>i)
+        var validDragargets = reduceDragArray(fulldragindices, pracConfig)
         
         // convert to table cell IDs
 
-        var filteredDragTableIDs = validDragargets.map(x => {
-            if (x < 9){
-                return "row1" + "cell0"+ (x + 1) ;
-            }
-            else if (x < 18){
-                return "row1" + "cell"+ (x + 1) ;
-            }
-            else if(x < 36){
-                var val = (x-18)+1
-                if(val < 10){return "row2" + "cell0"+ ((x-18)+1);}
-                else{return "row2" + "cell"+ ((x-18)+1);}
-            }
-            else if(x < 54){
-                var val = (x-36)+1
-                if(val < 10){return "row3" + "cell0"+ ((x-36)+1);}
-                else{return "row3" + "cell"+ ((x-36)+1);}
-            }
-
-            else if(x < 72){
-                var val = (x-54)+1
-                if(val < 10){return "row4" + "cell0"+ ((x-54)+1);}
-                else{return "row4" + "cell"+ ((x-54)+1);}
-            }
-            else if(x < 90){
-                var val = (x-72)+1
-                if(val < 10){return "row5" + "cell0"+ ((x-72)+1);}
-                else{return "row5" + "cell"+ ((x-72)+1);}
-            }
-
-            else {
-                var val = (x-90)+1
-                if(val < 10){return "row6" + "cell0"+ ((x-90)+1);}
-                else{return "row6" + "cell"+ ((x-90)+1);}
-            }
-        });
+        var filteredDragTableIDs = validDragargets.map(getIDnames);
         
         // code for modifying drop targets
 
@@ -822,7 +827,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // need to make this only some specific drag choices
         // could try to filter for only "white" cells
 
-        var filtereddropIndices = this.currentConfiguration.reduce(function(a, e, i) {
+        var filtereddropIndices = pracConfig.reduce(function(a, e, i) {
             if (e === 'white')
                 a.push(i);
             return a;
@@ -845,48 +850,16 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             return newArr
         }
 
-        var validWhiteBoxes = reduceDropArray(filtereddropIndices, this.currentConfiguration) 
+        var validWhiteBoxes = reduceDropArray(filtereddropIndices, pracConfig) 
         
-        var filteredDropTableIDs = validWhiteBoxes.map(x => {
-            if (x < 9){
-                return "row1" + "cell0"+ (x + 1) ;
-            }
-            else if (x < 18){
-                return "row1" + "cell"+ (x + 1) ;
-            }
-            else if(x < 36){
-                var val = (x-18)+1
-                if(val < 10){return "row2" + "cell0"+ ((x-18)+1);}
-                else{return "row2" + "cell"+ ((x-18)+1);}
-            }
-            else if(x < 54){
-                var val = (x-36)+1
-                if(val < 10){return "row3" + "cell0"+ ((x-36)+1);}
-                else{return "row3" + "cell"+ ((x-36)+1);}
-            }
-
-            else if(x < 72){
-                var val = (x-54)+1
-                if(val < 10){return "row4" + "cell0"+ ((x-54)+1);}
-                else{return "row4" + "cell"+ ((x-54)+1);}
-            }
-            else if(x < 90){
-                var val = (x-72)+1
-                if(val < 10){return "row5" + "cell0"+ ((x-72)+1);}
-                else{return "row5" + "cell"+ ((x-72)+1);}
-            }
-
-            else {
-                var val = (x-90)+1
-                if(val < 10){return "row6" + "cell0"+ ((x-90)+1);}
-                else{return "row6" + "cell"+ ((x-90)+1);}
-            }
-        })
+        var filteredDropTableIDs = validWhiteBoxes.map(getIDnames)
 
         var circlefilteredDropTableIDs = filteredDropTableIDs.map(i => 'circle' + i);
 
 
         var totalDropIDs = filteredDropTableIDs.concat(circlefilteredDropTableIDs);
+
+        var editedDropIDs = 0
 
         // we restrict dropping to these "white" cells only
 
@@ -894,65 +867,150 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         droptarget.addEventListener('dragenter', dragEnter)
         droptarget.addEventListener('dragover', dragOver);
         droptarget.addEventListener('dragleave', dragLeave);
-        droptarget.addEventListener('drop', drop);
+
+        if(mode == "practice"){droptarget.addEventListener('drop', drop);}
+        else{
+            droptarget.addEventListener('drop', drop_real);
+            // called when no action is taken
+
+            node.game.memory.add({
+                player: node.player.id,
+                stage: node.game.getCurrentGameStage(),
+                totalmove: total
+            }); 
+            }
+
         
 
-            function dragStart(e) {
-                
-                if(drag_count == 0){
-                    console.log('targetid='+e.target.id);
-                if(filteredDragTableIDs.includes(e.target.id)){
-                console.log('drag starts...');
-                
-                
-                e.dataTransfer.setData('text/plain', e.target.id);
-                e.target.style.opacity = .7;
+        var draggedID = 0
+        function getID(moveInfo){
 
-                
-                //setTimeout(() => {
-                    //  e.target.classList.add('hide');
-                //}, 1000);
+            moveInfo = moveInfo.replace('circle', '');
+                        
+            // now moveInfo contains "row1cell01" 
+        
+            var row_from = Number(moveInfo.charAt(3)) // rowX
+            var cell_from = Number(moveInfo.substr(moveInfo.length - 2))// rowXcellXY
+    
+            // once we have the row/cell to/from, we change the current configuration of those specific cell
+            
+            // for each row increment, there is a +18 in index
+            // for each cell increment, there is +1 in index
+            // row1cell01 = (row-1)*18 + (cell-1) =  0 + 0
+            // row2cell01 = (2-1)*18 + (1 -1 ) =  18 + 0
+            // row3cell4 = (3-1)*18 + (4-1) = 36 + 3 = 39
+    
+    
+            var moveFromID = (row_from-1)*18 + (cell_from-1)
+            return moveFromID
+        }
+        
+
+        function dragStart(e) {
+            
+            if(drag_count == 0){
+                    console.log('targetid='+e.target.id);
+                    draggedID = e.target.id
+                    editedDropIDs = editDrops();
+                    console.log("editedDropIDs=",editedDropIDs)
+                if(filteredDragTableIDs.includes(e.target.id)){                
+                    e.dataTransfer.setData('text/plain', e.target.id);
+                    e.target.style.opacity = .7;
                 }
                 else{alert("You can only drag/drop ONE UNOBSTRUCTED block on a turn!");}
 
                 }
-                }
-            function dragEnter(e) {
-
-                if(drag_count == 0){
-                if(totalDropIDs.includes(e.target.id)){
-                e.preventDefault();
-                e.target.classList.add('drag-over');
-                }
             }
+
+            
+        function editDrops(){
+            console.log("inside edit drops")
+
+            var dragID= 0
+            var aboveID = 0
+            var dropIDnums = 0
+            var newdropIDs =0 
+            var finalDropIDs = 0
+
+            console.log("draggedID=",draggedID)
+
+
+            dragID  = getID(draggedID)
+            console.log("dragID = ",dragID)
+            aboveID = dragID-18
+
+            dropIDnums = totalDropIDs.map(getID);
+
+            dropIDnums = [...new Set(dropIDnums)];
+
+            newdropIDs = dropIDnums.reduce(function(a, e, i) {
+                if (e != aboveID)
+                    a.push(e);
+                return a;
+            }, []);
+
+            console.log("newdropIDs=",newdropIDs)
+
+            // need to conver to names
+
+            var newdropNames = newdropIDs.map(getIDnames);
+
+            var circledropNames = newdropNames.map(i => 'circle' + i);
+
+            finalDropIDs = newdropNames.concat(circledropNames);
+            return finalDropIDs;
+
+        }
+        
+            function dragEnter(e) {
+                if(drag_count == 0){
+                    if(editedDropIDs.includes(e.target.id)){
+                        e.preventDefault();
+                        e.target.classList.add('drag-over');
+                    }
+                }
             
             }
 
             function dragOver(e) {
-
                 if(drag_count == 0){
-
-                if(totalDropIDs.includes(e.target.id)){
-                e.preventDefault();
-                e.target.classList.add('drag-over');
+                    if(editedDropIDs.includes(e.target.id)){
+                        e.preventDefault();
+                        e.target.classList.add('drag-over');
+                    }
                 }
-            }
-            
             }
 
             function dragLeave(e) {
                 if(drag_count == 0){
-                if(totalDropIDs.includes(e.target.id)){
+                if(editedDropIDs.includes(e.target.id)){
                 e.target.classList.remove('drag-over');
                 }
             }
             
             }
             function drop(e) {
+                if(drag_count == 0){
+                if(editedDropIDs.includes(e.target.id)){
+                e.target.classList.remove('drag-over');
+                // get the draggable element
+                const id = e.dataTransfer.getData('text/plain');
+                const draggable = W.getElementById(id);
+                dragid = id;
+                dropid = JSON.parse(JSON.stringify(e.target.id));
+                // add it to the drop target
+                e.target.appendChild(draggable);
+                }
+                }
+                else{alert("You can only drag/drop ONE UNOBSTRUCTED block on a turn!");}                
+            }
+
+            
+            function drop_real(e) {
 
                 if(drag_count == 0){
 
-                if(totalDropIDs.includes(e.target.id)){
+                if(editedDropIDs.includes(e.target.id)){
                 
                 e.target.classList.remove('drag-over');
                 // get the draggable element
@@ -1016,235 +1074,26 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             
         }
 
-        // called when no action is taken
-
-        node.game.memory.add({
-            player: node.player.id,
-            stage: node.game.getCurrentGameStage(),
-            totalmove: total
-        }); 
-    
-       
-
     };
 
+    
     node.game.practiceDragDrop = function(W, pracConfig){
 
-        var dragid = 0;
-        var dropid = 0;
-        var total = 0;
-        var dragtarget = W.getElementById("blocks");
+        W.getElementById("circlerow4cell01").innerHTML = "ONE"
+        W.getElementById("circlerow4cell01").style.color = "goldenrod"
 
-        var drag_count = 0;
+        W.getElementById("circlerow5cell17").innerHTML = "TWO"
+        W.getElementById("circlerow5cell17").style.color = "goldenrod"
 
+        W.getElementById("circlerow6cell07").innerHTML = "THREE"
+        W.getElementById("circlerow6cell07").style.color = "goldenrod"
 
-        // not all items should be "draggable" in the table
-        // we could check for whether there is anything non-white above a particular index                
+        W.getElementById("circlerow5cell13").innerHTML = "FOUR"
+        W.getElementById("circlerow5cell13").style.color = "goldenrod"
 
-        // code for modifying drag target
+        node.game.genericDragDrop(W, pracConfig,"practice", "any");
 
-        function reduceDragArray(indexArray, configArray) {
-            var newArr = indexArray.reduce(function(a, e, i) {
-            // only push if cell is non-white
-            if(configArray[e] !=="white"){
-                // if the index is not in the first row
-            if (e > 17){
-                // if the element on top is white, then it's draggable
-                if(configArray[e-18] === "white"){a.push(e);}
-            }
-            else{a.push(e);}}    
-            return a;
-            }, []);
-            return newArr
-        }
         
-        var fulldragindices= Array(pracConfig.length).fill().map((x,i)=>i)
-        var validDragargets = reduceDragArray(fulldragindices, pracConfig)
-        
-        // convert to table cell IDs
-
-        var filteredDragTableIDs = validDragargets.map(x => {
-            if (x < 9){
-                return "row1" + "cell0"+ (x + 1) ;
-            }
-            else if (x < 18){
-                return "row1" + "cell"+ (x + 1) ;
-            }
-            else if(x < 36){
-                var val = (x-18)+1
-                if(val < 10){return "row2" + "cell0"+ ((x-18)+1);}
-                else{return "row2" + "cell"+ ((x-18)+1);}
-            }
-            else if(x < 54){
-                var val = (x-36)+1
-                if(val < 10){return "row3" + "cell0"+ ((x-36)+1);}
-                else{return "row3" + "cell"+ ((x-36)+1);}
-            }
-
-            else if(x < 72){
-                var val = (x-54)+1
-                if(val < 10){return "row4" + "cell0"+ ((x-54)+1);}
-                else{return "row4" + "cell"+ ((x-54)+1);}
-            }
-            else if(x < 90){
-                var val = (x-72)+1
-                if(val < 10){return "row5" + "cell0"+ ((x-72)+1);}
-                else{return "row5" + "cell"+ ((x-72)+1);}
-            }
-
-            else {
-                var val = (x-90)+1
-                if(val < 10){return "row6" + "cell0"+ ((x-90)+1);}
-                else{return "row6" + "cell"+ ((x-90)+1);}
-            }
-        });
-        
-        // code for modifying drop targets
-
-        var droptarget = W.getElementById("blocks"); 
-        // need to make this only some specific drag choices
-        // could try to filter for only "white" cells
-
-        var filtereddropIndices = pracConfig.reduce(function(a, e, i) {
-            if (e === 'white')
-                a.push(i);
-            return a;
-        }, []);
-
-        // ultimately we want to further restrict this to only white cells that
-        // have something non-white below them
-
-        // logic for more filtering: if the color of the cell at the bottom is white too then exclude
-        // x+18
-
-        function reduceDropArray(indexArray, configArray) {
-            var newArr = indexArray.reduce(function(a, e, i) {
-            if (e-18 < 108){
-                if(configArray[e+18] !== "white"){a.push(e);}
-            }
-            else{a.push(e);}    
-            return a;
-        }, []);
-            return newArr
-        }
-
-        var validWhiteBoxes = reduceDropArray(filtereddropIndices, pracConfig) 
-        
-        var filteredDropTableIDs = validWhiteBoxes.map(x => {
-            if (x < 9){
-                return "row1" + "cell0"+ (x + 1) ;
-            }
-            else if (x < 18){
-                return "row1" + "cell"+ (x + 1) ;
-            }
-            else if(x < 36){
-                var val = (x-18)+1
-                if(val < 10){return "row2" + "cell0"+ ((x-18)+1);}
-                else{return "row2" + "cell"+ ((x-18)+1);}
-            }
-            else if(x < 54){
-                var val = (x-36)+1
-                if(val < 10){return "row3" + "cell0"+ ((x-36)+1);}
-                else{return "row3" + "cell"+ ((x-36)+1);}
-            }
-
-            else if(x < 72){
-                var val = (x-54)+1
-                if(val < 10){return "row4" + "cell0"+ ((x-54)+1);}
-                else{return "row4" + "cell"+ ((x-54)+1);}
-            }
-            else if(x < 90){
-                var val = (x-72)+1
-                if(val < 10){return "row5" + "cell0"+ ((x-72)+1);}
-                else{return "row5" + "cell"+ ((x-72)+1);}
-            }
-
-            else {
-                var val = (x-90)+1
-                if(val < 10){return "row6" + "cell0"+ ((x-90)+1);}
-                else{return "row6" + "cell"+ ((x-90)+1);}
-            }
-        })
-
-        var circlefilteredDropTableIDs = filteredDropTableIDs.map(i => 'circle' + i);
-
-
-        var totalDropIDs = filteredDropTableIDs.concat(circlefilteredDropTableIDs);
-
-        // we restrict dropping to these "white" cells only
-
-        dragtarget.addEventListener('dragstart', dragStart);
-        droptarget.addEventListener('dragenter', dragEnter)
-        droptarget.addEventListener('dragover', dragOver);
-        droptarget.addEventListener('dragleave', dragLeave);
-        droptarget.addEventListener('drop', drop);
-        
-
-            function dragStart(e) {
-                
-                if(drag_count == 0){
-                    console.log('targetid='+e.target.id);
-                if(filteredDragTableIDs.includes(e.target.id)){                
-                e.dataTransfer.setData('text/plain', e.target.id);
-                e.target.style.opacity = .7;
-
-                }
-                else{alert("You can only drag/drop ONE UNOBSTRUCTED block on a turn!");}
-
-                }
-                }
-            function dragEnter(e) {
-
-                if(drag_count == 0){
-                if(totalDropIDs.includes(e.target.id)){
-                e.preventDefault();
-                e.target.classList.add('drag-over');
-                }
-            }
-            
-            }
-
-            function dragOver(e) {
-
-                if(drag_count == 0){
-
-                if(totalDropIDs.includes(e.target.id)){
-                e.preventDefault();
-                e.target.classList.add('drag-over');
-                }
-            }
-            
-            }
-
-            function dragLeave(e) {
-                if(drag_count == 0){
-                if(totalDropIDs.includes(e.target.id)){
-                e.target.classList.remove('drag-over');
-                }
-            }
-            
-            }
-            function drop(e) {
-
-                if(drag_count == 0){
-
-                if(totalDropIDs.includes(e.target.id)){
-                
-                e.target.classList.remove('drag-over');
-                // get the draggable element
-                const id = e.dataTransfer.getData('text/plain');
-                const draggable = W.getElementById(id);
-                dragid = id;
-                dropid = JSON.parse(JSON.stringify(e.target.id));
-                // add it to the drop target
-                e.target.appendChild(draggable);
-
-                
-                }
-
-                }
-                else{alert("You can only drag/drop ONE UNOBSTRUCTED block on a turn!");}                
-            }                
     };
 
     node.game.findMoveable = function(){
@@ -1291,44 +1140,43 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         const checker_shape = this.goalindices.map(x=>this.currentShape[x]);
 
         var roomContents = [checker_color, checker_shape].reduce((a, b) => a.map((v, i) => v  + b[i]));
-        console.log("roomContents="+roomContents)
 
         // need to have different conditions here
         var success = 0
 
         if(action == "clear"){
-            console.log("inside clear")
+            
             var goal_combo  = "whitesquare"
             const combo_occurrences = roomContents.filter(x => x === goal_combo).length
-            console.log("combo=",combo_occurrences)
+            
             if(combo_occurrences == roomContents.length){success = 1}
         }
         else if (action == "move"){
-            console.log("inside move")
+            
             var goal_combo = color + "square"
             const combo_occurrences = roomContents.filter(x => x === goal_combo).length
-            console.log("combo=",combo_occurrences)
+            
             if(combo_occurrences == 10){success = 1}
         }
         else if(action == "remove"){
-            console.log("inside remove")
+            
             var goal_combo = color + "square"
             const combo_occurrences = roomContents.filter(x => x === goal_combo).length
             if(combo_occurrences == 0){success = 1}
         }
         else if(action == "cover" || action == "uncover"){
-            console.log("inside cover/uncover")
+            
             // find indices corresponding to goal color
             const color_relevant = this.goalindices.filter(x => this.currentConfiguration[x] === color)
-            console.log("color_relevant=",color_relevant)
+            
             // compute open vs. obstructed
 
             var moveable = node.game.findMoveable()
-            console.log("moveable=",moveable)
+            
             var obstructed = color_relevant.filter(x => !moveable.includes(x))
-            console.log("obstructed=",obstructed)
+            
             var open = color_relevant.filter(x => !obstructed.includes(x))
-            console.log("open=",open)
+            
 
             if(action == "cover" && open.length == 0){success = 1}
             if(action == "uncover" && obstructed.length == 0){success = 1}
@@ -1543,8 +1391,16 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         console.log("inside the click function")
         // reset config for next round
         node.game.resetConfig();
-        /*
+        
         if(moveChoice.length>0){
+
+            console.log("this.roundcounter=", this.roundCounter)
+            var newround = this.roundCounter + 1
+            console.log("newround=", newround)
+            W.setInnerHTML('round', "Round:" + newround + "/10")
+
+
+            /*
             var otherShape0 = moveChoice[0]
             if(otherShape0.includes("circle")){otherShape0 = otherShape0;}
             else{otherShape0 = "circle"+moveChoice[0]}
@@ -1555,8 +1411,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             W.getElementById(otherShape0).style.backgroundImage = "none"
             W.getElementById(otherShape1).style.backgroundImage = "none"
+            */
         }
-        */
+        
         W = node.game.drawTable(W, this.currentShape , this.currentConfiguration);
         node.game.computeGoal();
         W.gid('goal').style.backgroundColor = "lime"
@@ -1571,8 +1428,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         dot1.style.visibility = "hidden"
         node.game.removeAnimation();
         W.setInnerHTML('cluepast0txt', "It is your turn! Please move a block, and note that the goal has changed."); 
-        var newRound = this.roundCounter + 1
-        W.setInnerHTML('round', "Round:" + newRound)
+        
         W.setInnerHTML('cluepasttxt', ""); 
     
 }
@@ -1820,7 +1676,7 @@ node.game.removeAnimation = function(){
         this.randomCode;
         
         this.goalindices = []
-        this.goalnumber = 2; // total number of goals for each game, set to 2 for now
+        this.goalnumber = 10; // total number of goals for each game, set to 2 for now
 
         this.architectScore = 0
         this.optimalMoveCount = 0
@@ -1966,7 +1822,7 @@ node.game.removeAnimation = function(){
                     
                     // need to change the block configuration for Helper if a move has been made 
 
-                    W.setInnerHTML('round', "Round:" + this.roundCounter)
+                    W.setInnerHTML('round', "Round:" + (this.roundCounter+1) + "/10")
                     
 
                     if(this.helperActions.length > 0){ // if this is not the first trial
@@ -1983,8 +1839,8 @@ node.game.removeAnimation = function(){
                             node.game.resetConfig();
                             node.game.drawTable(W, this.currentShape, this.currentConfiguration);
                             W.setInnerHTML('cluepasttxt', "This is your next task.")
-                            var updateRound = this.roundCounter + 1
-                            W.setInnerHTML('round', "Round:" + updateRound)
+                            var updateRound = this.roundCounter + 2
+                            W.setInnerHTML('round', "Round:" + updateRound + "/10")
                             node.game.helpergoalAchieved();
                             W.setInnerHTML('clue2', "Waiting for the Architect to make a move")
                             node.game.showDotsAnimation();
@@ -2036,11 +1892,20 @@ node.game.removeAnimation = function(){
                             else{
                                 this.totalHelp  =this.optimalMoveCount - this.architectScore //+ 1  // coming from architect
                                 var goalnum = this.roundCounter
-                                this.helperAccumulator[goalnum] = this.helpfulHelperMove
-                                this.architectAccumulator[goalnum] = this.helpfulArchitectMove
+                                
+                                var hworkload = Math.round((this.helpfulHelperMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+                                var aworkload = Math.round((this.helpfulArchitectMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+
+                                this.helperAccumulator[goalnum] = hworkload
+                                this.architectAccumulator[goalnum] = aworkload
+
+
+                                console.log("hworkload=",hworkload)
+                                console.log("aworkload=",aworkload)
+                                
                                 
                                 W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                                W.setInnerHTML('clue2', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Please wait for the Architect to start the next task"); 
+                                W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Please wait for the Architect to start the next task"); 
                                 node.game.showDotsAnimation();
                                 node.game.helpergoalAchieved();
                             }
@@ -2049,10 +1914,20 @@ node.game.removeAnimation = function(){
                             
                             this.totalHelp  =this.optimalMoveCount - this.architectScore //+ 1 // coming from architect
                             var goalnum = this.roundCounter
-                            this.helperAccumulator[goalnum] = this.helpfulHelperMove
-                            this.architectAccumulator[goalnum] = this.helpfulArchitectMove
+                            
+
+                            var hworkload = Math.round((this.helpfulHelperMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+                            var aworkload = Math.round((this.helpfulArchitectMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+
+                            this.helperAccumulator[goalnum] = hworkload
+                            this.architectAccumulator[goalnum] = aworkload
+
+                            console.log("hworkload=",hworkload)
+                            console.log("aworkload=",aworkload)
+
+
                             W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                            W.setInnerHTML('clue2', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Please wait for the Architect to start the next task"); 
+                            W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Please wait for the Architect to start the next task"); 
                             node.game.helpergoalAchieved();
 
 
@@ -2114,7 +1989,7 @@ node.game.removeAnimation = function(){
             W.setInnerHTML('architectcurrentaction', "Making a move...");
             */
             
-            W.setInnerHTML('round', "Round:" + this.roundCounter)
+            W.setInnerHTML('round', "Round:" + (this.roundCounter+1) + "/10")
             W.getElementById('nextgoal').style.visibility = 'hidden';
             
     
@@ -2182,22 +2057,33 @@ node.game.removeAnimation = function(){
                             }
                             else{
                                 // if goal has been achieved, they click a button to advance to the next goal   
+                                console.log("in the lonely goal achieved section")
+
+                                var goalnum = this.roundCounter
+                                
+                                var hworkload = Math.round((this.helpfulHelperMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+                                var aworkload = Math.round((this.helpfulArchitectMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+
+                                this.helperAccumulator[goalnum] = hworkload
+                                this.architectAccumulator[goalnum] = aworkload
+
+                                console.log("hworkload=",hworkload)
+                                console.log("aworkload=",aworkload)
+
+                                
+                                
+
                                     node.game.architectgoalAchieved();
                                     W.getElementById('nextgoal').style.visibility = 'visible';
                                     W.setInnerHTML('cluepasttxt', "Goal has been achieved!!");
-                                    console.log("in the lonely goal achieved section")
                                     W.gid("dot1").style.visibility = "hidden" 
                                     W.gid("dotContainer").style.visibility = "hidden"
                                     if(node.game.checkEnd()){// if goals complete
                                         W.getElementById('nextgoal').style.visibility = 'hidden';
                                         
                                         this.totalHelp  = this.optimalMoveCount - this.architectScore 
-
-                                        var goalnum = this.roundCounter
-                                        this.helperAccumulator[goalnum] = this.helpfulHelperMove
-                                        this.architectAccumulator[goalnum] = this.helpfulArchitectMove
                                         
-                                        W.setInnerHTML('cluepast0txt', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! All goals are complete. Click Done to continue");
+                                        W.setInnerHTML('cluepast0txt', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! All goals are complete. Click Done to continue");
                                         W.setInnerHTML('nextgoal', 'Done');
                                         var g = W.gid('nextgoal');
                                         g.disabled = false;
@@ -2211,12 +2097,9 @@ node.game.removeAnimation = function(){
                                     }
                                     else{ // goals still remaining
                                         this.totalHelp  = this.optimalMoveCount - this.architectScore 
+                                        console.log("I am in weird place")
 
-                                        var goalnum = this.roundCounter
-                                        this.helperAccumulator[goalnum] = this.helpfulHelperMove
-                                        this.architectAccumulator[goalnum] = this.helpfulArchitectMove
-                                        
-                                        W.setInnerHTML('cluepast0txt', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Please click Next Goal to continue."); 
+                                        W.setInnerHTML('cluepast0txt', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Please click Next Goal to continue."); 
                                         
                                         W.setInnerHTML('nextgoal', 'Next goal');
                                         var g = W.gid('nextgoal');
@@ -2224,8 +2107,9 @@ node.game.removeAnimation = function(){
                                         g.addEventListener('click', 
                                         function() {
                                             node.game.nextGoalActions(moveChoice)
-                                            this.architectScore+=1
-                                            console.log("this.architectScore=", this.architectScore)
+                                            console.log("inside the goals still remaining section")
+                                            
+                                            
                                         }
                                         );
                                     }
@@ -2274,7 +2158,7 @@ node.game.removeAnimation = function(){
                         else{
                         node.game.nextGoalActions();
                         W.setInnerHTML('cluepasttxt', "This is your next task.");
-                        W.setInnerHTML('round', "Round:" + this.roundCounter)
+                        W.setInnerHTML('round', "Round:" + (this.roundCounter + 1) + "/10")
                      }
                     }
                     
@@ -2352,7 +2236,7 @@ stager.extendStep('helperOptionsprac', {
                 cb: function() {
                     console.log("inside helperChoice!!!!")
 
-                    W.setInnerHTML('round', "Round:" + this.roundCounter)
+                    W.setInnerHTML('round', "Round:" + (this.roundCounter+1) + "/10")
                     
                     //const info = W.getElementById("helperinfo")
                     //info.style.border = "3px solid red"
@@ -2452,11 +2336,23 @@ stager.extendStep('helperOptionsprac', {
                                 this.totalHelp  = this.optimalMoveCount  - this.architectScore 
 
                                 var goalnum = this.roundCounter
-                                this.helperAccumulator[goalnum] = this.helpfulHelperMove
-                                this.architectAccumulator[goalnum] = this.helpfulArchitectMove
+                                
+
+                                var hworkload = Math.round((this.helpfulHelperMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+                                var aworkload = Math.round((this.helpfulArchitectMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+
+                                this.helperAccumulator[goalnum] = hworkload
+                                this.architectAccumulator[goalnum] = aworkload
+
+                                console.log("hworkload=",hworkload)
+                                console.log("aworkload=",aworkload)
+
+                                
+                                
+
                                 
                                 W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                                W.setInnerHTML('clue2', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Click done to continue to the next task."); 
+                                W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Click done to continue to the next task."); 
 
                                 
                                 W.gid("help").style.visibility = "hidden"
@@ -2479,15 +2375,35 @@ stager.extendStep('helperOptionsprac', {
                         this.totalHelp  = this.optimalMoveCount  - this.architectScore
 
                         var goalnum = this.roundCounter
-                        this.helperAccumulator[goalnum] = this.helpfulHelperMove
-                        this.architectAccumulator[goalnum] = this.helpfulArchitectMove
+                        
+                        var hworkload = Math.round((this.helpfulHelperMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+                        var aworkload = Math.round((this.helpfulArchitectMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+
+                        this.helperAccumulator[goalnum] = hworkload
+                        this.architectAccumulator[goalnum] = aworkload
+
+                                console.log("hworkload=",hworkload)
+                                console.log("aworkload=",aworkload)
+
+                        
+                        
+
                         
                         W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                        W.setInnerHTML('clue2', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Goals are complete. Click Continue to move to next phase."); 
+                        W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Goals are complete. Click Continue to move to next phase."); 
                         }
                     }
                 else if(moveChoice1.includes("done")){
-                    // maybe not show table here?
+                    var goalnum = this.roundCounter
+                    
+                    var hworkload = Math.round((this.helpfulHelperMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+                    var aworkload = Math.round((this.helpfulArchitectMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+                    this.helperAccumulator[goalnum] = hworkload
+                    this.architectAccumulator[goalnum] = aworkload
+
+                                console.log("hworkload=",hworkload)
+                                console.log("aworkload=",aworkload)
+
                     W.gid("blocks").style.visibility = "hidden"
                     W.gid("gbrd").style.visibility = "hidden"
                     W.gid("containerbottom2").style.visibility = "hidden"
@@ -2568,7 +2484,7 @@ stager.extendStep('helperOptionsprac', {
                     W.setInnerHTML('architectcurrentaction', "Waiting for Helper...");
                     */
 
-                    W.setInnerHTML('round', "Round:" + this.roundCounter)
+                    W.setInnerHTML('round', "Round:" + (this.roundCounter+1) + "/10")
                     node.game.computeGoal();
 
                     //let checkend = node.game.computeGoal();
@@ -2624,12 +2540,24 @@ stager.extendStep('helperOptionsprac', {
                                 this.totalHelp  = this.optimalMoveCount  - this.architectScore //+ 1 // coming from helper
 
                                 var goalnum = this.roundCounter
-                                this.helperAccumulator[goalnum] = this.helpfulHelperMove
-                                this.architectAccumulator[goalnum] = this.helpfulArchitectMove
+                                
+
+                                var hworkload = Math.round((this.helpfulHelperMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+                                var aworkload = Math.round((this.helpfulArchitectMove/(this.helpfulHelperMove+this.helpfulArchitectMove))*100)
+
+                                this.helperAccumulator[goalnum] = hworkload
+                                this.architectAccumulator[goalnum] = aworkload
+
+                                console.log("hworkload=",hworkload)
+                                console.log("aworkload=",aworkload)
+
+                                
+                                
+
 
 
                                 W.setInnerHTML('cluepasttxt', "Goal has been achieved!!"); 
-                                W.setInnerHTML('cluepast0txt', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! Waiting for the Helper to start the next task"); 
+                                W.setInnerHTML('cluepast0txt', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Waiting for the Helper to start the next task"); 
                                 
                                 node.game.showDotsAnimation();
                                 
@@ -2687,7 +2615,7 @@ stager.extendStep('helperOptionsprac', {
             donebutton: false,
             cb: function() {
 
-                W.setInnerHTML('round', "Round:" + this.roundCounter)
+                W.setInnerHTML('round', "Round:" + (this.roundCounter+1) + "/10")
                 W.gid("dot1").style.visibility = "hidden" 
                 W.gid("dotContainer").style.visibility = "hidden"
 
@@ -2766,7 +2694,7 @@ architect:{
         W.setInnerHTML('architectcurrentaction', "Waiting for Helper...");
         */
 
-        W.setInnerHTML('round', "Round:" + this.roundCounter)
+        W.setInnerHTML('round', "Round:" + (this.roundCounter+1) + "/10")
 
         node.game.computeGoal();
 
@@ -2978,13 +2906,15 @@ stager.extendStep('endprac', {
             helper:{
                 frame: 'pracend.htm',
                 cb: function(){  
+                    
+                    
                     var hkeys = Object.keys(this.helperAccumulator)
                     var hvals = Object.values(this.helperAccumulator)
                     var akeys = Object.keys(this.architectAccumulator)
                     var avals = Object.values(this.architectAccumulator)
                     
                     W.getElementById("goal1").innerHTML = 1
-                    W.getElementById("help1").innerHTML = hvals[0];
+                    W.getElementById("help1").innerHTML = hvals[0]
                     W.getElementById("arch1").innerHTML = avals[0];
                     
                     W.getElementById("goal2").innerHTML = 2
@@ -2998,6 +2928,8 @@ stager.extendStep('endprac', {
             architect:{
                 frame: 'pracend.htm',
                 cb: function(){
+                    
+                    
 
                     var hkeys = Object.keys(this.helperAccumulator)
                     var hvals = Object.values(this.helperAccumulator)
