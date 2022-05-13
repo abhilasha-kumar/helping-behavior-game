@@ -1151,6 +1151,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             
             if(combo_occurrences == roomContents.length){success = 1}
         }
+        else if(action == "fill"){
+            var goal_combo  = "whitesquare"
+            const combo_occurrences = roomContents.filter(x => x === goal_combo).length
+            
+            if(combo_occurrences == 0){success = 1}
+
+        }
         else if (action == "move"){
             
             var goal_combo = color + "square"
@@ -1278,6 +1285,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             var num_blockers = node.game.countObstructions(obstructed);
             var optimal = num_blockers
         }
+        else if(action == "fill"){ // fill
+            const white = this.goalindices.filter(x => this.currentConfiguration[x] == "white")
+            var optimal = white.length
+
+        }
         else{ // clear
         const non_white = this.goalindices.filter(x => this.currentConfiguration[x] != "white")
         var optimal = non_white.length
@@ -1367,6 +1379,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             }
 
             if(action == "clear"){this.verbalGoal = action + " all blocks " + "in " + goal_location}
+            else if(action == "fill"){this.verbalGoal = action + " all locations in " + goal_location}
             else if(action == "move"){this.verbalGoal = action + " all " + color +  " blocks"  + " to " + goal_location}
             else if(action == "cover" || action == "uncover"){this.verbalGoal = action + " all " + color +  " blocks"}
             else{this.verbalGoal = action + " all " + color +  " blocks"  + " in " + goal_location}
@@ -2076,6 +2089,11 @@ node.game.removeAnimation = function(){
                                     node.game.architectgoalAchieved();
                                     W.getElementById('nextgoal').style.visibility = 'visible';
                                     W.setInnerHTML('cluepasttxt', "Goal has been achieved!!");
+
+                                    setTimeout(() => {
+                                        node.game.removeAnimation();    
+                                    }, 4000);         
+                                    
                                     W.gid("dot1").style.visibility = "hidden" 
                                     W.gid("dotContainer").style.visibility = "hidden"
                                     if(node.game.checkEnd()){// if goals complete

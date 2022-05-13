@@ -144,17 +144,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('rolesAssigned', {
         init: function(){
             function calculateGoals() {
-                this.goalSpace = ['cover red all', 'move blue C2','clear nocolor A2', 'uncover green all','move green B', 'clear nocolor A1', 
-            'clear nocolor B', 'move red C2', 'move red A', 'move green A', 'move blue A', 'move red B', 
-            'clear nocolor C',  'move blue A1', 'move green C', 'uncover red all', 
-            'move green A1', 'move red A1', 'cover green all', 'move red A2', 'clear nocolor A', 
-            'move red B1', 'move blue B1', 'move blue C1', 'move blue B', 'move green C1', 'clear nocolor C2',
-             'move blue A2', 'cover blue all', 'clear nocolor C1', 'move green C2', 'move green B1', 
-              'move red C1', 'move red B2', 'move blue C', 'move green B2', 
-             'move green A2', 'move blue B2', 'uncover blue all', 'clear nocolor B2', 'move red C', 'clear nocolor B1']
-    
-            
-                var unsuccessful_goal_indices  = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41]
+                this.goalSpace = ['cover red all',  'move green B2', 'move blue A', 
+                'move red A1', 'move blue B1', 'move red B1', 'move blue A2', 'uncover red all', 'fill nocolor C1',
+                 'move green B', 'move red C1', 'fill nocolor A2', 'move green C1', 'move red C', 'fill nocolor B2', 
+                 'clear nocolor C2', 'fill nocolor A1', 'clear nocolor A1', 'move green C2', 'clear nocolor C1',
+                  'move green B1', 'uncover green all', 'move blue C2', 'move red A', 'move blue A1', 'move green A2',
+                   'fill nocolor C2', 'move blue B', 'move red A2', 'clear nocolor A2', 'cover green all', 'clear nocolor C',
+                    'clear nocolor B2', 'move red B', 'move blue C1', 'clear nocolor B', 'move blue B2', 'uncover blue all',
+                     'fill nocolor B1', 'move green A1', 'clear nocolor A', 'move red B2',  'move red C2',
+                      'move green C', 'cover blue all', 'move green A', 'move blue C', 'clear nocolor B1']
+
+                var unsuccessful_goal_indices  = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+
     
                 this.valid_goals = unsuccessful_goal_indices.map((item) => this.goalSpace[item])
     
@@ -170,6 +171,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 }
     
                 var goalList = getRandomSubarray(this.goalSpace, 11);
+                //var goalList = ['fill nocolor B1', 'fill nocolor A1']
                 console.log("goallist inside logic = ",goalList)
                 
                 node.game.pl.each(function(player) {
