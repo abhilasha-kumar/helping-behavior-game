@@ -171,7 +171,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 }
     
                 var goalList = getRandomSubarray(this.goalSpace, 11);
-                //var goalList = ['fill nocolor B1', 'fill nocolor A1']
+                //var goalList = ['fill nocolor A1', 'fill nocolor B1']
                 console.log("goallist inside logic = ",goalList)
                 
                 node.game.pl.each(function(player) {

@@ -1562,7 +1562,14 @@ node.game.removeAnimation = function(){
         }, 1000); 
 
         setTimeout(() => {   
-            for (var i = 1; i < cellfromIDs.length-1; i++) {W.getElementById(cellfromIDs[i]).style.backgroundImage = "url('uparrow.png')"}
+            for (var i = 1; i < cellfromIDs.length-1; i++) {
+                /*
+                W.getElementById(cellfromIDs[i]).innerHTML = "^"
+                W.getElementById(cellfromIDs[i]).style.color = "goldenrod"
+                W.getElementById(cellfromIDs[i]).style.fontWeight = 'bold';
+                */
+                W.getElementById(cellfromIDs[i]).style.backgroundImage = "url('uparrow.png')"
+        }
         }, 1300); 
 
         setTimeout(() => {  if( (top_from - top_to) > 0){W.getElementById(cellfromIDs[0]).style.backgroundImage = "url('topleftarrow.png')"}
@@ -1572,7 +1579,15 @@ node.game.removeAnimation = function(){
 
         setTimeout(() => {
             for (var i = 0; i < horizontalIDs.length; i++) { 
-                if(horizontal_cells >= 0){W.getElementById(horizontalIDs[i]).style.backgroundImage = "url('leftarrow.png')"}
+                if(horizontal_cells >= 0){
+                    /*
+                    W.getElementById(cellfromIDs[i]).innerHTML = "<"
+                    W.getElementById(cellfromIDs[i]).style.color = "goldenrod"
+                    W.getElementById(cellfromIDs[i]).style.fontWeight = 'bold';
+                    */
+
+                    W.getElementById(horizontalIDs[i]).style.backgroundImage = "url('leftarrow.png')"
+                }
                 else{W.getElementById(horizontalIDs[i]).style.backgroundImage = "url('rightarrow.png')"}
             }
         }, 1600); 
@@ -2938,6 +2953,38 @@ stager.extendStep('endprac', {
                     W.getElementById("goal2").innerHTML = 2
                     W.getElementById("help2").innerHTML = hvals[1];
                     W.getElementById("arch2").innerHTML = avals[1];
+
+                    W.getElementById("goal3").innerHTML = 3
+                    W.getElementById("help3").innerHTML = hvals[2];
+                    W.getElementById("arch3").innerHTML = avals[2];
+
+                    W.getElementById("goal4").innerHTML = 4
+                    W.getElementById("help4").innerHTML = hvals[3];
+                    W.getElementById("arch4").innerHTML = avals[3];
+                    
+                    W.getElementById("goal5").innerHTML = 5
+                    W.getElementById("help5").innerHTML = hvals[4];
+                    W.getElementById("arch5").innerHTML = avals[4];
+
+                    W.getElementById("goal6").innerHTML = 6
+                    W.getElementById("help6").innerHTML = hvals[5];
+                    W.getElementById("arch6").innerHTML = avals[5];
+
+                    W.getElementById("goal7").innerHTML = 7
+                    W.getElementById("help7").innerHTML = hvals[6];
+                    W.getElementById("arch7").innerHTML = avals[6];
+
+                    W.getElementById("goal8").innerHTML = 8
+                    W.getElementById("help8").innerHTML = hvals[7];
+                    W.getElementById("arch8").innerHTML = avals[7];
+
+                    W.getElementById("goal9").innerHTML = 9
+                    W.getElementById("help9").innerHTML = hvals[8];
+                    W.getElementById("arch9").innerHTML = avals[8];
+
+                    W.getElementById("goal10").innerHTML = 10
+                    W.getElementById("help10").innerHTML = hvals[9];
+                    W.getElementById("arch10").innerHTML = avals[9];
 
                     var a = W.gid("done")
                     a.onclick = function(){node.done()};
