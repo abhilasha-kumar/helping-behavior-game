@@ -144,20 +144,28 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('rolesAssigned', {
         init: function(){
             function calculateGoals() {
-                this.goalSpace = ['cover red all',  'move green B2', 'move blue A', 
-                'move red A1', 'move blue B1', 'move red B1', 'move blue A2', 'uncover red all', 'fill nocolor C1',
-                 'move green B', 'move red C1', 'fill nocolor A2', 'move green C1', 'move red C', 'fill nocolor B2', 
-                 'clear nocolor C2', 'fill nocolor A1', 'clear nocolor A1', 'move green C2', 'clear nocolor C1',
-                  'move green B1', 'uncover green all', 'move blue C2', 'move red A', 'move blue A1', 'move green A2',
-                   'fill nocolor C2', 'move blue B', 'move red A2', 'clear nocolor A2', 'cover green all', 'clear nocolor C',
-                    'clear nocolor B2', 'move red B', 'move blue C1', 'clear nocolor B', 'move blue B2', 'uncover blue all',
-                     'fill nocolor B1', 'move green A1', 'clear nocolor A', 'move red B2',  'move red C2',
-                      'move green C', 'cover blue all', 'move green A', 'move blue C', 'clear nocolor B1']
 
-                var unsuccessful_goal_indices  = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+                // separate out move/cover/uncover/clear/full goals
+
+                this.moveGoals = ['move green B2', 'move blue A', 'move green C1', 'move red C','move green C2',
+                'move red A1', 'move blue B1', 'move red B1', 'move blue A2', 'move green B', 'move red C1', 
+                'move green B1', 'move blue C2', 'move red A', 'move blue A1', 'move green A2',
+                'move blue B', 'move red A2', 'move red B', 'move blue C1','move blue B2','move green A1',
+                'move red B2',  'move red C2', 'move green A', 'move blue C', 'move green C']
+
+                this.coverGoals = ['cover red all','cover green all', 'cover blue all']
+                this.uncoverGoals = [ 'uncover red all', 'uncover green all','uncover blue all']
+                this.fillGoals = ['fill nocolor A1','fill nocolor B1','fill nocolor C1','fill nocolor B2', 'fill nocolor A2', 'fill nocolor C2' ]
+
+                this.clearGoals = [ 'clear nocolor C2',  'clear nocolor A1',  'clear nocolor C1',
+                    'clear nocolor A2',  'clear nocolor C',
+                    'clear nocolor B2', 'clear nocolor B',  
+                      'clear nocolor A',   'clear nocolor B1']
+
+                //var unsuccessful_goal_indices  = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
 
     
-                this.valid_goals = unsuccessful_goal_indices.map((item) => this.goalSpace[item])
+                //this.valid_goals = unsuccessful_goal_indices.map((item) => this.goalSpace[item])
     
                 function getRandomSubarray(arr, size) {
                     var shuffled = arr.slice(0), i = arr.length, temp, index;
@@ -169,10 +177,39 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     }
                     return shuffled.slice(0, size);
                 }
+
+                var moveList = getRandomSubarray(this.moveGoals, 2);
+                var coverList = getRandomSubarray(this.coverGoals, 2);
+                var uncoverList = getRandomSubarray(this.uncoverGoals, 2);
+                var fillList = getRandomSubarray(this.fillGoals, 2);
+                var clearGoals = getRandomSubarray(this.clearGoals, 2);
     
-                var goalList = getRandomSubarray(this.goalSpace, 11);
+                var goalList = moveList.concat(coverList, uncoverList,fillList, clearGoals);
+
+                console.log("goallist inside logic after shuffle = ",goalList)
+
+                function shuffle(array) {
+                    let currentIndex = array.length,  randomIndex;
+                  
+                    // While there remain elements to shuffle.
+                    while (currentIndex != 0) {
+                  
+                      // Pick a remaining element.
+                      randomIndex = Math.floor(Math.random() * currentIndex);
+                      currentIndex--;
+                  
+                      // And swap it with the current element.
+                      [array[currentIndex], array[randomIndex]] = [
+                        array[randomIndex], array[currentIndex]];
+                    }
+                  
+                    return array;
+                  }
+
+                goalList = shuffle(goalList);
+                  
                 //var goalList = ['fill nocolor A1', 'fill nocolor B1']
-                console.log("goallist inside logic = ",goalList)
+                console.log("goallist inside logic after shuffle = ",goalList)
                 
                 node.game.pl.each(function(player) {
                     console.log("player.id=",player.id)
@@ -226,7 +263,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             db.gameplayprac.save('gameplayprac.csv', {
     
                 // Custom header.
-                header: ["helperRandCode", "architectRandCode","goalnumber", "helperChoice", "helperChoiceTime","helperMove",  "architectMove", "goalSuccess"],
+                header: ["helperRandCode", "architectRandCode","goalnumber", "goal", "helperChoice", "helperChoiceTime","helperMove",  "architectMove", "goalSuccess"],
     
                 // Saves only updates from previous save command.
                 updatesOnly: true,
@@ -253,7 +290,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             db.gameplayprac.save('gameplayprac.csv', {
     
                 // Custom header.
-                header: ["helperRandCode", "architectRandCode","goalnumber", "helperChoice", "helperChoiceTime","helperMove",  "helperQuestion", "architectMove", "architectAnswer", "goalSuccess"],
+                header: ["helperRandCode", "architectRandCode","goalnumber", "goal", "helperChoice", "helperChoiceTime","helperMove",   "architectMove",  "goalSuccess"],
     
                 // Saves only updates from previous save command.
                 updatesOnly: true,
@@ -296,26 +333,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
 //    });
     
-
-  //  stager.extendStep('feedback', {
-    //    cb: function() {//when the server receives the end game msg it runs the end game function
-      //      node.on.data('END_GAME', endGameFunc);
-       // },
-       // exit: function(){
-         //   db.feedback.save('feedback.csv', {
-
-                // Custom header.
-           //     header: ["clueGiverID", "clueGiverRandCode", "guesserID", "guesserRandCode","target1","target2", "clueOption1", "TBOption1", "TEOption1", "clueOption2", "TBOption2", "TEOption2", "clueOption3", "TBOption3", "TEOption3", "clueOption4", "TBOption4", "TEOption4", "clueOption5", "TBOption5", "TEOption5", "clueOption6", "TBOption6", "TEOption6", "clueOption7", "TBOption7", "TEOption7", "clueOption8", "TBOption8", "TEOption8", "clueFinal", "TBFinal", "TEFinal", "GuessOption1", "GUESS_OPTION1_TIME", "GuessOption2", "GUESS_OPTION2_TIME", "GuessOption3", "GUESS_OPTION3_TIME", "GuessOption4", "GUESS_OPTION4_TIME", "GuessOption5", "GUESS_OPTION5_TIME", "GuessOption6", "GUESS_OPTION6_TIME", "GuessOption7", "GUESS_OPTION7_TIME", "GuessOption8", "GUESS_OPTION8_TIME", "GUESS_1_FINAL", "GUESS_1_FINAL_TIME", "GUESS_2_FINAL", "GUESS_2_FINAL_TIME"],
-
-                // Saves only updates from previous save command.
-             //   updatesOnly: true,
-
-//                flatten: true
-  //          });
-
-    //     }
-    //});
-
     
 
    // stager.extendStep('demographics', {
