@@ -19,6 +19,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.setOnInit(function() {
 
+        
+
         // define some global functions
         // (1) drawing the table
         // (2) enableDragDrop
@@ -863,7 +865,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         // we restrict dropping to these "white" cells only
 
-        dragtarget.addEventListener('dragstart', dragStart);
+        if(mode == "practice"){dragtarget.addEventListener('dragstart', drag_practice);}
+        else{dragtarget.addEventListener('dragstart', dragStart);}
+
+        
         droptarget.addEventListener('dragenter', dragEnter)
         droptarget.addEventListener('dragover', dragOver);
         droptarget.addEventListener('dragleave', dragLeave);
@@ -904,12 +909,35 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             var moveFromID = (row_from-1)*18 + (cell_from-1)
             return moveFromID
         }
+
+        var pracdrag = ['circlerow4cell01', 'row4cell01']
+        var pracdrop = ['circlerow4cell17', 'row4cell17']
+
+        function drag_practice(e) {
+            
+            if(drag_count == 0){    
+                    console.log('targetid='+e.target.id);
+                    draggedID = e.target.id
+                    editedDropIDs = editDrops();
+                    console.log("editedDropIDs=",editedDropIDs)
+                    console.log("filteredDragTableIDs=",filteredDragTableIDs)
+                    console.log("pracdrag=",pracdrag)
+
+                if(pracdrag.includes(e.target.id)){                
+                    e.dataTransfer.setData('text/plain', e.target.id);
+                    e.target.style.opacity = .7;
+                }
+                else{alert("You need to to drag the block labeled ONE in this practice session!");}
+
+                }
+            }
         
 
         function dragStart(e) {
             
             if(drag_count == 0){
-                    node.game.removeAnimation();
+                if(mode != "practice"){node.game.removeAnimation();}
+                    
                     console.log('targetid='+e.target.id);
                     draggedID = e.target.id
                     editedDropIDs = editDrops();
@@ -918,7 +946,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     e.dataTransfer.setData('text/plain', e.target.id);
                     e.target.style.opacity = .7;
                 }
-                else{alert("You can only drag/drop ONE UNOBSTRUCTED block on a turn!");}
+                else{alert("You can only drag/drop ONE UNCOVERED block on a turn!");}
 
                 }
             }
@@ -965,34 +993,63 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         
             function dragEnter(e) {
                 if(drag_count == 0){
-                    if(editedDropIDs.includes(e.target.id)){
-                        e.preventDefault();
-                        e.target.classList.add('drag-over');
+                    if(mode == "practice"){
+                        if(pracdrop.includes(e.target.id)){
+                            e.preventDefault();
+                            e.target.classList.add('drag-over');
+                        }
                     }
+
+                    else{
+                        if(editedDropIDs.includes(e.target.id)){
+                            e.preventDefault();
+                            e.target.classList.add('drag-over');
+                        }
+                    }
+                    
                 }
             
             }
 
             function dragOver(e) {
                 if(drag_count == 0){
-                    if(editedDropIDs.includes(e.target.id)){
-                        e.preventDefault();
-                        e.target.classList.add('drag-over');
+
+                    if(mode == "practice"){
+                        if(pracdrop.includes(e.target.id)){
+                            e.preventDefault();
+                            e.target.classList.add('drag-over');
+                        }
+                        
+                    }
+                    else{
+                        if(editedDropIDs.includes(e.target.id)){
+                            e.preventDefault();
+                            e.target.classList.add('drag-over');
+                        }
                     }
                 }
             }
 
             function dragLeave(e) {
                 if(drag_count == 0){
-                if(editedDropIDs.includes(e.target.id)){
-                e.target.classList.remove('drag-over');
+                if(mode == "practice"){
+                    if(pracdrop.includes(e.target.id)){
+                        e.target.classList.remove('drag-over');
+                    }
+
                 }
+                else{
+                    if(editedDropIDs.includes(e.target.id)){
+                        e.target.classList.remove('drag-over');
+                    }
+                }
+                
             }
             
             }
             function drop(e) {
                 if(drag_count == 0){
-                if(editedDropIDs.includes(e.target.id)){
+                if(pracdrop.includes(e.target.id)){
                 e.target.classList.remove('drag-over');
                 // get the draggable element
                 const id = e.dataTransfer.getData('text/plain');
@@ -1001,9 +1058,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 dropid = JSON.parse(JSON.stringify(e.target.id));
                 // add it to the drop target
                 e.target.appendChild(draggable);
+                drag_count = 1
+                node.done();
                 }
                 }
-                else{alert("You can only drag/drop ONE UNOBSTRUCTED block on a turn!");}                
+                else{alert("You can only drag/drop ONE UNCOVERED block on a turn!");}                
             }
 
             
@@ -1085,12 +1144,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         W.getElementById("circlerow5cell17").innerHTML = "TWO"
         W.getElementById("circlerow5cell17").style.color = "goldenrod"
-
-        W.getElementById("circlerow6cell07").innerHTML = "THREE"
-        W.getElementById("circlerow6cell07").style.color = "goldenrod"
-
-        W.getElementById("circlerow5cell13").innerHTML = "FOUR"
-        W.getElementById("circlerow5cell13").style.color = "goldenrod"
 
         node.game.genericDragDrop(W, pracConfig,"practice", "any");
 
@@ -1691,6 +1744,10 @@ node.game.removeAnimation = function(){
 
         var frame;        
         frame = W.generateFrame();
+
+        W.waitScreen.defaultTexts.waiting = 'Waiting for other player to be done...';  
+        W.waitScreen.defaultTexts.stepping = 'Redirecting...';  
+        W.waitScreen.defaultTexts.paused = 'Some other text';  
         
         this.colors = ["red", "blue", "green", "white"] // possible colors: white is used when there is no "block"
 
@@ -1765,6 +1822,7 @@ node.game.removeAnimation = function(){
         this.helperAccumulator = {} // keeps track of total useful moves across from helper across all goals
         this.architectAccumulator = {} // keeps track of total useful moves across from architect across all goals
         this.goalAccumulator = {} // keeps track of verbal goals
+        this.firstTurn  = 0
         
     });
 
@@ -1865,8 +1923,7 @@ node.game.removeAnimation = function(){
                     W.setInnerHTML('role', "Your role: Helper")
                     node.game.drawTable(W, this.currentShape, this.currentConfiguration);
                     node.game.practiceDragDrop(W, this.currentConfiguration);
-                    var a = W.gid('done');
-                    a.onclick = function() { node.done() };
+                   
                 }
             },
             architect:{
@@ -1875,6 +1932,34 @@ node.game.removeAnimation = function(){
                     W.setInnerHTML('role', "Your role: Architect")
                     node.game.drawTable(W, this.currentShape, this.currentConfiguration);
                     node.game.practiceDragDrop(W, this.currentConfiguration);
+                    
+            }
+            }
+        }
+    });
+
+    
+
+    stager.extendStep('gridRules', {
+        role: function() { return this.role; },
+        partner: function() { return this.partner; },
+        roles: {
+            helper:{
+                frame: 'rules.htm', 
+                cb: function(){
+                    W.setInnerHTML('role', "Your role: Helper")
+                    var a = W.gid('done');
+
+                    W.setInnerHTML('goalinfotext', 'Click the button below to start the game!')
+                    a.onclick = function() { node.done() };
+                }
+            },
+            architect:{
+                frame: 'rules.htm', 
+                cb: function(){
+                    W.setInnerHTML('role', "Your role: Architect")
+
+                    W.setInnerHTML('goalinfotext', 'Goals can be of many forms. You may be asked to <strong>move</strong> a specific type of block (e.g., red) to a specific room (e.g., A). You may be asked to <strong>clear</strong> or <strong>fill</strong> up a particular room (e.g., A1 or B2). You may also be asked to <strong>cover</strong> or <strong>uncover</strong> a particular type of block (e.g., red). <i>Covering</i> a block means making sure there is another block on top of it. <i>Uncovering</i> a block means making sure there is <i>no</i> other block on top of it. <br> <br> Click the button below to start the game!')
                     var a = W.gid('done');
                     a.onclick = function() { node.done() };
             }
@@ -1916,7 +2001,7 @@ node.game.removeAnimation = function(){
                         else if(["done"].includes(choiceTXT)){
                             node.game.resetConfig();
                             node.game.drawTable(W, this.currentShape, this.currentConfiguration);
-                            W.setInnerHTML('cluepasttxt', "This is your next task.")
+                            W.setInnerHTML('cluepasttxt', "This is the next round.")
                             var updateRound = this.roundCounter + 2
                             W.setInnerHTML('round', "Round:" + updateRound + "/10")
                             node.game.helpergoalAchieved();
@@ -1984,7 +2069,7 @@ node.game.removeAnimation = function(){
                                 
                                 
                                 W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                                W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Please wait for the Architect to start the next task"); 
+                                W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Please wait for the Architect to start the next round and make a move"); 
                                 node.game.showDotsAnimation();
                                 node.game.helpergoalAchieved();
                             }
@@ -2007,7 +2092,7 @@ node.game.removeAnimation = function(){
 
 
                             W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                            W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Please wait for the Architect to start the next task"); 
+                            W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Please wait for the Architect to start the next round and make a move"); 
                             node.game.helpergoalAchieved();
 
 
@@ -2245,7 +2330,7 @@ node.game.removeAnimation = function(){
                         if(checkend){node.done();}
                         else{
                         node.game.nextGoalActions();
-                        W.setInnerHTML('cluepasttxt', "This is your next task.");
+                        W.setInnerHTML('cluepasttxt', "This is the next round.");
                         W.setInnerHTML('round', "Round:" + (this.roundCounter + 1) + "/10")
                      }
                     }
@@ -2254,7 +2339,9 @@ node.game.removeAnimation = function(){
                 
             }// end not first trial if
         else {
-        W.setInnerHTML('cluepast0txt', "It is your turn! Please drag and drop a block."); 
+            
+        W.setInnerHTML('cluepasttxt', "It is your turn! Please drag and drop a block to achieve the goal specified above");
+        node.game.showDotsAnimation(); 
         node.game.drawTable(W, this.currentShape, this.currentConfiguration);
         node.game.enableDragDrop(W, "architect");
         this.architectScore+=1 
@@ -2388,7 +2475,16 @@ stager.extendStep('helperOptionsprac', {
                             var feedbackvalue = node.game.provideFeedback();
                             if(feedbackvalue == 0){
                                 setTimeout(() => {
-                                    W.setInnerHTML('cluepasttxt', "It is your turn! Choose your action"); 
+                                    if(this.firstTurn == 0){
+                                        W.setInnerHTML('cluepasttxt', "It is your turn! Choose whether you'd like to help by moving a block, or pass your turn"); 
+                                        node.game.showDotsAnimation();
+                                        this.firstTurn  = 1
+                                    }
+                                    else{
+                                        W.setInnerHTML('cluepasttxt', "It is your turn! Move a block or pass your turn");
+                                        node.game.showDotsAnimation();
+                                 }
+                                    
                                     //node.game.removeAnimation();
                                     node.game.enableDragDrop(W, "helper");
                                     node.set({helperChoiceTime : node.timer.getTimeSince('step')})
@@ -2446,7 +2542,9 @@ stager.extendStep('helperOptionsprac', {
 
                                 
                                 W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                                W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Click done to continue to the next task."); 
+                                W.gid("dotContainer").style.visibility = "hidden"
+                                W.gid("dot1").style.visibility = "hidden"
+                                W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! You will soon be redirected, please wait..."); 
 
                                 
                                 W.gid("help").style.visibility = "hidden"
@@ -2457,11 +2555,17 @@ stager.extendStep('helperOptionsprac', {
                                     stage: node.game.getCurrentGameStage(),
                                     choiceoption: "done"
                                 }); 
-                                node.game.memory.tag("CHOICE");              
+                                node.game.memory.tag("CHOICE");  
+                                
+                                // time out after 20 seconds?
+
+                                setTimeout(() => {node.done();}, 7000);
+                                /*
                                 var d = W.gid("nextgoal")
                                 d.disabled = false
                                 d.style.visibility = "visible"
                                 d.onclick = function() { node.done() };
+                                */
                 
                             }
                         }
@@ -2658,7 +2762,7 @@ stager.extendStep('helperOptionsprac', {
 
 
                                 W.setInnerHTML('cluepasttxt', "Goal has been achieved!!"); 
-                                W.setInnerHTML('cluepast0txt', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Waiting for the Helper to start the next task"); 
+                                W.setInnerHTML('cluepast0txt', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Waiting for the Helper to start the next round"); 
                                 
                                 node.game.showDotsAnimation();
                                 
@@ -2733,7 +2837,7 @@ stager.extendStep('helperOptionsprac', {
                         const help_button = W.getElementById("helpbutton")
                         help_button.style.backgroundColor = "DarkSeaGreen"
                         });
-                    W.setInnerHTML("cluepasttxt", "Please drag and drop an unobstructed block to any location.")   
+                    W.setInnerHTML("cluepasttxt", "You chose to help the Architect. Please drag and drop a block to any location.")   
                     
                     node.game.enableDragDrop(W, "helper");
                     
@@ -2862,107 +2966,69 @@ stager.extendStep('endprac', {
     });
 
     
-/*
     stager.extendStep('demographics', {
         frame: 'demos.htm',
         cb: function() {
-            this.demosnode = node.widgets.append('CustomInputGroup', W.gid('demoscontainer'), {//create customInputGroup widget for clue options, only the first is mandatory
-               id: 'demosroot2',
-               orientation: 'V',
-               //mainText: 'Please list possible clues.',
-               sharedOptions: {
-               },
-               items: [
-                   {
-                       id: 'age',
-                       type: 'int',
-                       mainText: 'What is your age',
-                       requiredChoice: true
-                   },
-                   {
-                       id: 'gender',
-                       type: 'text',
-                       mainText: 'What is your gender',
-                       requiredChoice: true
-                   },
-                   {
-                       id: 'education',
-                       type: 'int',
-                       mainText: 'How many years of formal education have you had (consider graduating high school to be 12 years)?',
-                       requiredChoice: true
 
-                   },
-                   {
-                       id: 'domHand',
-                       type: 'text',
-                       mainText: 'What is your dominant hand? (Left/Right/Ambidextrous)'
-                   },
-                   {
-                       id: 'alert',
-                       type: 'text',
-                       mainText: 'Please indicate what time of the day you feel most alert (Morning/Afternoon/Evening/No differences)'
-                   },
-                   {
-                       id: 'racial',
-                       type: 'text',
-                       mainText: 'Please indicate which racial categories apply to you, separated by commas (American Indian/Alaskan Native, Asian, Native Hawaiian or Other Pacific Islander, Black/African American, White/Caucasian, More than one race, Prefer Not to Respond)'
-                   },
-                   {
-                       id: 'hispanic',
-                       type: 'text',
-                       mainText: 'Are you Hispanic or Latino? (Yes/No/Prefer Not to Respond)'
+            /*
 
-                   },
-                   {
-                       id: 'english',
-                       type: 'text',
-                       mainText: 'Is English your First Language? (Yes/No)',
-                       requiredChoice: true
-                   },
-                   {
-                       id: 'language',
-                       type: 'text',
-                       mainText: 'If you answered "No", what is your first language? (Please say English if you answered Yes)'
-                   },
-                   {
-                       id: 'english5',
-                       type: 'text',
-                       mainText: 'Did you learn English before the age of 5?'
-                   },
-                   {
-                       id: 'englishAge',
-                       type: 'int',
-                       mainText: 'If you answered "No", at what age did you learn English? (Enter 0 if you answered "Yes")'
-                   },
-                   {
-                       id: 'msc',
-                       type: 'text',
-                       mainText: 'Is there anything we should know about, which might have affected your performance during the test session? (e.g., lack of sleep, feeling ill etc.)'
-                   }
-               ]
+            var age = W.getElementById("form").elements[0].value;
+            var gender = W.getElementById("form").elements[1].value;
+            var education = W.getElementById("form").elements[2].value;
+            */
 
-           });
+            var doneButton = W.getElementById('done');
+
+            doneButton.addEventListener("DOMContentLoaded", function(event) {
+                doneButton.disabled = "true";
+            });
+            function myFunction() {
+                var nameInput = document.getElementById('age').value;
+                console.log(nameInput);
+                if (nameInput === "") {
+                    document.getElementById('done').disabled = true;
+                } else {
+                        document.getElementById('done').disabled = false;
+                }
+            }
+
+            
+            
+            
         },
         done: function() {//this sens all data to the logic client and stores the values
+
+            var age = W.getElementById("form").elements[0].value;
+            var gender = W.getElementById("form").elements[1].value;
+            var education = W.getElementById("form").elements[2].value;
+            var native = W.getElementById("form").elements[3].value;
+            var asian = W.getElementById("form").elements[4].value;
+            var black = W.getElementById("form").elements[5].value;
+            var white = W.getElementById("form").elements[6].value;
+            var hawaii = W.getElementById("form").elements[7].value;
+            var more = W.getElementById("form").elements[8].value;
+            var no = W.getElementById("form").elements[9].value;
+            var hispanic = W.getElementById("form").elements[10].value;
+
             node.set({ID: this.id}),
             node.set({RandCode: this.randomCode}),
-            node.set({age : this.demosnode.getValues().items['age'].value}),
-            node.set({gender : this.demosnode.getValues().items['gender'].value}),
-            node.set({education : this.demosnode.getValues().items['education'].value}),
-            node.set({domHand : this.demosnode.getValues().items['domHand'].value}),
-            node.set({alert : this.demosnode.getValues().items['alert'].value}),
-            node.set({racial : this.demosnode.getValues().items['racial'].value}),
-            node.set({hispanic : this.demosnode.getValues().items['hispanic'].value}),
-            node.set({english : this.demosnode.getValues().items['english'].value}),
-            node.set({language : this.demosnode.getValues().items['language'].value}),
-            node.set({english5 : this.demosnode.getValues().items['english5'].value}),
-            node.set({englishAge : this.demosnode.getValues().items['englishAge'].value}),
-            node.set({msc : this.demosnode.getValues().items['msc'].value});
+            node.set({age : age}),
+            node.set({gender : gender}),
+            node.set({education : education}),
+            node.set({native : native}),
+            node.set({asian : asian}),
+            node.set({black : black}),
+            node.set({white : white}),
+            node.set({hawaii : hawaii}),
+            node.set({more : more}),
+            node.set({no : no}),
+            node.set({hispanic : hispanic});
+            
             return;
         }
     });
 
-    */
+
 
     stager.extendStep('end', {
         frame: 'end.htm',

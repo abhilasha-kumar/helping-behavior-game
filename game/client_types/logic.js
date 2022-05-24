@@ -335,28 +335,28 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     
     
 
-   // stager.extendStep('demographics', {
-     //   init: function() {
-       //     db.view('demographics', function() {//creates view for saving demographics
-         //       return node.game.isStage('demographics');
-          //  });
-        //},
-        //exit: function(){
-          //  db.feedback.save('demographics.csv', {
+    stager.extendStep('demographics', {
+      init: function() {
+        db.view('demographics', function() {//creates view for saving demographics
+                return node.game.isStage('demographics');
+            });
+        },
+        exit: function(){
+            db.demographics.save('demographics.csv', {
 
                 // Custom header.
-            //    header: ["player","ID","RandCode","age","gender","education","domHand","alert","racial","hispanic","english","language","english5","englishAge","msc"],
+               header: ["player","ID","RandCode","age","gender","education", "native", "asian", "black", "white", "hawaii", "hispanic"],
 
                 // Saves only updates from previous save command.
-              //  updatesOnly: true,
+                updatesOnly: true,
 
-                //flatten: true,
+                flatten: true,
 
-                //flattenByGroup: 'player'
-            //});
+                flattenByGroup: 'player'
+            });
 
-         //}
-    //});
+         }
+    });
 
     stager.extendStep('end', {
     });

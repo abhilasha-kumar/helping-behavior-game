@@ -27,6 +27,11 @@ th {
   border-style: "3px solid white";
   
 }
+label{
+  display: inline-block;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
 
 td {
   width: 15px;
@@ -234,6 +239,28 @@ transform: translateX(-50%);
 .hide {
   display: none;
 }
+
+.rules{
+  text-align: left;
+  margin: auto;
+  width: 60%;
+  
+}
+
+.goalinfo{
+  text-align: left;
+  margin: auto;
+  width: 60%;
+  
+}
+
+.demo{
+  text-align:center;
+  margin: 80px;
+  width: 100%;
+  
+}
+
 
 .drag-over {
   border: dashed 3px red;

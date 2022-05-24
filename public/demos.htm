@@ -3,9 +3,54 @@
 <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
 <link rel="stylesheet" href="css/style.css" />
 <body>
+<div class="consentDiv">
+  <br>
+  Thank you! You have finished the game portion of the experiment! Before you are done, we would like you to answer some basic demographic questions. Note that your answers to these questions will not affect your compensation. Please click Finish Experiment when you have filled out this questionnaire.
+  <br><br>
 
-  <div class="consentDiv" id="demoscontainer">
-    <br>
-    Thank you! You have finished the game portion of the experiment! Before you are done, we would like you to answer some basic demographic questions. Note that your answers to these questions will not affect your compensation. Please click Done when you have filled out this questionnaire.
+
+  <form id ="form">
+    <label for="age">What is your age?</label>
+    <input type="number" id="age" name="age" required onkeyup="myFunction()"><br>
+    <label for="gender">What is your gender?</label>
+    <input type="text" id="gender" name="gender" required><br>
+    <label for="education">How many years of formal education have you had (consider graduating high school to be 12 years)?</label>
+    <input type="number" id="education" name="education" required>
+    <p> <strong>Please select all racial categories that apply to you:</strong></p>
+
+    <input type="checkbox" id="native" name="native">
+    <label for="native">American Indian/Alaskan Native</label><br><br>
+    
+    <input type="checkbox" id="asian" name="asian">
+    <label for="asian">Asian</label><br><br>
+    
+    <input type="checkbox" id="black" name="black">
+    <label for="black">Black/African American</label><br><br>
+    
+    <input type="checkbox" id="white" name="white">
+    <label for="white">White/Caucasian</label><br><br>
+    
+    <input type="checkbox" id="hawaii" name="hawaii">
+    <label for="hawaii">Native Hawaiian or Pacific Islander</label><br><br>
+    
+    <input type="checkbox" id="more" name="more">
+    <label for="more">More than one race</label><br><br>
+    
+    <input type="checkbox" id="no" name="no">
+    <label for="no">Prefer not to respond</label><br><br>
+
+    <label for="hispanic">Are you Hispanic and/or Latino?</label>
+    <input type="text" id="hispanic" name="hispanic" required><br><br>
+    
+    <button type="submit" id="done">Finish Experiment</button>
+
+  </form> 
+</div>
+
+
+<!--
+  <div class="consentDiv" id="containerbottom2" >
+    <button id="done" class="button button4" disabled> Finish Experiment </button>
   </div>
+  -->
 </body>

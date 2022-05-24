@@ -15,6 +15,7 @@ module.exports = function(stager, settings) {
     //stager.stage('instructions');
     stager.stage('rolesAssigned');
     stager.stage('gridPractice');
+    stager.stage('gridRules');
     stager.loopStage('gameplayprac', function() {
    return !this.LOOP_ENDED_PRAC;
 });
@@ -34,7 +35,7 @@ module.exports = function(stager, settings) {
    // stager.step('guessOptions');
    // stager.step('guessFinal');
    // stager.step('feedback');
-   // stager.stage('demographics');
+    stager.stage('demographics');
     stager.stage('end');
     stager.gameover();
 
