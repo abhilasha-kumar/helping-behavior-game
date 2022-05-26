@@ -1592,7 +1592,8 @@ node.game.displayGoalTable = function(){
         dot1.style.visibility = "hidden"
         //node.game.removeAnimation();
         W.setInnerHTML('cluepast0txt', "It is your turn! Please move a block."); 
-        
+        W.setInnerHTML('cluepasttxt', "This is the next round. You have been assigned a new goal.");
+
        // W.setInnerHTML('cluepasttxt', ""); 
     
 }
