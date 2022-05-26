@@ -115,7 +115,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {//when the server receives the end game msg it runs the end game function
 
            node.on.data('ACHIEVED', function(msg) {
-            console.log("inside feedback logic:"+msg.data)
+            //console.log("inside feedback logic:"+msg.data)
                if (msg.data === 1){node.game.goal = 1}
                else {node.game.goal = 0 }
            }),
@@ -143,6 +143,65 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('rolesAssigned', {
         init: function(){
+
+            // each dyad gets a new set of goals AND a new starting configuration 
+
+            function createConfig(){
+                function shuffle(array){
+        
+                    let currentIndex = array.length,  randomIndex;
+                    
+                    // While there remain elements to shuffle.
+                    while (currentIndex != 0) {
+                    
+                        // Pick a remaining element.
+                        randomIndex = Math.floor(Math.random() * currentIndex);
+                        currentIndex--;
+                    
+                        // And swap it with the current element.
+                        [array[currentIndex], array[randomIndex]] = [
+                        array[randomIndex], array[currentIndex]];
+                    }
+                    
+                    return array;
+                      
+                }
+
+                var red = Array(10).fill("red")
+                var blue = Array(10).fill("blue")
+                var green = Array(10).fill("green")
+                var white = Array(24).fill("white")
+        
+                var config = red.concat(blue, green, white);
+        
+                var shuffledArr = shuffle(config)
+        
+                for (var i = 0; i < 2; i++){
+                    for (var e = 0; e < shuffledArr.length; e++) {
+                  
+                      if (e < 36 && shuffledArr[e] !== "white" && shuffledArr[e + 18] === "white") {
+                        shuffledArr[e + 18] = shuffledArr[e];
+                        shuffledArr[e] = "white";
+                      }
+                    }
+                  }
+                  
+    
+                //console.log("config inside logic  = ",shuffledArr)
+
+                var otherWhite = Array(54).fill("white")
+                var finalArr = otherWhite.concat(shuffledArr);
+
+                
+                node.game.pl.each(function(player) {
+                    //console.log("player.id=",player.id)
+                    // Get the value saved in the registry and send it.
+                    node.say('CONFIG', player.id, finalArr);
+                });
+            }
+
+            node.on.data('create_config', createConfig);
+
             function calculateGoals() {
 
                 // separate out move/cover/uncover/clear/full goals
@@ -161,11 +220,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     'clear nocolor A2',  'clear nocolor C',
                     'clear nocolor B2', 'clear nocolor B',  
                       'clear nocolor A',   'clear nocolor B1']
-
-                //var unsuccessful_goal_indices  = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
-
-    
-                //this.valid_goals = unsuccessful_goal_indices.map((item) => this.goalSpace[item])
     
                 function getRandomSubarray(arr, size) {
                     var shuffled = arr.slice(0), i = arr.length, temp, index;
@@ -185,8 +239,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var clearGoals = getRandomSubarray(this.clearGoals, 2);
     
                 var goalList = moveList.concat(coverList, uncoverList,fillList, clearGoals);
-
-                console.log("goallist inside logic after shuffle = ",goalList)
 
                 function shuffle(array) {
                     let currentIndex = array.length,  randomIndex;
@@ -209,10 +261,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 goalList = shuffle(goalList);
                   
                 //var goalList = ['fill nocolor A1', 'fill nocolor B1']
-                console.log("goallist inside logic after shuffle = ",goalList)
+                //console.log("goallist inside logic after shuffle = ",goalList)
                 
                 node.game.pl.each(function(player) {
-                    console.log("player.id=",player.id)
+                    //console.log("player.id=",player.id)
                     // Get the value saved in the registry and send it.
                     node.say('GOAL_LIST', player.id, goalList);
                 });
@@ -228,7 +280,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             rounds: 1,
             //cycle: 'mirror_invert'
             assignerCb: function(arrayIds) {
-                console.log("inside assignerCb:"+node.game.goal)
+                //console.log("inside assignerCb:"+node.game.goal)
                 if (node.game.goal === 1) {
                     var temp = arrayIds[0];
                     arrayIds[0] = arrayIds[1];
@@ -263,7 +315,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             db.gameplayprac.save('gameplayprac.csv', {
     
                 // Custom header.
-                header: ["helperRandCode", "architectRandCode","goalnumber", "goal", "helperChoice", "helperChoiceTime","helperMove",  "architectMove", "goalSuccess"],
+                header: ["access","exit","WorkerId","hid","AssignmentId","bonus","Approve","Reject", "helperRandCode", "architectRandCode", "config", "goalnumber", "goal", "helperChoice", "helperChoiceTime","helperMove",  "architectMove", "goalSuccess"],
     
                 // Saves only updates from previous save command.
                 updatesOnly: true,
@@ -290,7 +342,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             db.gameplayprac.save('gameplayprac.csv', {
     
                 // Custom header.
-                header: ["helperRandCode", "architectRandCode","goalnumber", "goal", "helperChoice", "helperChoiceTime","helperMove",   "architectMove",  "goalSuccess"],
+                header: ["access","exit","WorkerId","hid","AssignmentId","bonus","Approve","Reject", "helperRandCode", "architectRandCode", "config", "goalnumber", "goal", "helperChoice", "helperChoiceTime","helperMove",   "architectMove",  "goalSuccess"],
     
                 // Saves only updates from previous save command.
                 updatesOnly: true,
@@ -345,7 +397,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             db.demographics.save('demographics.csv', {
 
                 // Custom header.
-               header: ["player","ID","RandCode","age","gender","education", "native", "asian", "black", "white", "hawaii", "hispanic"],
+                
+
+               header: ["player","ID","RandCode","age","gender","education", "hawaii","native", "asian", "black", "white",  "hispanic", "more", "no"],
 
                 // Saves only updates from previous save command.
                 updatesOnly: true,

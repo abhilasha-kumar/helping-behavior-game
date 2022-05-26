@@ -863,9 +863,58 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         var editedDropIDs = 0
 
-        // we restrict dropping to these "white" cells only
 
-        if(mode == "practice"){dragtarget.addEventListener('dragstart', drag_practice);}
+        if(mode == "practice"){
+
+            // choose randomly here
+
+            var r1 =  Math.floor(Math.random() * filteredDragTableIDs.length);
+            var r2 =  Math.floor(Math.random() * filteredDragTableIDs.length);
+            var randomDrag = filteredDragTableIDs[r1]
+            var randomDrop = filteredDragTableIDs[r2]
+
+            if(randomDrag.includes("circle")){randomDrag = randomDrag}
+            else{randomDrag = "circle"+randomDrag}
+            
+            if(randomDrop.includes("circle")){randomDrop = randomDrop}
+            else{randomDrop = "circle"+randomDrop}
+
+            //console.log("randomDrag=",randomDrag)
+            //console.log("randomDrop=",randomDrop)
+
+
+            W.getElementById(randomDrag).innerHTML = "ONE"
+            W.getElementById(randomDrag).style.color = "goldenrod"
+
+            W.getElementById(randomDrop).innerHTML = "TWO"
+            W.getElementById(randomDrop).style.color = "goldenrod"
+
+            var nonCircleDrag = randomDrag.replace('circle', '');
+            
+
+            var pracdrag = [randomDrag, nonCircleDrag]
+            //console.log("pracdrag=",pracdrag)
+
+            // pracdrop has to be rightabove pracDrag
+
+            var actualDrop = getID(randomDrop) - 18
+            //console.log("actualDrop=",actualDrop)
+            var actualDropname = getIDnames(actualDrop)
+            //console.log("actualDropname=",actualDropname)
+
+            if(actualDropname.includes("circle")){
+                var nonCircleDrop = actualDropname.replace('circle', '');
+                var pracdrop = [actualDropname, nonCircleDrop]
+            }
+            else{
+                var circleDrop = "circle"+actualDropname
+                var pracdrop = [actualDropname, circleDrop]
+            }
+
+            //console.log("pracdrop=")
+
+            dragtarget.addEventListener('dragstart', drag_practice);
+        }
         else{dragtarget.addEventListener('dragstart', dragStart);}
 
         
@@ -910,18 +959,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             return moveFromID
         }
 
-        var pracdrag = ['circlerow4cell01', 'row4cell01']
-        var pracdrop = ['circlerow4cell17', 'row4cell17']
-
+    
         function drag_practice(e) {
+
+             
             
             if(drag_count == 0){    
-                    console.log('targetid='+e.target.id);
+                    //console.log('targetid='+e.target.id);
                     draggedID = e.target.id
                     editedDropIDs = editDrops();
-                    console.log("editedDropIDs=",editedDropIDs)
-                    console.log("filteredDragTableIDs=",filteredDragTableIDs)
-                    console.log("pracdrag=",pracdrag)
+                    //console.log("editedDropIDs=",editedDropIDs)
+                    //console.log("filteredDragTableIDs=",filteredDragTableIDs)
+                    //console.log("pracdrag=",pracdrag)
 
                 if(pracdrag.includes(e.target.id)){                
                     e.dataTransfer.setData('text/plain', e.target.id);
@@ -938,10 +987,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             if(drag_count == 0){
                 if(mode != "practice"){node.game.removeAnimation();}
                     
-                    console.log('targetid='+e.target.id);
+                    //console.log('targetid='+e.target.id);
                     draggedID = e.target.id
                     editedDropIDs = editDrops();
-                    console.log("editedDropIDs=",editedDropIDs)
+                    //console.log("editedDropIDs=",editedDropIDs)
                 if(filteredDragTableIDs.includes(e.target.id)){                
                     e.dataTransfer.setData('text/plain', e.target.id);
                     e.target.style.opacity = .7;
@@ -953,7 +1002,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             
         function editDrops(){
-            console.log("inside edit drops")
+            //console.log("inside edit drops")
 
             var dragID= 0
             var aboveID = 0
@@ -961,11 +1010,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             var newdropIDs =0 
             var finalDropIDs = 0
 
-            console.log("draggedID=",draggedID)
+            //console.log("draggedID=",draggedID)
 
 
             dragID  = getID(draggedID)
-            console.log("dragID = ",dragID)
+            //console.log("dragID = ",dragID)
             aboveID = dragID-18
 
             dropIDnums = totalDropIDs.map(getID);
@@ -978,7 +1027,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 return a;
             }, []);
 
-            console.log("newdropIDs=",newdropIDs)
+            //console.log("newdropIDs=",newdropIDs)
 
             // need to conver to names
 
@@ -1078,8 +1127,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 const draggable = W.getElementById(id);
                 dragid = id;
                 dropid = JSON.parse(JSON.stringify(e.target.id));
-                console.log("dragid="+dragid);
-                console.log("dropid="+dropid);
+                //console.log("dragid="+dragid);
+                //console.log("dropid="+dropid);
                 // add it to the drop target
                 e.target.appendChild(draggable);
             
@@ -1089,12 +1138,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 //done_button.disabled = false;
                 //node.game.doneButton.enable(); // only enable when we have a valid drop location
                 drag_count = 1
-                console.log("drag_count"+drag_count);
+                //console.log("drag_count"+drag_count);
                 // call the function that records these move IDs
                 setTotalValue();
                 
                 if(role == "architect"){
-                    console.log("inside drop for architect")
+                    //console.log("inside drop for architect")
                     node.done();}
                 else{
                     node.game.memory.add({
@@ -1103,7 +1152,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                         choiceoption: "movedirect"
                     }); 
                     node.game.memory.tag("CHOICE");//tag this memory for easy access later
-                    console.log("inside drop for helper")
+                    //console.log("inside drop for helper")
                     node.done();
                 }
                 }
@@ -1119,7 +1168,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             // if it gets into this function, it will change the drag and dropids and value of total
         
             total = "move a block from " + dragid + " to " + dropid;
-            console.log("inside total = "+total)
+            //console.log("inside total = "+total)
             
             
             node.game.memory.add({
@@ -1138,12 +1187,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     
     node.game.practiceDragDrop = function(W, pracConfig){
+        
+        // this will change based on the configuration!
+        // so we need to randomly select two colored blocks that can be considered one/two
 
-        W.getElementById("circlerow4cell01").innerHTML = "ONE"
-        W.getElementById("circlerow4cell01").style.color = "goldenrod"
-
-        W.getElementById("circlerow5cell17").innerHTML = "TWO"
-        W.getElementById("circlerow5cell17").style.color = "goldenrod"
+        
 
         node.game.genericDragDrop(W, pracConfig,"practice", "any");
 
@@ -1227,14 +1275,14 @@ node.game.displayGoalTable = function(){
 
         var goal = this.goalList[this.roundCounter]
         // depending on what the goal is, the checking function does different things
-        console.log("inside provideFeedback")
+        //console.log("inside provideFeedback")
         var goal_components = goal.split(" ")
         var action = goal_components[0]
         var color = goal_components[1]
         //var location = goal_components[2]
 
-        console.log("action=", action)
-        console.log("color=", color)
+        //console.log("action=", action)
+        //console.log("color=", color)
         
         // get the relevant indices of the room out of currentConfiguration and currentShape
 
@@ -1298,7 +1346,7 @@ node.game.displayGoalTable = function(){
         }
         else{//if they are wrong and it isn't the third trial players get another chance            
             node.say('ACHIEVED','SERVER', 0);
-            console.log("no success message")
+            //console.log("no success message")
             node.set({goalSuccess: 0});
             return 0;
         }
@@ -1308,7 +1356,7 @@ node.game.displayGoalTable = function(){
 
     node.game.countObstructions = function(obstructed, countsamecolor = false, goal_color = []){
         // given a set of obstructed blocks, count the number of obstructions for each
-        console.log("inside counting obstructions")
+        //console.log("inside counting obstructions")
         var dict = new Object();
         for (var i = 0; i < obstructed.length; i++){
             var o = obstructed[i]
@@ -1337,53 +1385,53 @@ node.game.displayGoalTable = function(){
     node.game.optimalMoves = function(action, color, goal_location){
 
         // depending on what the goal is, the checking function does different things
-        console.log("inside optimalMoves")
-        console.log("action=", action)
-        console.log("color=", color)
-        console.log("goal_location=", goal_location)
+        //console.log("inside optimalMoves")
+        //console.log("action=", action)
+        //console.log("color=", color)
+        //console.log("goal_location=", goal_location)
         
         var moveable = node.game.findMoveable()
-        console.log("moveable=",moveable)
+        //console.log("moveable=",moveable)
         const color_relevant = this.goalindices.filter(x => this.currentConfiguration[x] === color)
         
         if(action == "move"){
             // check which color indices are not in location
             var allindices = Array.from({length: 108}, (item, index) => index);
             const color_relevant = allindices.filter(x => this.currentConfiguration[x] === color)
-            console.log("color_relevant=",color_relevant)
+            //console.log("color_relevant=",color_relevant)
             var not_in_location = color_relevant.filter(x => !this.goalindices.includes(x))
-            console.log("not_in_location=",not_in_location)
+            //console.log("not_in_location=",not_in_location)
             var obstructed = not_in_location.filter(x => !moveable.includes(x))
-            console.log("obstructed=",obstructed)
+            //console.log("obstructed=",obstructed)
             var open = not_in_location.filter(x => !obstructed.includes(x))
-            console.log("open=",open)
+            //console.log("open=",open)
             var num_blockers = node.game.countObstructions(obstructed);
             var optimal = open.length + obstructed.length + num_blockers
 
         }
         else if(action == "remove"){
-            console.log("color_relevant=",color_relevant)
+            //console.log("color_relevant=",color_relevant)
             var obstructed = color_relevant.filter(x => !moveable.includes(x))
-            console.log("obstructed=",obstructed)
+            //console.log("obstructed=",obstructed)
             var open = color_relevant.filter(x => !obstructed.includes(x))
-            console.log("open=",open)
+            //console.log("open=",open)
             var num_blockers = node.game.countObstructions(obstructed, true, color);
             var optimal = open.length + obstructed.length + num_blockers
         }
         else if(action == "cover"){
-            console.log("color_relevant=",color_relevant)
+            //console.log("color_relevant=",color_relevant)
             var obstructed = color_relevant.filter(x => !moveable.includes(x))
-            console.log("obstructed=",obstructed)
+            //console.log("obstructed=",obstructed)
             var open = color_relevant.filter(x => !obstructed.includes(x))
-            console.log("open=",open)
+            //console.log("open=",open)
             var optimal = open.length
         }
         else if(action == "uncover"){
-            console.log("color_relevant=",color_relevant)
+            //console.log("color_relevant=",color_relevant)
             var obstructed = color_relevant.filter(x => !moveable.includes(x))
-            console.log("obstructed=",obstructed)
+            //console.log("obstructed=",obstructed)
             var open = color_relevant.filter(x => !obstructed.includes(x))
-            console.log("open=",open)
+            //console.log("open=",open)
             var num_blockers = node.game.countObstructions(obstructed);
             var optimal = num_blockers
         }
@@ -1400,7 +1448,7 @@ node.game.displayGoalTable = function(){
     }
 
     node.game.resetConfig = function(){
-        console.log("inside reset config")
+        //console.log("inside reset config")
         this.currentConfiguration = JSON.parse(JSON.stringify(this.initialConfiguration));
         this.currentShape =  JSON.parse(JSON.stringify(this.initialShape));
         this.helperActions = []
@@ -1414,14 +1462,14 @@ node.game.displayGoalTable = function(){
     node.game.checkEnd = function(){
         if(this.roundCounter == this.goalnumber){//if the next value is equal to number of goals then we are out of goals and the experiment is over
             //node.say('END_GAME', 'SERVER', true);
-            console.log("inside checkend end game message")
+            //console.log("inside checkend end game message")
             return 1
         }
         else{return 0}
     }
 
     node.game.helpergoalAchieved = function(){
-        console.log("inside helper goal achieved")
+        //console.log("inside helper goal achieved")
         node.say('ACHIEVED','SERVER', 1);            
         node.set({goalSuccess: 1});
         this.roundCounter += 1;
@@ -1434,7 +1482,7 @@ node.game.displayGoalTable = function(){
    
 
     node.game.architectgoalAchieved = function(){
-        console.log("inside architect goal achieved")
+        //console.log("inside architect goal achieved")
         node.say('ACHIEVED','SERVER', 1);            
         node.set({goalSuccess: 1});
         this.roundCounter += 1;
@@ -1446,10 +1494,10 @@ node.game.displayGoalTable = function(){
 
     node.game.computeGoal = function(){
         // need to compute goal relevant indices
-        console.log("inside compute Goal")
+        //console.log("inside compute Goal")
         let checkend = node.game.checkEnd();
         if(checkend == 0){
-            console.log("goals still remaining...")
+            //console.log("goals still remaining...")
             var goal = this.goalList[this.roundCounter].split(" ")
             
 
@@ -1470,11 +1518,11 @@ node.game.displayGoalTable = function(){
             else if(goal_location == "C"){this.goalindices = [15,16,17,33,34,35,51,52,53,69,70,71,87,88,89,105,106,107,12,13,14,30,31,32,48,49,50,66,67,68,84,85,86,102,103,104]}
             else{this.goalindices = Array.from({length: 108}, (item, index) => index);}
            
-            console.log("this.goalindices="+this.goalindices)
+            //console.log("this.goalindices="+this.goalindices)
             // compute optimal moves for a given goal but only once
             if(this.optCounter == 0){
             this.optimalMoveCount = node.game.optimalMoves(action, color, goal_location)
-            console.log("optimal moves =", this.optimalMoveCount)
+            //console.log("optimal moves =", this.optimalMoveCount)
             // set initial optimal to ultimate optimal
             this.currentOptimalCount = JSON.parse(JSON.stringify(this.optimalMoveCount));
             this.optCounter+=1
@@ -1486,13 +1534,13 @@ node.game.displayGoalTable = function(){
             else if(action == "cover" || action == "uncover"){this.verbalGoal = action + " all " + color +  " blocks"}
             else{this.verbalGoal = action + " all " + color +  " blocks"  + " in " + goal_location}
             
-            console.log("this.verbalGoal=",this.verbalGoal)
+            //console.log("this.verbalGoal=",this.verbalGoal)
             W.setInnerHTML('goal', "Goal: " + this.verbalGoal);
             return 0;
 
         }
         else{
-            console.log("all goals complete!")
+            //console.log("all goals complete!")
             return 1;
             //node.say('END_GAME', 'SERVER', true);
             //node.done();
@@ -1503,15 +1551,15 @@ node.game.displayGoalTable = function(){
     
 
     node.game.nextGoalActions = function(moveChoice = []){
-        console.log("inside the click function")
+        //console.log("inside the click function")
         // reset config for next round
         node.game.resetConfig();
         
         if(moveChoice.length>0){
 
-            console.log("this.roundcounter=", this.roundCounter)
+            //console.log("this.roundcounter=", this.roundCounter)
             var newround = this.roundCounter + 1
-            console.log("newround=", newround)
+            //console.log("newround=", newround)
             W.setInnerHTML('round', "Round:" + newround + "/10")
 
 
@@ -1532,24 +1580,24 @@ node.game.displayGoalTable = function(){
         W = node.game.drawTable(W, this.currentShape , this.currentConfiguration);
         node.game.computeGoal();
         W.gid('goal').style.backgroundColor = "lime"
-        console.log("after computing new goal")
+        //console.log("after computing new goal")
         W.gid("nextgoal").style.visibility = "hidden"
         node.game.enableDragDrop(W, "architect");
-        console.log("after enabling drag drop")
+        //console.log("after enabling drag drop")
         var dots = W.gid("dotContainer")
         dots.style.visibility = "hidden"
 
         var dot1 = W.gid("dot1")
         dot1.style.visibility = "hidden"
         //node.game.removeAnimation();
-        W.setInnerHTML('cluepast0txt', "It is your turn! Please move a block, and note that the goal has changed."); 
+        W.setInnerHTML('cluepast0txt', "It is your turn! Please move a block."); 
         
         W.setInnerHTML('cluepasttxt', ""); 
     
 }
 
 node.game.removeAnimation = function(){
-    console.log("inside remove animation")
+    //console.log("inside remove animation")
 
     // need to get all possible IDs
     var newIDs =[], cids  = W.getElementsByClassName('sphere')
@@ -1563,7 +1611,7 @@ node.game.removeAnimation = function(){
 }
 
     node.game.showAnimation = function(moveChoice, oldShape, oldColor){
-        console.log("inside animation");
+        //console.log("inside animation");
         node.game.drawTable(W, oldShape, oldColor);
 
         var otherShape0 = moveChoice[0]
@@ -1595,15 +1643,15 @@ node.game.removeAnimation = function(){
         var top_from  = (moveFromID % 18) +1
         var top_to = (moveToID %18) + 1
 
-        console.log("top_from=", top_from)
-        console.log("top_to=", top_to)
+        //console.log("top_from=", top_from)
+        //console.log("top_to=", top_to)
 
         // need to also find intervening cells for the path
 
         var numcells_from = Math.floor(moveFromID/18) ;
         var numcells_to = Math.floor(moveToID/18) ;
-        console.log("numcells_from", numcells_from)
-        console.log("numcells_to", numcells_to)
+        //console.log("numcells_from", numcells_from)
+        //console.log("numcells_to", numcells_to)
 
         // now we need ids for each of these, they will always be the same "cell" and increasing rows
 
@@ -1615,7 +1663,7 @@ node.game.removeAnimation = function(){
             
         }
 
-        console.log("cellfromIDs=",cellfromIDs)
+        //console.log("cellfromIDs=",cellfromIDs)
 
         var celltoIDs = []
         
@@ -1625,7 +1673,7 @@ node.game.removeAnimation = function(){
             
         }
 
-        console.log("celltoIDs=",celltoIDs)
+        //console.log("celltoIDs=",celltoIDs)
 
         // also need horizontal path from top_to to top_from
 
@@ -1634,7 +1682,7 @@ node.game.removeAnimation = function(){
         if(horizontal_cells > 0) {horizontal_cells = horizontal_cells  - 1}
         else{horizontal_cells = horizontal_cells + 1}
 
-        console.log("horizontal_cells=", horizontal_cells)
+        //console.log("horizontal_cells=", horizontal_cells)
 
         var horizontalIDs = []
 
@@ -1652,7 +1700,7 @@ node.game.removeAnimation = function(){
             }            
         }
 
-        console.log("horizontalIDs=",horizontalIDs)
+        //console.log("horizontalIDs=",horizontalIDs)
 
         // now we need to draw the path
 
@@ -1680,23 +1728,23 @@ node.game.removeAnimation = function(){
         }, 1300); 
 
         setTimeout(() => {
-            for (var i = 0; i < horizontalIDs.length; i++) { 
-                if(horizontal_cells >= 0){
-                    /*
-                    W.getElementById(cellfromIDs[i]).innerHTML = "<"
-                    W.getElementById(cellfromIDs[i]).style.color = "goldenrod"
-                    W.getElementById(cellfromIDs[i]).style.fontWeight = 'bold';
-                    */
+            // for the horizontal IDs, if there is a colored block maybe skip it?
 
-                    W.getElementById(horizontalIDs[i]).style.backgroundImage = "url('leftarrow.png')"
+            for (var i = 0; i < horizontalIDs.length; i++) { 
+                //console.log("horizontalID[i]=", horizontalIDs[i])
+                if(W.getElementById(horizontalIDs[i]).style.backgroundColor == "white"){
+                    if(horizontal_cells >= 0){W.getElementById(horizontalIDs[i]).style.backgroundImage = "url('leftarrow.png')"}
+                    else{W.getElementById(horizontalIDs[i]).style.backgroundImage = "url('rightarrow.png')"}
                 }
-                else{W.getElementById(horizontalIDs[i]).style.backgroundImage = "url('rightarrow.png')"}
             }
         }, 1600); 
 
         setTimeout(() => {  
+            // here we don't want to show this if it ends right there
+            if(celltoIDs[0] != celltoIDs[celltoIDs.length-1]){
             if((top_from - top_to) >0){W.getElementById(celltoIDs[0]).style.backgroundImage = "url('topdownleftarrow.png')"}
             else{W.getElementById(celltoIDs[0]).style.backgroundImage = "url('topdownrightarrow.png')"}
+            }
         }, 1600); 
 
         setTimeout(() => {
@@ -1758,6 +1806,8 @@ node.game.removeAnimation = function(){
         
         // set initial configuration
 
+        /*
+
         this.initialConfiguration = [this.colors[3],this.colors[3],this.colors[3],this.colors[3],this.colors[3],this.colors[3], 
                                   this.colors[3],this.colors[3],this.colors[3],this.colors[3],this.colors[3],this.colors[3],
                                   this.colors[3],this.colors[3],this.colors[3],this.colors[3],this.colors[3],this.colors[3],
@@ -1791,9 +1841,13 @@ node.game.removeAnimation = function(){
         // set currentConfig - this changes as players make moves                            
 
         this.currentConfiguration = JSON.parse(JSON.stringify(this.initialConfiguration));
+        */
 
         // shape is square by default, and circular otherwise 
         // logic is that if shape is "circle" then circle is updated and square is set to white or vice versa                        
+
+        this.currentConfiguration = Array(108).fill("white")
+        this.initialConfiguration = Array(108).fill("white")
         
         this.currentShape = Array(this.currentConfiguration.length).fill(this.shape[0]) // all squares for now
         this.initialShape = JSON.parse(JSON.stringify(this.currentShape));
@@ -1810,7 +1864,7 @@ node.game.removeAnimation = function(){
         this.randomCode;
         
         this.goalindices = []
-        this.goalnumber = 10; // total number of goals for each game, set to 2 for now
+        this.goalnumber = 1; // total number of goals for each game, set to 2 for now
 
         this.architectScore = 0
         this.optimalMoveCount = 0
@@ -1842,7 +1896,7 @@ node.game.removeAnimation = function(){
     stager.extendStep('idGet', {
         frame: 'idGet.htm',
         cb: function(){
-            console.log("inside idGET")
+            //console.log("inside idGET")
             this.randomCode = Math.floor(Math.random() * 90000) + 10000;
 
             
@@ -1867,16 +1921,7 @@ node.game.removeAnimation = function(){
 
     */
 
-    /*
-
-    stager.extendStep('instructions', {
-        frame: 'game_instructions.htm',
-        cb: function(){
-            var a = W.gid('done');
-           a.onclick = function() { node.done() };
-        }
-    });
-    */
+    
 
     stager.extendStep('rolesAssigned', {
         role: function() { return this.role; },
@@ -1885,8 +1930,18 @@ node.game.removeAnimation = function(){
             helper:{
                 frame: 'instructionsHelper.htm', 
                 cb: function(){
+
+                    this.randomCode = Math.floor(Math.random() * 90000) + 10000;
+
+                    node.on.data('CONFIG', function(msg) {
+                        //console.log("msg = ", msg)
+                        // Write inside the element with ID 'win' the amount of money won.
+                        this.initialConfiguration = msg.data
+                        this.currentConfiguration = JSON.parse(JSON.stringify(this.initialConfiguration));
+                    });
+
                     node.on.data('GOAL_LIST', function(msg) {
-                        console.log("msg = ", msg)
+                        //console.log("msg = ", msg)
                         // Write inside the element with ID 'win' the amount of money won.
                         this.goalList = msg.data
                     });
@@ -1898,13 +1953,24 @@ node.game.removeAnimation = function(){
             architect:{
                 frame: 'instructionsArchitect.htm',
                 cb: function(){
+                    this.randomCode = Math.floor(Math.random() * 90000) + 10000;
+                    node.say('create_config', 'SERVER', 1)
                     node.say('compute_goal', 'SERVER', 1)
 
+                    node.on.data('CONFIG', function(msg) {
+                        //console.log("msg = ", msg)
+                        // Write inside the element with ID 'win' the amount of money won.
+                        this.initialConfiguration = msg.data
+                        this.currentConfiguration = JSON.parse(JSON.stringify(this.initialConfiguration));
+                    });
+
                     node.on.data('GOAL_LIST', function(msg) {
-                        console.log("msg = ", msg)
+                        //console.log("msg = ", msg)
                         // Write inside the element with ID 'win' the amount of money won.
                         this.goalList = msg.data
                     });
+
+                    
 
                     var a = W.gid('done');
                     a.onclick = function() { node.done() };
@@ -1950,7 +2016,8 @@ node.game.removeAnimation = function(){
                     W.setInnerHTML('role', "Your role: Helper")
                     var a = W.gid('done');
 
-                    W.setInnerHTML('goalinfotext', 'Click the button below to start the game!')
+                    W.setInnerHTML('rulelist', 'Nice job! Here are the rules of the collaborative game for both you and the Architect: <br><br> 1. The Architect will be given a set of goals, which will be unknown to you.<br>2. Remember, this is a <i>collaborative</i> game. Do whatever it takes to help each other.<br>3. You can only move one block on a turn. <br>4. Blocks can be placed on top of other blocks or on the floor.<br>5. You will play 10 rounds of the game and each round will have a different secret goal.<br><br>')
+                    W.setInnerHTML('goalinfotext', 'Click the button below to start the game! <br><br>')
                     a.onclick = function() { node.done() };
                 }
             },
@@ -1959,7 +2026,9 @@ node.game.removeAnimation = function(){
                 cb: function(){
                     W.setInnerHTML('role', "Your role: Architect")
 
-                    W.setInnerHTML('goalinfotext', 'Goals can be of many forms. You may be asked to <strong>move</strong> a specific type of block (e.g., red) to a specific room (e.g., A). You may be asked to <strong>clear</strong> or <strong>fill</strong> up a particular room (e.g., A1 or B2). You may also be asked to <strong>cover</strong> or <strong>uncover</strong> a particular type of block (e.g., red). <i>Covering</i> a block means making sure there is another block on top of it. <i>Uncovering</i> a block means making sure there is <i>no</i> other block on top of it. <br> <br> Click the button below to start the game!')
+                    W.setInnerHTML('rulelist', 'Nice job! Here are the rules of the collaborative game for both you and the Helper: <br><br> 1. You as an Architect will be given a set of goals, which will be unknown to the Helper.<br>2. Remember, this is a <i>collaborative</i> game. Do whatever it takes to help each other.<br>3. You can only move one block on a turn. <br>4. Blocks can be placed on top of other blocks or on the floor.<br>5. You will play 10 rounds of the game and each round will have a different secret goal.<br><br>')
+
+                    W.setInnerHTML('goalinfotext', 'Goals can be of many forms. You may be asked to <strong>move</strong> a specific type of block (e.g., red) to a specific room (e.g., A). You may be asked to <strong>clear</strong> or <strong>fill</strong> up a particular room (e.g., A1 or B2). You may also be asked to <strong>cover</strong> or <strong>uncover</strong> a particular type of block (e.g., red). <i>Covering</i> a block means making sure there is another block on top of it. <i>Uncovering</i> a block means making sure there is <i>no</i> other block on top of it. <br> <br> Click the button below to start the game!<br><br>')
                     var a = W.gid('done');
                     a.onclick = function() { node.done() };
             }
@@ -1989,7 +2058,7 @@ node.game.removeAnimation = function(){
                     
 
                     if(this.helperActions.length > 0){ // if this is not the first trial
-                        console.log("this.helperActions=",this.helperActions)
+                        //console.log("this.helperActions=",this.helperActions)
                         
                         var choiceTXT = node.game.memory.resolveTag("CHOICE").choiceoption;
                         if(["Pass"].includes(choiceTXT)){
@@ -2001,7 +2070,7 @@ node.game.removeAnimation = function(){
                         else if(["done"].includes(choiceTXT)){
                             node.game.resetConfig();
                             node.game.drawTable(W, this.currentShape, this.currentConfiguration);
-                            W.setInnerHTML('cluepasttxt', "This is the next round.")
+                            W.setInnerHTML('cluepasttxt', "This is the next round. A new goal has been assigned to the Architect.")
                             var updateRound = this.roundCounter + 2
                             W.setInnerHTML('round', "Round:" + updateRound + "/10")
                             node.game.helpergoalAchieved();
@@ -2036,10 +2105,10 @@ node.game.removeAnimation = function(){
                         if(this.currentOptimalCount < oldOptimalCount){
                             
                             this.helpfulHelperMove+= 1
-                            console.log("a helpful move was made by helper=", this.helpfulHelperMove)
+                            //console.log("a helpful move was made by helper=", this.helpfulHelperMove)
                         }
                         else{
-                            console.log("not a helpful move by helper=", this.helpfulHelperMove)
+                            //console.log("not a helpful move by helper=", this.helpfulHelperMove)
                         }
 
                         // evaluate
@@ -2064,14 +2133,23 @@ node.game.removeAnimation = function(){
                                 this.goalAccumulator[goalnum] = this.verbalGoal
 
 
-                                console.log("hworkload=",hworkload)
-                                console.log("aworkload=",aworkload)
+                                //console.log("hworkload=",hworkload)
+                                //console.log("aworkload=",aworkload)
                                 
                                 
                                 W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                                W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Please wait for the Architect to start the next round and make a move"); 
+                                
                                 node.game.showDotsAnimation();
                                 node.game.helpergoalAchieved();
+                                let checkend = node.game.checkEnd();
+
+                                if(checkend == 0){ 
+                                    W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Please wait for the Architect to start the next round and make a move"); 
+                                }
+                                else{
+                                    W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Goals are complete, please wait for the Architect to move to the next step"); 
+
+                                }
                             }
                         }
                         else{ // no goals remaining - just wait for architect
@@ -2087,12 +2165,12 @@ node.game.removeAnimation = function(){
                             this.architectAccumulator[goalnum] = aworkload
                             this.goalAccumulator[goalnum] = this.verbalGoal
 
-                            console.log("hworkload=",hworkload)
-                            console.log("aworkload=",aworkload)
+                            //console.log("hworkload=",hworkload)
+                            //console.log("aworkload=",aworkload)
 
 
                             W.setInnerHTML('cluepasttxt', "The goal was to " + this.verbalGoal + ". Goal has been achieved!!"); 
-                            W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Please wait for the Architect to start the next round and make a move"); 
+                            W.setInnerHTML('clue2', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Goals are complete, please wait for the Architect to move to the next step"); 
                             node.game.helpergoalAchieved();
 
 
@@ -2109,6 +2187,7 @@ node.game.removeAnimation = function(){
                     node.game.showDotsAnimation();
 
                     node.game.drawTable(W, this.currentShape, this.currentConfiguration);
+                    W.setInnerHTML('cluepasttxt', 'The Architect has been assigned their first secret goal!')
                     W.setInnerHTML('clue2', "Waiting for the Architect to make a move")
                 }
 
@@ -2117,8 +2196,12 @@ node.game.removeAnimation = function(){
                 var that;//force proceed when clue is sent from other player
                 that = this;    
                 node.on.data('ANSWER', function(msg) {
+                    
                     that.guessesReceived = msg.data;
+                    //console.log("received a message from architect", that.guessesReceived)
                     this.architectActions.push(that.guessesReceived);
+                    //console.log("pushed to architectActions")
+                    
                     node.done();
                 });
 
@@ -2130,12 +2213,19 @@ node.game.removeAnimation = function(){
                     that.guessesReceived = msg.data;
                 });
 
+                //console.log("inside Helper done")
+
+
+                node.set({config: this.initialConfiguration});
                 node.set({helperChoice: 999});
-                node.set({helperMove: 999});   
+                node.set({helperMove: 999});  
+                //console.log("jsut before goalnumber set") 
                 node.set({goalnumber: this.roundCounter+1});
+                //console.log("jsut before goal set") 
                 node.set({goal: this.goalList[this.roundCounter]})             
+                //console.log("jsut before return")
                // node.set({helperID: this.id});
-                //node.set({helperRandCode: this.randomCode});
+                node.set({helperRandCode: this.randomCode});
                 return;
             }
 
@@ -2148,7 +2238,7 @@ node.game.removeAnimation = function(){
         frame: 'architectMoveBoard.htm',
         
         cb: function() {
-            console.log("inside architectMove, architect side")
+            //console.log("inside architectMove, architect side")
             /*
             W.setInnerHTML('helperlastaction', "-"); 
             W.setInnerHTML('helpercurrentaction', "Waiting for Architect.."); 
@@ -2160,7 +2250,7 @@ node.game.removeAnimation = function(){
             W.getElementById('nextgoal').style.visibility = 'hidden';
             
     
-            console.log("this.goalList inside architect = ",this.goalList )
+            //console.log("this.goalList inside architect = ",this.goalList )
 
             node.game.computeGoal();
 
@@ -2168,7 +2258,7 @@ node.game.removeAnimation = function(){
                 // if this is not the first trial
                 // here we want to tell the architect what the Helper did and also change the block positions
                 var moveChoice1 = this.helperActions.at(-1)
-                console.log("moveChoice1="+ moveChoice1)
+                //console.log("moveChoice1="+ moveChoice1)
                 // moveChoice will either be of the form "A2 to B2" or "Pass"
                     
                         if (moveChoice1.includes("move a block from ")){            
@@ -2199,10 +2289,10 @@ node.game.removeAnimation = function(){
                             this.currentOptimalCount = node.game.optimalMoves(goal[0], goal[1], goal[2]);
                             if(this.currentOptimalCount < oldOptimalCount){
                                 this.helpfulHelperMove+= 1
-                                console.log("a helpful move was made by helper=", this.helpfulHelperMove)
+                                //console.log("a helpful move was made by helper=", this.helpfulHelperMove)
                             }
                             else{
-                                console.log("not a helpful move by helper=", this.helpfulHelperMove)
+                                //console.log("not a helpful move by helper=", this.helpfulHelperMove)
                             }
 
                             // evaluate
@@ -2217,14 +2307,14 @@ node.game.removeAnimation = function(){
                                     W.gid('cluepasttxt').style.color = "red"  
                                     node.game.enableDragDrop(W, "architect");
                                     this.architectScore+=1
-                                    console.log("this.architectScore=", this.architectScore)
+                                    //console.log("this.architectScore=", this.architectScore)
                                     
 
                                 }, 4000);                                
                             }
                             else{
                                 // if goal has been achieved, they click a button to advance to the next goal   
-                                console.log("in the lonely goal achieved section")
+                                //console.log("in the lonely goal achieved section")
 
                                 var goalnum = this.roundCounter
                                 
@@ -2235,8 +2325,8 @@ node.game.removeAnimation = function(){
                                 this.architectAccumulator[goalnum] = aworkload
                                 this.goalAccumulator[goalnum] = this.verbalGoal
 
-                                console.log("hworkload=",hworkload)
-                                console.log("aworkload=",aworkload)
+                                //console.log("hworkload=",hworkload)
+                                //console.log("aworkload=",aworkload)
 
                                 
                                 
@@ -2270,7 +2360,7 @@ node.game.removeAnimation = function(){
                                     }
                                     else{ // goals still remaining
                                         this.totalHelp  = this.optimalMoveCount - this.architectScore 
-                                        console.log("I am in weird place")
+                                        //console.log("I am in weird place")
 
                                         W.setInnerHTML('cluepast0txt', "You split the work " + hworkload +  "% (Helper)-" + aworkload + "%(Architect)! Please click Next Goal to continue."); 
                                         
@@ -2280,7 +2370,7 @@ node.game.removeAnimation = function(){
                                         g.addEventListener('click', 
                                         function() {
                                             node.game.nextGoalActions(moveChoice)
-                                            console.log("inside the goals still remaining section")
+                                            //console.log("inside the goals still remaining section")
                                             
                                             
                                         }
@@ -2320,7 +2410,7 @@ node.game.removeAnimation = function(){
                             }, 1000); 
                             node.game.enableDragDrop(W, "architect");
                             this.architectScore+= 1
-                            console.log("this.architectScore=", this.architectScore)
+                            //console.log("this.architectScore=", this.architectScore)
                         }
                     else{ // if moveChoice1.includes("done")
                         // what to do if it is a new goal
@@ -2330,7 +2420,7 @@ node.game.removeAnimation = function(){
                         if(checkend){node.done();}
                         else{
                         node.game.nextGoalActions();
-                        W.setInnerHTML('cluepasttxt', "This is the next round.");
+                        W.setInnerHTML('cluepasttxt', "This is the next round. You have been assigned a new goal.");
                         W.setInnerHTML('round', "Round:" + (this.roundCounter + 1) + "/10")
                      }
                     }
@@ -2345,7 +2435,7 @@ node.game.removeAnimation = function(){
         node.game.drawTable(W, this.currentShape, this.currentConfiguration);
         node.game.enableDragDrop(W, "architect");
         this.architectScore+=1 
-        console.log("this.architectScore=", this.architectScore)
+        //console.log("this.architectScore=", this.architectScore)
         }
 
     }, // end cb architect
@@ -2354,6 +2444,7 @@ node.game.removeAnimation = function(){
             var moveChoice1 = this.helperActions.at(-1) // this.clueReceived
             node.set({goalnumber: this.roundCounter+1});
             node.set({goal: this.goalList[this.roundCounter]})
+            node.set({config: this.initialConfiguration});
             // moveChoice will either be a question string or of the form "A2 to B2" or "Pass"
             if (moveChoice1.includes("move a block from ")) {
                 // if there was a move from the helper
@@ -2411,7 +2502,7 @@ stager.extendStep('helperOptionsprac', {
                 },
                 frame: 'helperChoice.htm',
                 cb: function() {
-                    console.log("inside helperChoice!!!!")
+                    //console.log("inside helperChoice!!!!")
 
                     // maybe have a hover message? 
 
@@ -2429,7 +2520,7 @@ stager.extendStep('helperOptionsprac', {
                 
         
                     var moveChoice1 = this.architectActions.at(-1)
-                    console.log("architect's moveChoice1=",moveChoice1)
+                    //console.log("architect's moveChoice1=",moveChoice1)
                     var checkend = node.game.computeGoal();
 
                     // helperChoice is always after an architect move
@@ -2462,10 +2553,10 @@ stager.extendStep('helperOptionsprac', {
                         this.currentOptimalCount = node.game.optimalMoves(goal[0], goal[1], goal[2]);
                         if(this.currentOptimalCount < oldOptimalCount){
                             this.helpfulArchitectMove+= 1
-                            console.log("a helpful move was made by architect=", this.helpfulArchitectMove)
+                            //console.log("a helpful move was made by architect=", this.helpfulArchitectMove)
                         }
                         else{
-                            console.log("not a helpful move by architect =", this.helpfulArchitectMove)
+                            //console.log("not a helpful move by architect =", this.helpfulArchitectMove)
                         }
 
                         // evaluate
@@ -2534,8 +2625,8 @@ stager.extendStep('helperOptionsprac', {
                                 this.architectAccumulator[goalnum] = aworkload
                                 this.goalAccumulator[goalnum] = this.verbalGoal
 
-                                console.log("hworkload=",hworkload)
-                                console.log("aworkload=",aworkload)
+                                //console.log("hworkload=",hworkload)
+                                //console.log("aworkload=",aworkload)
 
                                 
                                 
@@ -2581,8 +2672,8 @@ stager.extendStep('helperOptionsprac', {
                         this.architectAccumulator[goalnum] = aworkload
                         this.goalAccumulator[goalnum] = this.verbalGoal
 
-                                console.log("hworkload=",hworkload)
-                                console.log("aworkload=",aworkload)
+                                //console.log("hworkload=",hworkload)
+                                //console.log("aworkload=",aworkload)
 
                         
                         
@@ -2601,8 +2692,8 @@ stager.extendStep('helperOptionsprac', {
                     this.architectAccumulator[goalnum] = aworkload
                     this.goalAccumulator[goalnum] = this.verbalGoal
 
-                                console.log("hworkload=",hworkload)
-                                console.log("aworkload=",aworkload)
+                                //console.log("hworkload=",hworkload)
+                                //console.log("aworkload=",aworkload)
 
                     W.gid("blocks").style.visibility = "hidden"
                     W.gid("gbrd").style.visibility = "hidden"
@@ -2629,7 +2720,7 @@ stager.extendStep('helperOptionsprac', {
             }, // end helper cb function
         done: function() { 
         var moveChoice1 = this.architectActions.at(-1)  
-        console.log("moveChoice1=", moveChoice1) 
+        //console.log("moveChoice1=", moveChoice1) 
         if(moveChoice1.includes("done")){
             node.say('CHOICE', node.game.partner, "done");
             this.helperActions.push("done");
@@ -2691,6 +2782,11 @@ stager.extendStep('helperOptionsprac', {
                     W.setInnerHTML('round', "Round:" + (this.roundCounter+1) + "/10")
                     node.game.computeGoal();
 
+                    if(this.firstTurn == 0){
+                        W.setInnerHTML('cluepasttxt', "On each turn, the Helper can either choose to help by moving a block, or pass their turn."); 
+                        this.firstTurn = 1
+                    }
+
                     //let checkend = node.game.computeGoal();
                     
                     // here we need to change the positions
@@ -2722,10 +2818,10 @@ stager.extendStep('helperOptionsprac', {
                         this.currentOptimalCount = node.game.optimalMoves(goal[0], goal[1], goal[2]);
                         if(this.currentOptimalCount < oldOptimalCount){
                             this.helpfulArchitectMove+= 1
-                            console.log("a helpful move was made by architect=", this.helpfulArchitectMove)
+                            //console.log("a helpful move was made by architect=", this.helpfulArchitectMove)
                         }
                         else{
-                            console.log("not a helpful move by architect =", this.helpfulArchitectMove)
+                            //console.log("not a helpful move by architect =", this.helpfulArchitectMove)
                         }
 
                         // evaluate
@@ -2753,8 +2849,8 @@ stager.extendStep('helperOptionsprac', {
                                 this.architectAccumulator[goalnum] = aworkload
                                 this.goalAccumulator[goalnum] = this.verbalGoal
 
-                                console.log("hworkload=",hworkload)
-                                console.log("aworkload=",aworkload)
+                                //console.log("hworkload=",hworkload)
+                                //console.log("aworkload=",aworkload)
 
                                 
                                 
@@ -2790,9 +2886,8 @@ stager.extendStep('helperOptionsprac', {
                     node.on.data('CHOICE', function(msg) {
                         that.clueReceived = msg.data;
                         this.helperActions.push(that.clueReceived);
-                        var feedbackvalue = node.game.provideFeedback();
-                        if(feedbackvalue == 0){ node.done();}
-                        else{setTimeout(() => {node.done();}, 1000);}
+                        //var feedbackvalue = node.game.provideFeedback();
+                        node.done();
                     });
                     
                 },
@@ -2801,7 +2896,7 @@ stager.extendStep('helperOptionsprac', {
                     node.set({goalnumber: this.roundCounter+1});
                     node.set({goal: this.goalList[this.roundCounter]})
                     //node.set({architectID: this.id});
-                    //node.set({architectRandCode: this.randomCode});
+                    node.set({architectRandCode: this.randomCode});
                     node.set({architectMove: 999});
                     return;
                 }
@@ -2979,18 +3074,26 @@ stager.extendStep('endprac', {
 
             var doneButton = W.getElementById('done');
 
-            doneButton.addEventListener("DOMContentLoaded", function(event) {
-                doneButton.disabled = "true";
-            });
-            function myFunction() {
-                var nameInput = document.getElementById('age').value;
-                console.log(nameInput);
-                if (nameInput === "") {
-                    document.getElementById('done').disabled = true;
-                } else {
-                        document.getElementById('done').disabled = false;
-                }
+            const age = W.getElementById('age')
+            const gender = W.getElementById('gender')
+            const education = W.getElementById('education')
+
+            // run this function whenever the values of any of the above 4 inputs change.
+            // this is to check if the input for all 4 is valid.  if so, enable submitBtn.
+            // otherwise, disable it.
+            const checkEnableButton = () => {
+                doneButton.disabled = !(
+                gender.value && 
+                age.value && 
+                education.value
+            )
             }
+
+            age.addEventListener('change', checkEnableButton)
+            gender.addEventListener('change', checkEnableButton)
+            education.addEventListener('change', checkEnableButton)
+
+            doneButton.onclick = function(){node.done()};
 
             
             
@@ -3001,28 +3104,29 @@ stager.extendStep('endprac', {
             var age = W.getElementById("form").elements[0].value;
             var gender = W.getElementById("form").elements[1].value;
             var education = W.getElementById("form").elements[2].value;
-            var native = W.getElementById("form").elements[3].value;
-            var asian = W.getElementById("form").elements[4].value;
-            var black = W.getElementById("form").elements[5].value;
-            var white = W.getElementById("form").elements[6].value;
-            var hawaii = W.getElementById("form").elements[7].value;
-            var more = W.getElementById("form").elements[8].value;
-            var no = W.getElementById("form").elements[9].value;
-            var hispanic = W.getElementById("form").elements[10].value;
+            var hispanic = W.getElementById("form").elements[3].value;
+
+            var native = W.getElementById("form").elements[4].checked;
+            var asian = W.getElementById("form").elements[5].checked;
+            var black = W.getElementById("form").elements[6].checked;
+            var white = W.getElementById("form").elements[7].checked;
+            var hawaii = W.getElementById("form").elements[8].checked;
+            var more = W.getElementById("form").elements[9].checked;
+            var no = W.getElementById("form").elements[10].checked;
 
             node.set({ID: this.id}),
-            node.set({RandCode: this.randomCode}),
             node.set({age : age}),
             node.set({gender : gender}),
             node.set({education : education}),
+            node.set({hispanic : hispanic}),
             node.set({native : native}),
             node.set({asian : asian}),
             node.set({black : black}),
             node.set({white : white}),
             node.set({hawaii : hawaii}),
             node.set({more : more}),
-            node.set({no : no}),
-            node.set({hispanic : hispanic});
+            node.set({no : no});
+            
             
             return;
         }
@@ -3035,7 +3139,7 @@ stager.extendStep('endprac', {
         cb: function() {
             //node.game.visualTimer.setToZero();
             var myDiv = W.getElementById("compcode");
-            myDiv.innerHTML = "Your completion code is: " + this.randomCode;
+            myDiv.innerHTML = "Your exit code is: " + this.randomCode;
         }
     });
 };

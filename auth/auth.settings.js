@@ -13,7 +13,7 @@ module.exports = {
      *
      * If TRUE, authorization files will be imported and checked
      */
-    enabled: false, // [true, false] Default: TRUE.
+    enabled: true, // [true, false] Default: TRUE.
 
     /**
      * ## mode
@@ -34,7 +34,7 @@ module.exports = {
      *               as parameters.
      *
      */
-    mode: 'local',
+    mode: 'external',
 
     /**
      * ## nCodes
@@ -44,7 +44,7 @@ module.exports = {
      * Modes: 'dummy', 'auto'
      * Default: 100
      */
-    // nCodes: 20,
+     //nCodes: 100,
 
     /**
      * ## addPwd
@@ -85,7 +85,7 @@ module.exports = {
      * Modes: 'local'
      * Default: 'codes.json', 'codes.js', 'code.csv' (tried in sequence)
      */
-    inFile: 'codes.imported.csv',
+    //inFile: 'codes.imported.csv',
 
     /**
      * ## dumpCodes
@@ -116,7 +116,7 @@ module.exports = {
      *
      * Default: FALSE
      */
-    // claimId: true,
+     claimId: true,
 
     /**
      * ## claimIdValidateRequest
@@ -127,26 +127,26 @@ module.exports = {
      *
      * Default: undefined
      */
-    // claimIdValidateRequest: function(query, headers) {
-    //    if ('string' !== typeof query.a || query.a === '') {
-    //        return 'missing or invalid AssignmentId';
-    //    }
-    //    if ('string' !== typeof query.h || query.h === '') {
-    //        return 'missing or invalid HITId';
-    //    }
-    //    return true;
-    //},
+     claimIdValidateRequest: function(query, headers) {
+        if ('string' !== typeof query.a || query.a === '') {
+            return 'missing or invalid AssignmentId';
+        }
+        if ('string' !== typeof query.h || query.h === '') {
+            return 'missing or invalid HITId';
+        }
+        return true;
+    },
 
     /**
      * ## claimIdPostProcess
      *
      * Manipulates the client object after the claim id process succeeded
      */
-    //claimIdPostProcess: function(clientObj, query, headers) {
-    //    clientObj.WorkerId = query.id;
-    //    clientObj.AssignmentId = query.a;
-    //    clientObj.HITId = query.h;
-    //},
+    claimIdPostProcess: function(clientObj, query, headers) {
+        clientObj.WorkerId = query.id;
+        clientObj.AssignmentId = query.a;
+        clientObj.HITId = query.h;
+    },
 
     /**
      * ## claimIdModifyReply
