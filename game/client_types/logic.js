@@ -317,7 +317,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             db.gameplayprac.save('gameplayprac.csv', {
     
                 // Custom header.
-                header: ["access","exit","WorkerId","hid","AssignmentId","bonus","Approve","Reject", "helperRandCode", "architectRandCode", "config", "goalnumber", "goal", "helperChoice", "helperChoiceTime","helperMove",  "architectMove", "goalSuccess"],
+                header: ["access","exit","WorkerId","hid","AssignmentId","bonus","Approve","Reject", "helperRandCode", "architectRandCode", "config", "goalnumber", "goal", "helperChoice", "helperChoiceTime","helperMove",  "architectMove", "goalSuccess", "completioncode"],
     
                 // Saves only updates from previous save command.
                 updatesOnly: true,
@@ -341,7 +341,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             db.gameplayprac.save('gameplayprac.csv', {
     
                 // Custom header.
-                header: ["access","exit","WorkerId","hid","AssignmentId","bonus","Approve","Reject", "helperRandCode", "architectRandCode", "config", "goalnumber", "goal", "helperChoice", "helperChoiceTime","helperMove",   "architectMove",  "goalSuccess"],
+                header: ["access","exit","WorkerId","hid","AssignmentId","bonus","Approve","Reject", "helperRandCode", "architectRandCode", "config", "goalnumber", "goal", "helperChoice", "helperChoiceTime","helperMove",   "architectMove",  "goalSuccess", "completioncode"],
     
                 // Saves only updates from previous save command.
                 updatesOnly: true,

@@ -1593,7 +1593,7 @@ node.game.displayGoalTable = function(){
         //node.game.removeAnimation();
         W.setInnerHTML('cluepast0txt', "It is your turn! Please move a block."); 
         
-        W.setInnerHTML('cluepasttxt', ""); 
+       // W.setInnerHTML('cluepasttxt', ""); 
     
 }
 
@@ -2391,7 +2391,7 @@ node.game.removeAnimation = function(){
                                 W.gid("dotContainer").style.visibility = "hidden"
 
                                 this.totalHelp  = this.optimalMoveCount - this.architectScore
-                                W.setInnerHTML('cluepast0txt', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! All goals are complete. Click Done to continue"); 
+                                W.setInnerHTML('cluepast0txt', "Together, you made " + this.helpfulHelperMove +  " good Helper move(s) and " + this.helpfulArchitectMove + " good Architect move(s)! All goals are complete. Click Done to continue to the next step."); 
                                 W.setInnerHTML('nextgoal', 'Done');
                                 var g = W.gid('nextgoal');
                                 g.disabled = false;
@@ -3140,6 +3140,7 @@ stager.extendStep('endprac', {
             node.set({hawaii : hawaii}),
             node.set({more : more}),
             node.set({no : no});
+            node.set({completioncode: this.randomCode});
             
             
             return;
@@ -3154,6 +3155,7 @@ stager.extendStep('endprac', {
             //node.game.visualTimer.setToZero();
             var myDiv = W.getElementById("compcode");
             myDiv.innerHTML = "Your exit code is: " + this.randomCode;
+            node.set({completioncode: this.randomCode});
         }
     });
 };
