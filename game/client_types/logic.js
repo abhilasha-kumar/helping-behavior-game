@@ -40,6 +40,7 @@ function endGameFunc(msg) {//ends the game
 }
 
 function endGameFuncPrac(msg) {//ends the game
+    //console.log("ending the game");
     this.LOOP_ENDED_PRAC = true;
 }
 
@@ -115,7 +116,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {//when the server receives the end game msg it runs the end game function
 
            node.on.data('ACHIEVED', function(msg) {
-            //console.log("inside feedback logic:"+msg.data)
+            ////console.log("inside feedback logic:"+msg.data)
                if (msg.data === 1){node.game.goal = 1}
                else {node.game.goal = 0 }
            }),
@@ -187,14 +188,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                   }
                   
     
-                //console.log("config inside logic  = ",shuffledArr)
+                ////console.log("config inside logic  = ",shuffledArr)
 
                 var otherWhite = Array(54).fill("white")
                 var finalArr = otherWhite.concat(shuffledArr);
 
                 
                 node.game.pl.each(function(player) {
-                    //console.log("player.id=",player.id)
+                    ////console.log("player.id=",player.id)
                     // Get the value saved in the registry and send it.
                     node.say('CONFIG', player.id, finalArr);
                 });
@@ -239,6 +240,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 var clearGoals = getRandomSubarray(this.clearGoals, 2);
     
                 var goalList = moveList.concat(coverList, uncoverList,fillList, clearGoals);
+                //var goalList = moveList
 
                 function shuffle(array) {
                     let currentIndex = array.length,  randomIndex;
@@ -261,10 +263,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 goalList = shuffle(goalList);
                   
                 //var goalList = ['fill nocolor A1', 'fill nocolor B1']
-                //console.log("goallist inside logic after shuffle = ",goalList)
+                ////console.log("goallist inside logic after shuffle = ",goalList)
                 
                 node.game.pl.each(function(player) {
-                    //console.log("player.id=",player.id)
+                    ////console.log("player.id=",player.id)
                     // Get the value saved in the registry and send it.
                     node.say('GOAL_LIST', player.id, goalList);
                 });
@@ -280,7 +282,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             rounds: 1,
             //cycle: 'mirror_invert'
             assignerCb: function(arrayIds) {
-                //console.log("inside assignerCb:"+node.game.goal)
+                ////console.log("inside assignerCb:"+node.game.goal)
                 if (node.game.goal === 1) {
                     var temp = arrayIds[0];
                     arrayIds[0] = arrayIds[1];
@@ -329,12 +331,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         
         
-        reconnect: true,
+        //reconnect: true,
         
         cb: function(){
-        
-
-        
             node.on.data('END_GAME', endGameFuncPrac);
         },
 

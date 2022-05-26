@@ -1541,9 +1541,10 @@ node.game.displayGoalTable = function(){
         }
         else{
             //console.log("all goals complete!")
-            return 1;
-            //node.say('END_GAME', 'SERVER', true);
+            node.say('END_GAME', 'SERVER', true);
             //node.done();
+            return 1;
+            
         }
         
     }
@@ -2351,10 +2352,14 @@ node.game.removeAnimation = function(){
                                         var g = W.gid('nextgoal');
                                         g.disabled = false;
                                         g.style.visibility = "visible"
-                                        g.onclick = function() { node.done() };                                        
+                                        g.onclick = function() { 
+                                            //console.log("architect pressed done!")
+                                            node.say('END_GAME', 'SERVER', true);
+                                            node.done(); 
+                                        };                                        
                                         W.gid("dot1").style.visibility = "hidden" 
                                         W.gid("dotContainer").style.visibility = "hidden"
-                                        node.say('END_GAME', 'SERVER', true);
+                                        
                                        
 
                                     }
@@ -2509,22 +2514,30 @@ stager.extendStep('helperOptionsprac', {
 
                     W.setInnerHTML('round', "Round:" + (this.roundCounter+1) + "/10")
                     
-                    //const info = W.getElementById("helperinfo")
-                    //info.style.border = "3px solid red"
-                    /*
-                    W.setInnerHTML('helperlastaction', "-"); 
-                    W.setInnerHTML('helpercurrentaction', "Making a decision..."); 
-                    W.setInnerHTML('architectlastaction', "-");
-                    W.setInnerHTML('architectcurrentaction', "Waiting for Helper...");
-                    */
-                
-        
                     var moveChoice1 = this.architectActions.at(-1)
                     //console.log("architect's moveChoice1=",moveChoice1)
                     var checkend = node.game.computeGoal();
 
+            if(checkend == 1){
+                        //console.log("inside checkend helperchoice")
+                        W.gid("help").style.visibility = "hidden"
+                        W.gid("pass").style.visibility = "hidden"
+        
+                        W.gid("blocks").style.visibility = "hidden"
+                        W.gid("gbrd").style.visibility = "hidden"
+                        W.gid("containerbottom2").style.visibility = "hidden"
+                        W.setInnerHTML('cluepasttxt', "You are being redirected, please wait");
+                        
+                        node.say('CHOICE', node.game.partner, "done");
+                        node.say('END_GAME', 'SERVER', true);
+                        node.done();
+                        
+                    }
+            else{
+
                     // helperChoice is always after an architect move
                     if (moveChoice1.includes("move a block from ")){
+                        //console.log("inside moveChoice1 helperchoice")
                         this.architectScore+=1
                         var moveInfo = this.architectActions.at(-1)
                         let { moved_color, moved_shape, movedfrom_room, movedto_room, moveToID, moveFromID, moveChoice } = node.game.getMovement(moveInfo);
@@ -2702,20 +2715,8 @@ stager.extendStep('helperOptionsprac', {
                 }
 
                     
-
-            if(checkend == 1){
-                W.gid("help").style.visibility = "hidden"
-                W.gid("pass").style.visibility = "hidden"
-
-                W.gid("blocks").style.visibility = "hidden"
-                W.gid("gbrd").style.visibility = "hidden"
-                W.gid("containerbottom2").style.visibility = "hidden"
-                
-                node.say('GUESS', node.game.partner, "done");
-                node.say('END_GAME', 'SERVER', true);
-                node.done();
-                
             }
+            
                    
             }, // end helper cb function
         done: function() { 
@@ -2772,22 +2773,33 @@ stager.extendStep('helperOptionsprac', {
         frame: 'architectStudyBoard.htm',
         cb: function() {//set the board for the architect
                     W.gid("nextgoal").style.visibility = "hidden"
-                    /*
-                    W.setInnerHTML('helperlastaction', "-"); 
-                    W.setInnerHTML('helpercurrentaction', "Making a decision.."); 
-                    W.setInnerHTML('architectlastaction', "-");
-                    W.setInnerHTML('architectcurrentaction', "Waiting for Helper...");
-                    */
+                   
 
                     W.setInnerHTML('round', "Round:" + (this.roundCounter+1) + "/10")
-                    node.game.computeGoal();
 
                     if(this.firstTurn == 0){
                         W.setInnerHTML('cluepasttxt', "On each turn, the Helper can either choose to help by moving a block, or pass their turn."); 
                         this.firstTurn = 1
                     }
 
-                    //let checkend = node.game.computeGoal();
+                    node.game.computeGoal();
+
+                if(node.game.checkEnd() == 1){
+                        //console.log("inside checkend architect")
+                        W.gid("blocks").style.visibility = "hidden"
+                        
+                        W.gid("containerbottom2").style.visibility = "hidden"
+                        W.setInnerHTML('cluepasttxt', "You are being redirected, please wait");
+                        
+                        node.say('CHOICE', node.game.partner, "done");
+                        node.say('END_GAME', 'SERVER', true);
+                        node.done();
+                        
+                    }
+
+                else{
+                        //console.log("inside architect else study board")
+                    
                     
                     // here we need to change the positions
                     var moveChoice1 = this.architectActions.at(-1)
@@ -2877,7 +2889,9 @@ stager.extendStep('helperOptionsprac', {
                         W.setInnerHTML('cluepasttxt', ""); 
                         W.setInnerHTML('cluepast0txt', "Waiting for the Helper");
                         node.game.showDotsAnimation();
-                    }   
+                    }
+                    
+                }
                     
                     
                     var that;//force proceed when clue is sent from other player
