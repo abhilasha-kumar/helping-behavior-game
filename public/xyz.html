@@ -152,6 +152,7 @@
         var res, X, Y, reqFail;
         var wid, aid, hid;
         var host;
+
         
         function encrypt(o) {
             var i, len;
@@ -240,7 +241,7 @@
         X = 0;
         Y = 0;
         // Host.
-        host = 'https://localhost:8080/moveablock/';// 'https://159.65.233.69/';
+        host = 'https://localhost:8080/moveablock';// 'https://159.65.233.69/';
         
         // Go.
         
@@ -277,40 +278,40 @@
         document.getElementById('content').style.display = '';
         
         // Get parameters (must be on Mturk).
-        if ('function' !== typeof turkGetParam) {
-            document.getElementById('not-authorized').innerHTML = 
-                'Unfortunately, an error occurred in your browser while ' +
-                'rendering the HIT. Try refreshing the page, and if ' +
-                'the problem persists contact the lead investigator.' + noAccept;
-            document.getElementById('requirements').style.display = 'none';
-            return;
-        }
+        // if ('function' !== typeof turkGetParam) {
+        //     document.getElementById('not-authorized').innerHTML = 
+        //         'Unfortunately, an error occurred in your browser while ' +
+        //         'rendering the HIT. Try refreshing the page, and if ' +
+        //         'the problem persists contact the lead investigator.' + noAccept;
+        //     document.getElementById('requirements').style.display = 'none';
+        //     return;
+        // }
 
         // Until now,we are in Preview.
 
         // If wid is defined, the Turker has accepted the HIT, if not return.
-        wid = turkGetParam('workerId');
-        if ('undefined' === typeof wid) return;
+        // wid = turkGetParam('workerId');
+        // if ('undefined' === typeof wid) return;
 
         // Get other values.
-        aid = turkGetParam('assignmentId');
-        hid = turkGetParam('hitId');
+        // aid = turkGetParam('assignmentId');
+        // hid = turkGetParam('hitId');
         
         //Testing values.
-              host = 'http://localhost:8080';
+              // host = 'http://localhost:8080';
               wid = 30;
               aid = 2;
               hid = 1;
         
         // Prevent empty code submissions.
-        document.getElementById('submitButton').onclick = function() {
-            var surveycode;
-            surveycode = document.getElementById('surveycode');
-            if (!surveycode.value || surveycode.value.trim() === '') {
-                alert('Warning! Empty Exit Code.');
-                return false;
-            }
-        };
+        // document.getElementById('submitButton').onclick = function() {
+        //     var surveycode;
+        //     surveycode = document.getElementById('surveycode');
+        //     if (!surveycode.value || surveycode.value.trim() === '') {
+        //         alert('Warning! Empty Exit Code.');
+        //         return false;
+        //     }
+        // };
         
         // Send data to nodeGame.
         claimId();        
