@@ -34,7 +34,7 @@ module.exports = {
      *               as parameters.
      *
      */
-    mode: 'auto',
+   mode: 'dummy',
 
     /**
      * ## nCodes
@@ -127,6 +127,7 @@ module.exports = {
      *
      * Default: undefined
      */
+    
      claimIdValidateRequest: function(query, headers) {
         if ('string' !== typeof query.a || query.a === '') {
             return 'missing or invalid AssignmentId';
@@ -142,10 +143,11 @@ module.exports = {
      *
      * Manipulates the client object after the claim id process succeeded
      */
+    
     claimIdPostProcess: function(clientObj, query, headers) {
-        clientObj.WorkerId = query.id;
-        clientObj.AssignmentId = query.a;
-        clientObj.HITId = query.h;
+        clientObj.WorkerId = 12345//query.id;
+        clientObj.AssignmentId = 78901 //query.a;
+        clientObj.HITId = 11111 // query.h;
     },
 
     /**

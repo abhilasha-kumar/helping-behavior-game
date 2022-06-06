@@ -870,6 +870,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
             var r1 =  Math.floor(Math.random() * filteredDragTableIDs.length);
             var r2 =  Math.floor(Math.random() * filteredDragTableIDs.length);
+            // if r1 and r2 are the same, choose again
+            while(r1 == r2){
+                r2 =  Math.floor(Math.random() * filteredDragTableIDs.length);
+            }
+            
             var randomDrag = filteredDragTableIDs[r1]
             var randomDrop = filteredDragTableIDs[r2]
 
@@ -879,8 +884,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             if(randomDrop.includes("circle")){randomDrop = randomDrop}
             else{randomDrop = "circle"+randomDrop}
 
-            //console.log("randomDrag=",randomDrag)
-            //console.log("randomDrop=",randomDrop)
+            console.log("randomDrag=",randomDrag)
+            console.log("randomDrop=",randomDrop)
 
 
             W.getElementById(randomDrag).innerHTML = "ONE"
@@ -1866,7 +1871,7 @@ node.game.removeAnimation = function(){
         this.randomCode;
         
         this.goalindices = []
-        this.goalnumber = 10; // total number of goals for each game, set to 2 for now
+        this.goalnumber = 1; // total number of goals for each game, set to 2 for now
 
         this.architectScore = 0
         this.optimalMoveCount = 0
@@ -1882,18 +1887,18 @@ node.game.removeAnimation = function(){
         
     });
 
-/*
 
-    stager.extendStep('consent', {
-        frame: 'consent.htm',
+
+    stager.extendStep('instructions', {
+        frame: 'xyz.html',
         cb: function(){
-            var a = W.gid('agree');
-            a.onclick = function() { node.done() };
+            //var a = W.gid('agree');
+            //a.onclick = function() { node.done() };
        }
     });
 
 
-*/
+
 /*
     stager.extendStep('idGet', {
         frame: 'idGet.htm',

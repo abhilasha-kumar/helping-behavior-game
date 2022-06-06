@@ -13,28 +13,6 @@ var ngc = require('nodegame-client');
 var J = ngc.JSUS;
 
 
-
-
-/* function for shuffling board on the server side
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-*/
 function endGameFunc(msg) {//ends the game
     this.LOOP_ENDED = true;
 }
@@ -54,32 +32,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     
 
     
-    
-    // Must implement the stages here.
-    // stager.setDefaultProperty('minPlayers', [
-    //     settings.MIN_PLAYERS,
-    //     function() { node.game.gotoStep('demographics'); }
-    // ]);
-    /*
-    stager.extendStage('consent', {
-        
-    });
-    */
-   /*
 
-    stager.extendStep('idGet', {
-        init: function(){
-            
-        }
-        
-        
-    });
 
-/*   
-    stager.extendStep('instructions', {
-        
-    });
-    */
 
     stager.extendStage('gameplayprac', {
         init: function() {//create view for results storage
@@ -139,6 +93,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
 
     */
+
+
 
     
 
@@ -410,6 +366,20 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
          }
     });
+
+    /*
+
+    gameRoom.computeBonus({
+        amt: true,
+        dump: true,
+        header: [
+            'id', [ 'type', 'clientType' ]
+        ],
+        addDisconnected: true
+        // other options depending on your game situation.
+     });
+*/
+     
 
     stager.extendStep('end', {
     });
