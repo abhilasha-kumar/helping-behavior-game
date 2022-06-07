@@ -145,9 +145,9 @@ module.exports = {
      */
     
     claimIdPostProcess: function(clientObj, query, headers) {
-        clientObj.WorkerId = 12345//query.id;
-        clientObj.AssignmentId = 78901 //query.a;
-        clientObj.HITId = 11111 // query.h;
+        clientObj.WorkerId = query.id;
+        clientObj.AssignmentId = query.a;
+        clientObj.HITId = query.h;
     },
 
     /**
