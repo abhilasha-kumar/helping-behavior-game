@@ -367,7 +367,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
          }
     });
 
-    /*
+    
 
     gameRoom.computeBonus({
         amt: true,
@@ -378,7 +378,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         addDisconnected: true
         // other options depending on your game situation.
      });
-*/
+
      
 
     stager.extendStep('end', {

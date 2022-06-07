@@ -1886,7 +1886,7 @@ node.game.removeAnimation = function(){
         this.firstTurn  = 0
         
     });
-
+/*
 
 
     stager.extendStep('instructions', {
