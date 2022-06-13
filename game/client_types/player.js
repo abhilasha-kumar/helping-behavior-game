@@ -754,6 +754,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     };
 
     node.game.genericDragDrop = function(W, pracConfig, mode, role){
+
+        node.timer.setTimestamp('dragdroptime');
+
         // define a generic drag drop function that can be used for both actual and practice
 
         var dragid = 0;
@@ -1149,6 +1152,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 
                 if(role == "architect"){
                     //console.log("inside drop for architect")
+                    var xyz  =node.timer.getTimeSince('dragdroptime');
+                    console.log("xyz=",xyz)
+                    node.set({architectChoiceTime : xyz})
                     node.done();}
                 else{
                     node.game.memory.add({
@@ -1158,6 +1164,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     }); 
                     node.game.memory.tag("CHOICE");//tag this memory for easy access later
                     //console.log("inside drop for helper")
+                    var xyz  =node.timer.getTimeSince('dragdroptime');
+                    console.log("xyz=",xyz)
+                    node.set({helperChoiceTime : xyz})
+                    
                     node.done();
                 }
                 }
@@ -2313,6 +2323,7 @@ node.game.removeAnimation = function(){
                                     W.setInnerHTML('cluepasttxt', "It is your turn! Please move a block"); 
                                     W.gid('cluepasttxt').style.color = "red"  
                                     node.game.enableDragDrop(W, "architect");
+                                    
                                     this.architectScore+=1
                                     //console.log("this.architectScore=", this.architectScore)
                                     
@@ -2444,7 +2455,12 @@ node.game.removeAnimation = function(){
         W.setInnerHTML('cluepasttxt', "It is your turn! Please drag and drop a block to achieve the goal specified above");
         node.game.showDotsAnimation(); 
         node.game.drawTable(W, this.currentShape, this.currentConfiguration);
+        
+        node.timer.setTimestamp('architectMoveTimebefore');
         node.game.enableDragDrop(W, "architect");
+        
+        
+
         this.architectScore+=1 
         //console.log("this.architectScore=", this.architectScore)
         }
@@ -2533,6 +2549,9 @@ stager.extendStep('helperOptionsprac', {
                         W.gid("gbrd").style.visibility = "hidden"
                         W.gid("containerbottom2").style.visibility = "hidden"
                         W.setInnerHTML('cluepasttxt', "You are being redirected, please wait");
+                        W.gid("dotContainer").style.visibility = "hidden"
+                        W.gid("dot1").style.visibility = "hidden"
+                        W.gid("clue2").style.visibility = "hidden"
                         
                         node.say('CHOICE', node.game.partner, "done");
                         node.say('END_GAME', 'SERVER', true);
@@ -2597,7 +2616,7 @@ stager.extendStep('helperOptionsprac', {
                                     
                                     //node.game.removeAnimation();
                                     node.game.enableDragDrop(W, "helper");
-                                    node.set({helperChoiceTime : node.timer.getTimeSince('step')})
+                                    
                                     
                                 
                                     // record click
@@ -2796,6 +2815,9 @@ stager.extendStep('helperOptionsprac', {
                         
                         W.gid("containerbottom2").style.visibility = "hidden"
                         W.setInnerHTML('cluepasttxt', "You are being redirected, please wait");
+                        W.gid("cluepast0txt").style.visibility = "hidden"
+                        W.gid("dotContainer").style.visibility = "hidden"
+                        W.gid("dot1").style.visibility = "hidden"
                         
                         node.say('CHOICE', node.game.partner, "done");
                         node.say('END_GAME', 'SERVER', true);
@@ -3134,7 +3156,6 @@ stager.extendStep('endprac', {
             var more = W.getElementById("form").elements[9].checked;
             var no = W.getElementById("form").elements[10].checked;
 
-            node.set({ID: this.id}),
             node.set({age : age}),
             node.set({gender : gender}),
             node.set({education : education}),
@@ -3146,7 +3167,6 @@ stager.extendStep('endprac', {
             node.set({hawaii : hawaii}),
             node.set({more : more}),
             node.set({no : no});
-            node.set({completioncode: this.randomCode});
             
             
             return;
