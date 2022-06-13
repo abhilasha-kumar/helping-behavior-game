@@ -1881,7 +1881,7 @@ node.game.removeAnimation = function(){
         this.randomCode;
         
         this.goalindices = []
-        this.goalnumber = 1; // total number of goals for each game, set to 2 for now
+        this.goalnumber = 10; // total number of goals for each game, set to 2 for now
 
         this.architectScore = 0
         this.optimalMoveCount = 0
