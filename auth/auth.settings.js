@@ -13,7 +13,7 @@ module.exports = {
      *
      * If TRUE, authorization files will be imported and checked
      */
-    enabled: true, // [true, false] Default: TRUE.
+    enabled: false, // [true, false] Default: TRUE.
 
     /**
      * ## mode
@@ -34,7 +34,7 @@ module.exports = {
      *               as parameters.
      *
      */
-   mode: 'auto',
+   //mode: 'auto',
 
     /**
      * ## nCodes
@@ -44,7 +44,7 @@ module.exports = {
      * Modes: 'dummy', 'auto'
      * Default: 100
      */
-     nCodes: 300,
+     //nCodes: 300,
 
     /**
      * ## addPwd
