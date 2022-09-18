@@ -116,7 +116,7 @@ module.exports = {
      *
      * Default: FALSE
      */
-     claimId: true,
+    // claimId: true,
 
     /**
      * ## claimIdValidateRequest
@@ -127,7 +127,7 @@ module.exports = {
      *
      * Default: undefined
      */
-    
+    /*
      claimIdValidateRequest: function(query, headers) {
         if ('string' !== typeof query.a || query.a === '') {
             return 'missing or invalid AssignmentId';
@@ -142,13 +142,16 @@ module.exports = {
      * ## claimIdPostProcess
      *
      * Manipulates the client object after the claim id process succeeded
-     */
+     
     
     claimIdPostProcess: function(clientObj, query, headers) {
         clientObj.WorkerId = query.id;
         clientObj.AssignmentId = query.a;
         clientObj.HITId =  query.h;
     },
+
+    **/
+    
 
     /**
      * ## claimIdModifyReply
