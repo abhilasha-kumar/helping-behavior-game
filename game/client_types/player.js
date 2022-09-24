@@ -1938,6 +1938,14 @@ node.game.removeAnimation = function(){
 
     */
 
+    stager.extendStep('consent', {
+        frame: 'consent.htm',
+        donebutton: false,
+        cb: function(){
+            var a = W.gid('agree');
+            a.onclick = function() { node.done(); };
+       }
+    });
     
 
     stager.extendStep('rolesAssigned', {

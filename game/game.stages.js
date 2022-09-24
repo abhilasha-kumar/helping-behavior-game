@@ -10,7 +10,7 @@
  */
 
 module.exports = function(stager, settings) {
-   // stager.stage('consent');
+    stager.stage('consent');
    // stager.stage('idGet');
     //stager.stage('instructions');
     stager.stage('rolesAssigned');
