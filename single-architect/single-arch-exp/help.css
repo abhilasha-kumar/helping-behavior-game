@@ -1,0 +1,274 @@
+#container {
+    margin: 0 auto;
+    max-width: 42em;
+    font-size: 20px;
+  }
+  
+  div.ex2 {
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  
+  .jstext{
+      color: red;
+  }
+  
+  table, th, td {
+  border: 0px solid rgb(255, 255, 255);
+  }
+  th {
+    width: 20px;
+    height: 20px;
+    font-size: 15px;
+    text-align: center;
+    color: black;
+    font-weight: normal;
+    border-style: "3px solid white";
+    
+  }
+  label{
+    display: inline-block;
+      margin-bottom: 5px;
+      font-weight: normal;
+  }
+  
+  td {
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+    text-align: center;
+    color: black;
+    font-weight: normal;
+  }
+  
+  table span{
+      display:block;
+      background-color: rgb(255, 255, 255);
+      height: 100%;
+      width: 100%;
+    border-style: "3px solid white";
+  }
+  
+  th:nth-of-type(3n) {    
+    border-right: 3px dashed #dad3d3;
+  }
+  
+  th:nth-of-type(6n) {    
+    border-right: 3px solid #000000;
+  }
+  
+  .button {
+    border: transparent;
+    background-color: transparent;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    width: 100%;
+    height: 100%;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    outline:transparent;
+  }
+  
+  .button1 {background-color: white; color: black;}
+  .button2 {background-color: #b7e8f8; border: black} /* Blue */
+  .button3 {background-color: #f44336;} /* Red */ 
+  
+  .button5 {
+    background-color: #104144;
+    position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+  }
+  
+  
+  .button6 {
+    background-color: #daae7c;
+    position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+  }
+  
+  .button4 {
+    border:black;
+    background-color: #409dad; 
+    color: rgb(255, 255, 255); 
+    width: 20%; height: 20%;} /* Gray */ 
+  
+  .button1:hover {
+    background-color: grey;
+    color: white;
+  }
+  
+  .button1:focus{background-color:rgb(132, 146, 230);}
+  
+  .button2:focus{background-color:rgb(104, 107, 119);}
+  
+  .button2:hover {
+    background-color: grey;
+    color: white;
+  }
+  
+  .button2:disabled{
+    background-color: #84abb8;
+  }
+  
+  .button2:disabled:hover{
+    background-color: none;
+    color: grey;
+  }
+  
+  .button3:hover {
+    background-color: grey;
+    color: white;
+  }
+  
+  .button4:hover {
+    background-color: grey;
+    color: white;
+  }
+  
+  #questiontable{
+    visibility: hidden;
+  }
+  
+  #dotContainer {
+    width: 600px;
+    height: 200px;
+    font-size: 15px;
+  }
+  
+  #dot1 span {
+    animation-name: blink;
+    animation-duration: 1.5s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+  }
+  
+  #dot1 span:nth-child(2) {
+    animation-delay: .2s;
+  }
+  
+  #dot1 span:nth-child(3) {
+    animation-delay: .4s;
+  }
+  
+  @keyframes blink {
+    0% {
+        opacity: .2;
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        opacity: .2;
+    }
+  }
+  
+  
+  
+  #done[disabled]
+  {
+    background-color: grey;
+  }
+  
+  #nextgoal
+  {
+    visibility: hidden;
+  }
+  
+  .consentDiv {
+    text-align: center;
+    font-size: 22px;
+    color: black;
+  }
+  
+  .btn-copy{
+      background-color: white;
+      color: black;
+  }
+  .btn-copy:focus{
+      background-color: LimeGreen;
+  }
+  
+  .leftTable { 
+    float: left;
+    padding-right: 15px;
+  }
+
+  .notice {
+    text-align: center;
+    font-size: 22px;
+    color: black;
+  }
+  
+  .rightTable {
+    float:right;
+    padding-left: 15px;
+  }
+  
+  .center {
+    margin: 0 auto;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  
+  
+  
+  .rectangle {
+    height: 50px;
+    width: 130px;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: rgb(84, 231, 199);
+    border:solid;
+    border-color: black;
+    display: inline;
+  }
+  
+  .sphere {
+    background-color:rgb(255, 255, 255); 
+    display:block;
+    height:52px;
+    width:52px;
+    border-radius:100%;
+    border:none;
+    margin:auto;
+    color:#fff;
+    line-height:50px;
+    text-align:center
+  }
+  .hide {
+    display: none;
+  }
+  
+  .rules{
+    text-align: left;
+    margin: auto;
+    width: 60%;
+    
+  }
+  
+  .goalinfo{
+    text-align: left;
+    margin: auto;
+    width: 60%;
+    
+  }
+  
+  .demo{
+    text-align:center;
+    margin: 80px;
+    width: 100%;
+    
+  }
+  
+  
+  .drag-over {
+    border: dashed 3px red;
+  }
+  

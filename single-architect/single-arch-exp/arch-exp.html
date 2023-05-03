@@ -1,0 +1,261 @@
+<!doctype html>
+<head>
+    <title>Language experiment</title>
+    <script src="https://unpkg.com/jspsych@7.1.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-slider-response@1.1.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-likert@1.1.1"></script>
+    <link href="https://unpkg.com/jspsych@7.1.2/css/jspsych.css" rel="stylesheet" type="text/css" />
+  </head>
+<link rel="stylesheet" href="help.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script src = "functions.js"></script>
+<script src = "goals.js"></script>
+<script src = "configs.js"></script>
+<body>
+    <br><br><br>
+    <div class = "notice">
+    <div class="rectangle" id = "round" style="background-color: rgb(89, 190, 197);">Round </div>
+    <br><br>
+    <!--<div class="notice" id = "moving_notice">The architect is moving a block now...</div>!-->
+    <br><br>
+    <table class="center" id="blocks" style=" border:3px;border-style:solid; border-color:black;">
+        <tr>
+            <th><span class = "event" id="row1cell01" draggable="true"><div class="sphere" id = "circlerow1cell01"></div></span></th>
+            <th><span class = "event" id="row1cell02" draggable="true"><div class="sphere" id = "circlerow1cell02"></div></span></th>
+            <th><span class = "event" id="row1cell03" draggable="true"><div class="sphere" id = "circlerow1cell03"></div></span></th>
+            <th><span class = "event" id="row1cell04" draggable="true"><div class="sphere" id = "circlerow1cell04"></div></span></th>
+            <th><span class = "event" id="row1cell05" draggable="true"><div class="sphere" id = "circlerow1cell05"></div></span></th>
+            <th><span class = "event" id="row1cell06" draggable="true"><div class="sphere" id = "circlerow1cell06"></div></span></th>
+            <th><span class = "event" id="row1cell07" draggable="true"><div class="sphere" id = "circlerow1cell07"></div></span></th>
+            <th><span class = "event" id="row1cell08" draggable="true"><div class="sphere" id = "circlerow1cell08"></div></span></th>
+            <th><span class = "event" id="row1cell09" draggable="true"><div class="sphere" id = "circlerow1cell09"></div></span></th>
+            <th><span class = "event" id="row1cell10" draggable="true"><div class="sphere" id = "circlerow1cell10"></div></span></th>
+            <th><span class = "event" id="row1cell11" draggable="true"><div class="sphere" id = "circlerow1cell11"></div></span></th>
+            <th><span class = "event" id="row1cell12" draggable="true"><div class="sphere" id = "circlerow1cell12"></div></span></th>
+            <th><span class = "event" id="row1cell13" draggable="true"><div class="sphere" id = "circlerow1cell13"></div></span></th>
+            <th><span class = "event" id="row1cell14" draggable="true"><div class="sphere" id = "circlerow1cell14"></div></span></th>
+            <th><span class = "event" id="row1cell15" draggable="true"><div class="sphere" id = "circlerow1cell15"></div></span></th>
+            <th><span class = "event" id="row1cell16" draggable="true"><div class="sphere" id = "circlerow1cell16"></div></span></th>
+            <th><span class = "event" id="row1cell17" draggable="true"><div class="sphere" id = "circlerow1cell17"></div></span></th>
+            <th><span class = "event" id="row1cell18" draggable="true"><div class="sphere" id = "circlerow1cell18"></div></span></th>
+        </tr>
+
+        <tr>
+            <th><span class = "event" id="row2cell01" draggable="true"><div class="sphere" id = "circlerow2cell01"></div></span></th>
+            <th><span class = "event" id="row2cell02" draggable="true"><div class="sphere" id = "circlerow2cell02"></div></span></th>
+            <th><span class = "event" id="row2cell03" draggable="true"><div class="sphere" id = "circlerow2cell03"></div></span></th>
+            <th><span class = "event" id="row2cell04" draggable="true"><div class="sphere" id = "circlerow2cell04"></div></span></th>
+            <th><span class = "event" id="row2cell05" draggable="true"><div class="sphere" id = "circlerow2cell05"></div></span></th>
+            <th><span class = "event" id="row2cell06" draggable="true"><div class="sphere" id = "circlerow2cell06"></div></span></th>
+            <th><span class = "event" id="row2cell07" draggable="true"><div class="sphere" id = "circlerow2cell07"></div></span></th>
+            <th><span class = "event" id="row2cell08" draggable="true"><div class="sphere" id = "circlerow2cell08"></div></span></th>
+            <th><span class = "event" id="row2cell09" draggable="true"><div class="sphere" id = "circlerow2cell09"></div></span></th>
+            <th><span class = "event" id="row2cell10" draggable="true"><div class="sphere" id = "circlerow2cell10"></div></span></th>
+            <th><span class = "event" id="row2cell11" draggable="true"><div class="sphere" id = "circlerow2cell11"></div></span></th>
+            <th><span class = "event" id="row2cell12" draggable="true"><div class="sphere" id = "circlerow2cell12"></div></span></th>
+            <th><span class = "event" id="row2cell13" draggable="true"><div class="sphere" id = "circlerow2cell13"></div></span></th>
+            <th><span class = "event" id="row2cell14" draggable="true"><div class="sphere" id = "circlerow2cell14"></div></span></th>
+            <th><span class = "event" id="row2cell15" draggable="true"><div class="sphere" id = "circlerow2cell15"></div></span></th>
+            <th><span class = "event" id="row2cell16" draggable="true"><div class="sphere" id = "circlerow2cell16"></div></span></th>
+            <th><span class = "event" id="row2cell17" draggable="true"><div class="sphere" id = "circlerow2cell17"></div></span></th>
+            <th><span class = "event" id="row2cell18" draggable="true"><div class="sphere" id = "circlerow2cell18"></div></span></th>
+        </tr>
+
+        <tr>
+            <th><span class = "event" id="row3cell01" draggable="true"><div class="sphere" id = "circlerow3cell01"></div></span></th>
+            <th><span class = "event" id="row3cell02" draggable="true"><div class="sphere" id = "circlerow3cell02"></div></span></th>
+            <th><span class = "event" id="row3cell03" draggable="true"><div class="sphere" id = "circlerow3cell03"></div></span></th>
+            <th><span class = "event" id="row3cell04" draggable="true"><div class="sphere" id = "circlerow3cell04"></div></span></th>
+            <th><span class = "event" id="row3cell05" draggable="true"><div class="sphere" id = "circlerow3cell05"></div></span></th>
+            <th><span class = "event" id="row3cell06" draggable="true"><div class="sphere" id = "circlerow3cell06"></div></span></th>
+            <th><span class = "event" id="row3cell07" draggable="true"><div class="sphere" id = "circlerow3cell07"></div></span></th>
+            <th><span class = "event" id="row3cell08" draggable="true"><div class="sphere" id = "circlerow3cell08"></div></span></th>
+            <th><span class = "event" id="row3cell09" draggable="true"><div class="sphere" id = "circlerow3cell09"></div></span></th>
+            <th><span class = "event" id="row3cell10" draggable="true"><div class="sphere" id = "circlerow3cell10"></div></span></th>
+            <th><span class = "event" id="row3cell11" draggable="true"><div class="sphere" id = "circlerow3cell11"></div></span></th>
+            <th><span class = "event" id="row3cell12" draggable="true"><div class="sphere" id = "circlerow3cell12"></div></span></th>
+            <th><span class = "event" id="row3cell13" draggable="true"><div class="sphere" id = "circlerow3cell13"></div></span></th>
+            <th><span class = "event" id="row3cell14" draggable="true"><div class="sphere" id = "circlerow3cell14"></div></span></th>
+            <th><span class = "event" id="row3cell15" draggable="true"><div class="sphere" id = "circlerow3cell15"></div></span></th>
+            <th><span class = "event" id="row3cell16" draggable="true"><div class="sphere" id = "circlerow3cell16"></div></span></th>
+            <th><span class = "event" id="row3cell17" draggable="true"><div class="sphere" id = "circlerow3cell17"></div></span></th>
+            <th><span class = "event" id="row3cell18" draggable="true"><div class="sphere" id = "circlerow3cell18"></div></span></th>
+        </tr>  
+
+        <tr>
+            <th><span class = "event" id="row4cell01" draggable="true"><div class="sphere" id = "circlerow4cell01"></div></span></th>
+            <th><span class = "event" id="row4cell02" draggable="true"><div class="sphere" id = "circlerow4cell02"></div></span></th>
+            <th><span class = "event" id="row4cell03" draggable="true"><div class="sphere" id = "circlerow4cell03"></div></span></th>
+            <th><span class = "event" id="row4cell04" draggable="true"><div class="sphere" id = "circlerow4cell04"></div></span></th>
+            <th><span class = "event" id="row4cell05" draggable="true"><div class="sphere" id = "circlerow4cell05"></div></span></th>
+            <th><span class = "event" id="row4cell06" draggable="true"><div class="sphere" id = "circlerow4cell06"></div></span></th>
+            <th><span class = "event" id="row4cell07" draggable="true"><div class="sphere" id = "circlerow4cell07"></div></span></th>
+            <th><span class = "event" id="row4cell08" draggable="true"><div class="sphere" id = "circlerow4cell08"></div></span></th>
+            <th><span class = "event" id="row4cell09" draggable="true"><div class="sphere" id = "circlerow4cell09"></div></span></th>
+            <th><span class = "event" id="row4cell10" draggable="true"><div class="sphere" id = "circlerow4cell10"></div></span></th>
+            <th><span class = "event" id="row4cell11" draggable="true"><div class="sphere" id = "circlerow4cell11"></div></span></th>
+            <th><span class = "event" id="row4cell12" draggable="true"><div class="sphere" id = "circlerow4cell12"></div></span></th>
+            <th><span class = "event" id="row4cell13" draggable="true"><div class="sphere" id = "circlerow4cell13"></div></span></th>
+            <th><span class = "event" id="row4cell14" draggable="true"><div class="sphere" id = "circlerow4cell14"></div></span></th>
+            <th><span class = "event" id="row4cell15" draggable="true"><div class="sphere" id = "circlerow4cell15"></div></span></th>
+            <th><span class = "event" id="row4cell16" draggable="true"><div class="sphere" id = "circlerow4cell16"></div></span></th>
+            <th><span class = "event" id="row4cell17" draggable="true"><div class="sphere" id = "circlerow4cell17"></div></span></th>
+            <th><span class = "event" id="row4cell18" draggable="true"><div class="sphere" id = "circlerow4cell18"></div></span></th>
+            
+        </tr>  
+
+        <tr>
+            <th><span class = "event" id="row5cell01" draggable="true"><div class="sphere" id = "circlerow5cell01"></div></span></th>
+            <th><span class = "event" id="row5cell02" draggable="true"><div class="sphere" id = "circlerow5cell02"></div></span></th>
+            <th><span class = "event" id="row5cell03" draggable="true"><div class="sphere" id = "circlerow5cell03"></div></span></th>
+            <th><span class = "event" id="row5cell04" draggable="true"><div class="sphere" id = "circlerow5cell04"></div></span></th>
+            <th><span class = "event" id="row5cell05" draggable="true"><div class="sphere" id = "circlerow5cell05"></div></span></th>
+            <th><span class = "event" id="row5cell06" draggable="true"><div class="sphere" id = "circlerow5cell06"></div></span></th>
+            <th><span class = "event" id="row5cell07" draggable="true"><div class="sphere" id = "circlerow5cell07"></div></span></th>
+            <th><span class = "event" id="row5cell08" draggable="true"><div class="sphere" id = "circlerow5cell08"></div></span></th>
+            <th><span class = "event" id="row5cell09" draggable="true"><div class="sphere" id = "circlerow5cell09"></div></span></th>
+            <th><span class = "event" id="row5cell10" draggable="true"><div class="sphere" id = "circlerow5cell10"></div></span></th>
+            <th><span class = "event" id="row5cell11" draggable="true"><div class="sphere" id = "circlerow5cell11"></div></span></th>
+            <th><span class = "event" id="row5cell12" draggable="true"><div class="sphere" id = "circlerow5cell12"></div></span></th>
+            <th><span class = "event" id="row5cell13" draggable="true"><div class="sphere" id = "circlerow5cell13"></div></span></th>
+            <th><span class = "event" id="row5cell14" draggable="true"><div class="sphere" id = "circlerow5cell14"></div></span></th>
+            <th><span class = "event" id="row5cell15" draggable="true"><div class="sphere" id = "circlerow5cell15"></div></span></th>
+            <th><span class = "event" id="row5cell16" draggable="true"><div class="sphere" id = "circlerow5cell16"></div></span></th>
+            <th><span class = "event" id="row5cell17" draggable="true"><div class="sphere" id = "circlerow5cell17"></div></span></th>
+            <th><span class = "event" id="row5cell18" draggable="true"><div class="sphere" id = "circlerow5cell18"></div></span></th>
+        </tr>  
+
+        <tr>
+            <th><span class = "event" id="row6cell01" draggable="true"><div class="sphere" id = "circlerow6cell01"></div></span></th>
+            <th><span class = "event" id="row6cell02" draggable="true"><div class="sphere" id = "circlerow6cell02"></div></span></th>
+            <th><span class = "event" id="row6cell03" draggable="true"><div class="sphere" id = "circlerow6cell03"></div></span></th>
+            <th><span class = "event" id="row6cell04" draggable="true"><div class="sphere" id = "circlerow6cell04"></div></span></th>
+            <th><span class = "event" id="row6cell05" draggable="true"><div class="sphere" id = "circlerow6cell05"></div></span></th>
+            <th><span class = "event" id="row6cell06" draggable="true"><div class="sphere" id = "circlerow6cell06"></div></span></th>
+            <th><span class = "event" id="row6cell07" draggable="true"><div class="sphere" id = "circlerow6cell07"></div></span></th>
+            <th><span class = "event" id="row6cell08" draggable="true"><div class="sphere" id = "circlerow6cell08"></div></span></th>
+            <th><span class = "event" id="row6cell09" draggable="true"><div class="sphere" id = "circlerow6cell09"></div></span></th>
+            <th><span class = "event" id="row6cell10" draggable="true"><div class="sphere" id = "circlerow6cell10"></div></span></th>
+            <th><span class = "event" id="row6cell11" draggable="true"><div class="sphere" id = "circlerow6cell11"></div></span></th>
+            <th><span class = "event" id="row6cell12" draggable="true"><div class="sphere" id = "circlerow6cell12"></div></span></th>
+            <th><span class = "event" id="row6cell13" draggable="true"><div class="sphere" id = "circlerow6cell13"></div></span></th>
+            <th><span class = "event" id="row6cell14" draggable="true"><div class="sphere" id = "circlerow6cell14"></div></span></th>
+            <th><span class = "event" id="row6cell15" draggable="true"><div class="sphere" id = "circlerow6cell15"></div></span></th>
+            <th><span class = "event" id="row6cell16" draggable="true"><div class="sphere" id = "circlerow6cell16"></div></span></th>
+            <th><span class = "event" id="row6cell17" draggable="true"><div class="sphere" id = "circlerow6cell17"></div></span></th>
+            <th><span class = "event" id="row6cell18" draggable="true"><div class="sphere" id = "circlerow6cell18"></div></span></th>
+        </tr>  
+
+        <tr>
+            <th colspan="3" style="background-color:#e2e3f0; border-right: 1px;border-style:solid; border-color:black; ">A1</th>
+            <th colspan="3" style="background-color:#e2e3f0; border-right: 1px;border-style:solid; border-color:black; ">A2</th>
+            <th colspan="3" style="background-color:#e2e3f0; border-right: 1px;border-style:solid; border-color:black; ">B1</th>
+            <th colspan="3" style="background-color:#e2e3f0; border-right: 1px;border-style:solid; border-color:black; ">B2</th>
+            <th colspan="3" style="background-color:#e2e3f0; border-right: 1px;border-style:solid; border-color:black; ">C1</th>
+            <th colspan="3" style="background-color:#e2e3f0; border-right: 1px;border-style:solid; border-color:black; ">C2</th>
+        </tr>
+        <tr>
+
+            <th colspan="6" style="background-color:#e2e3f0; border-right: 1px;border-style:solid; border-color:black; ">A</th>
+            <th colspan="6" style="background-color:#e2e3f0; border-right: 1px;border-style:solid; border-color:black; ">B</th>
+            <th colspan="6" style="background-color:#e2e3f0; border-right: 1px;border-style:solid; border-color:black; ">C</th>
+        </tr>
+
+        </table>  
+<div id = "jspsych-target"></div>      
+</body>
+
+
+<script>
+var jsPsych = initJsPsych({
+  display_element: 'jspsych-target',
+      on_finish: function() {
+        jsPsych.data.displayData();
+      }
+    });
+
+var timeline = [];
+var round = 0;
+  
+var subject_id = Math.floor(Math.random()*100000);
+
+var instructions1 = {
+    on_load: hideTable,
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `
+    <p style="font-size:20px;"> </p>
+    <p style="font-size:20px;"> You are about to begin the experiment.</p>
+    <p style="font-size:20px;"> Click the button below to start.</p>
+    `,
+    choices: ['Start game!'],
+        data: {
+            typeoftrial: 'instructions',
+            subject: subject_id
+        }
+};  
+
+
+var currentConfiguration = []
+
+var getStartConfig = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: ``,
+    choices: "NO_KEYS",
+    trial_duration: 100,
+    
+};
+
+var getStartConfigTimeline = {
+    timeline: [getStartConfig],
+    timeline_variables: configs,
+    randomize_order: false,
+    on_finish: function(data){
+        currentConfiguration = jsPsych.timelineVariable('startconfig')
+      }
+  };
+
+  var goalAchieved = false;
+
+var architect_showTable = {
+    on_load: function(){
+        showTable();
+
+    },
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: jsPsych.timelineVariable('goal'),
+    choices: "NO_KEYS"
+};
+
+// we define a loop for each goal configuration, such that the architect moves until the goal is reached
+
+var loop_node = {
+    timeline: [architect_showTable],
+    loop_function: function(data){
+        console.log("goalAchieved jsPsych: " + goalAchieved)
+        if(!goalAchieved){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+var trial_sequence = {
+    timeline: [loop_node],
+    timeline_variables: goals_configs,
+    randomize_order: false
+  };
+
+
+
+timeline.push(instructions1, getStartConfigTimeline, trial_sequence);
+  
+jsPsych.run(timeline);
+
+
+</script>
+
+</html>
